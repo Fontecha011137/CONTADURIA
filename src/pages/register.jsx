@@ -1,24 +1,28 @@
 import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
+
+import { auth } from "../firebaseConfig";
+
 import "./register.css";
 
 function Register() {
-
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
     password: "",
     confirmPassword: "",
-    rol: "cliente"
+    rol: "cliente",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -26,14 +30,40 @@ function Register() {
       return;
     }
 
-    console.log(formData);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
 
-    // Aquí irá Firebase Authentication
+      console.log("Usuario creado:", userCredential.user);
+
+      alert("Cuenta creada correctamente");
+
+      setFormData({
+        nombre: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        rol: "cliente",
+      });
+
+    } catch (error) {
+      console.error(error);
+
+      if (error.code === "auth/email-already-in-use") {
+        alert("Este correo ya está registrado");
+      } else if (error.code === "auth/weak-password") {
+        alert("La contraseña debe tener al menos 6 caracteres");
+      } else {
+        alert("Error al registrar usuario");
+      }
+    }
   };
 
   return (
     <div className="register-container">
-
       <div className="register-card">
 
         <h1>Crear Cuenta</h1>
@@ -104,13 +134,8 @@ function Register() {
               value={formData.rol}
               onChange={handleChange}
             >
-              <option value="cliente">
-                Cliente
-              </option>
-
-              <option value="contador">
-                Contador
-              </option>
+              <option value="cliente">Cliente</option>
+              <option value="contador">Contador</option>
             </select>
           </div>
 
@@ -127,14 +152,15 @@ function Register() {
 
           <p>¿Ya tienes una cuenta?</p>
 
-          <button className="login-link">
-            Iniciar Sesión
-          </button>
+          <Link to="/login">
+            <button className="login-link">
+              Iniciar Sesión
+            </button>
+          </Link>
 
         </div>
 
       </div>
-
     </div>
   );
 }

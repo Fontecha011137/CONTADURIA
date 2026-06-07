@@ -1,6 +1,39 @@
+
 import "./clienteDashboard.css";
 
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 function ClienteDashboard() {
+
+  const navigate = useNavigate();
+  useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
+
+  return () => unsubscribe();
+}, [navigate]);
+
+  const cerrarSesion = async () => {
+    try {
+      await signOut(auth);
+
+      
+
+      navigate("/login", { replace: true });
+
+    } catch (error) {
+      console.error(error);
+      alert("Error al cerrar sesión");
+    }
+  };
+
+ 
   return (
     <div className="dashboard-container">
 
@@ -21,10 +54,13 @@ function ClienteDashboard() {
 
       <main className="dashboard-content">
 
-        <header className="dashboard-header">
-          <h1>Bienvenido, Cliente</h1>
-          <button>Cerrar Sesión</button>
-        </header>
+      <header className="dashboard-header">
+  <h1>Bienvenido, Cliente</h1>
+
+  <button onClick={cerrarSesion}>
+    Cerrar Sesión
+  </button>
+</header>
 
         <section className="cards">
 
