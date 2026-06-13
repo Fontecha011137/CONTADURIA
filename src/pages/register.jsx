@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { auth } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 import "./register.css";
 
 function Register() {
+  const navigate = useNavigate();
+
+const [mensaje, setMensaje] = useState("");
+const [mostrarModal, setMostrarModal] = useState(false);
+const [registroExitoso, setRegistroExitoso] = useState(false);
+
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
@@ -22,50 +30,70 @@ function Register() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden");
-      return;
-    }
+   const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
+if (formData.password !== formData.confirmPassword) {
+  setMensaje("Las contraseñas no coinciden");
+  setRegistroExitoso(false);
+  setMostrarModal(true);
+  return;
+}
 
-      console.log("Usuario creado:", userCredential.user);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      formData.email,
+      formData.password
+    );
 
-      alert("Cuenta creada correctamente");
-
-      setFormData({
-        nombre: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        rol: "cliente",
-      });
-
-    } catch (error) {
-      console.error(error);
-
-      if (error.code === "auth/email-already-in-use") {
-        alert("Este correo ya está registrado");
-      } else if (error.code === "auth/weak-password") {
-        alert("La contraseña debe tener al menos 6 caracteres");
-      } else {
-        alert("Error al registrar usuario");
+    await setDoc(
+      doc(db, "usuarios", userCredential.user.uid),
+      {
+        nombre: formData.nombre,
+        email: formData.email,
+        rol: formData.rol,
       }
-    }
-  };
+    );
 
-  return (
+    console.log("Usuario creado:", userCredential.user);
+setMensaje("Cuenta creada correctamente");
+setRegistroExitoso(true);
+setMostrarModal(true);
+
+} catch (error) {
+  console.error(error);
+
+  if (error.code === "auth/email-already-in-use") {
+    setMensaje("Este correo ya está registrado");
+    setRegistroExitoso(false);
+    setMostrarModal(true);
+
+  } else if (error.code === "auth/weak-password") {
+    setMensaje("La contraseña debe tener al menos 6 caracteres");
+    setRegistroExitoso(false);
+    setMostrarModal(true);
+
+  } else {
+    setMensaje("Error al registrar usuario");
+    setRegistroExitoso(false);
+    setMostrarModal(true);
+  }
+}
+};
+
+const cerrarModal = () => {
+  setMostrarModal(false);
+
+  if (registroExitoso) {
+    navigate("/cliente");
+  }
+};
+ return (
+       <>
     <div className="register-container">
       <div className="register-card">
-
         <h1>Crear Cuenta</h1>
 
         <p>
@@ -129,14 +157,13 @@ function Register() {
           <div className="form-group">
             <label>Rol</label>
 
-            <select
-              name="rol"
-              value={formData.rol}
-              onChange={handleChange}
-            >
-              <option value="cliente">Cliente</option>
-              <option value="contador">Contador</option>
-            </select>
+           <select
+  name="rol"
+  value={formData.rol}
+  onChange={handleChange}
+>
+  <option value="cliente">Cliente</option>
+</select>
           </div>
 
           <button
@@ -161,7 +188,24 @@ function Register() {
         </div>
 
       </div>
-    </div>
+
+      {mostrarModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>
+  {registroExitoso ? "Registro exitoso" : "Error"}
+</h3>
+
+            <p>{mensaje}</p>
+
+            <button onClick={cerrarModal}>
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
+      </div>
+    </>
   );
 }
 

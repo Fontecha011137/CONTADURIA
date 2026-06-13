@@ -6,6 +6,10 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../firebaseConfig";
+import { db } from "../firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
+
+
 
 import "./login.css";
 
@@ -17,52 +21,80 @@ function Login() {
 
   const [mensaje, setMensaje] = useState("");
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [loginExitoso, setLoginExitoso] = useState(false);
+  const [rutaDestino, setRutaDestino] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-      console.log("Usuario autenticado:", userCredential.user);
+    console.log("Usuario autenticado:", userCredential.user);
 
-      navigate("/cliente");
+    // Obtener UID del usuario autenticado
+    const uid = userCredential.user.uid;
 
-    } catch (error) {
-      console.error(error);
+    // Buscar documento en Firestore
+    const docRef = doc(db, "usuarios", uid);
+    const docSnap = await getDoc(docRef);
 
-      if (error.code === "auth/user-not-found") {
-        setMensaje("Usuario no encontrado");
-      } else if (error.code === "auth/wrong-password") {
-        setMensaje("Contraseña incorrecta");
-      } else if (error.code === "auth/invalid-credential") {
-        setMensaje("Correo o contraseña incorrectos");
-      } else {
-        setMensaje("Error al iniciar sesión");
-      }
+    let rolUsuario = "cliente";
 
-      setMostrarModal(true);
+    if (docSnap.exists()) {
+      rolUsuario = docSnap.data().rol;
     }
-  };
+
+    console.log("ROL:", rolUsuario);
+
+    setMensaje("Inicio de sesión exitoso");
+setLoginExitoso(true);
+setMostrarModal(true);
+
+if (rolUsuario === "contador") {
+  setRutaDestino("/contador");
+} else {
+  setRutaDestino("/cliente");
+}
+
+  } catch (error) {
+    console.error(error);
+
+    if (error.code === "auth/user-not-found") {
+      setMensaje("Usuario no encontrado");
+    } else if (error.code === "auth/wrong-password") {
+      setMensaje("Contraseña incorrecta");
+    } else if (error.code === "auth/invalid-credential") {
+      setMensaje("Correo o contraseña incorrectos");
+    } else {
+      setMensaje("Error al iniciar sesión");
+    }
+setLoginExitoso(false);
+    setMostrarModal(true);
+  }
+};
+
 
   const handleResetPassword = async () => {
-    if (!email) {
-      setMensaje("Ingresa tu correo electrónico primero");
-      setMostrarModal(true);
-      return;
-    }
+   if (!email) {
+  setMensaje("Ingresa tu correo electrónico primero");
+  setLoginExitoso(false);
+  setMostrarModal(true);
+  return;
+}
 
-    try {
-      await sendPasswordResetEmail(auth, email);
+  try {
+  await sendPasswordResetEmail(auth, email);
 
-      setMensaje(
-        "Se ha enviado un enlace para restablecer tu contraseña a tu correo."
-      );
-      setMostrarModal(true);
+  setMensaje(
+    "Se ha enviado un enlace para restablecer tu contraseña a tu correo."
+  );
+  setLoginExitoso(false);
+  setMostrarModal(true);
 
     } catch (error) {
       console.error(error);
@@ -72,11 +104,17 @@ function Login() {
       } else {
         setMensaje("Error al enviar el correo de recuperación");
       }
-
+setLoginExitoso(false);
       setMostrarModal(true);
     }
   };
+const cerrarModal = () => {
+  setMostrarModal(false);
 
+  if (loginExitoso) {
+    navigate(rutaDestino);
+  }
+};
   return (
     <>
       <div className="login-container">
@@ -151,15 +189,15 @@ function Login() {
         <div className="modal-overlay">
           <div className="modal">
 
-            <h3>Información</h3>
+          <h3>
+  {loginExitoso ? "Inicio de sesión exitoso" : "Información"}
+</h3>
 
-            <p>{mensaje}</p>
+<p>{mensaje}</p>
 
-            <button
-              onClick={() => setMostrarModal(false)}
-            >
-              Cerrar
-            </button>
+<button onClick={cerrarModal}>
+  {loginExitoso ? "Continuar" : "Cerrar"}
+</button>
 
           </div>
         </div>
