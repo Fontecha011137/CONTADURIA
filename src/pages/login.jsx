@@ -34,12 +34,8 @@ const handleSubmit = async (e) => {
       password
     );
 
-    console.log("Usuario autenticado:", userCredential.user);
-
-    // Obtener UID del usuario autenticado
     const uid = userCredential.user.uid;
 
-    // Buscar documento en Firestore
     const docRef = doc(db, "usuarios", uid);
     const docSnap = await getDoc(docRef);
 
@@ -49,35 +45,41 @@ const handleSubmit = async (e) => {
       rolUsuario = docSnap.data().rol;
     }
 
-    console.log("ROL:", rolUsuario);
+    const destino =
+      rolUsuario === "contador" ? "/contador" : "/cliente";
 
     setMensaje("Inicio de sesión exitoso");
-setLoginExitoso(true);
-setMostrarModal(true);
+    setLoginExitoso(true);
+    setMostrarModal(true);
 
-if (rolUsuario === "contador") {
-  setRutaDestino("/contador");
-} else {
-  setRutaDestino("/cliente");
-}
+    // 👇 SOLO UNA NAVEGACIÓN (IMPORTANTE)
+    setTimeout(() => {
+      setMostrarModal(false);
+      navigate(destino);
+    }, 800);
 
   } catch (error) {
-    console.error(error);
+    console.error("FULL ERROR:", error);
+
+    let msg = error.code + " - " + error.message;
 
     if (error.code === "auth/user-not-found") {
-      setMensaje("Usuario no encontrado");
-    } else if (error.code === "auth/wrong-password") {
-      setMensaje("Contraseña incorrecta");
-    } else if (error.code === "auth/invalid-credential") {
-      setMensaje("Correo o contraseña incorrectos");
-    } else {
-      setMensaje("Error al iniciar sesión");
+      msg = "Usuario no encontrado";
     }
-setLoginExitoso(false);
+
+    if (error.code === "auth/wrong-password") {
+      msg = "Contraseña incorrecta";
+    }
+
+    if (error.code === "auth/invalid-credential") {
+      msg = "Correo o contraseña incorrectos";
+    }
+
+    setMensaje(msg);
+    setLoginExitoso(false);
     setMostrarModal(true);
   }
 };
-
 
   const handleResetPassword = async () => {
    if (!email) {

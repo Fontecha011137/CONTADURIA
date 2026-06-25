@@ -1,56 +1,113 @@
-
 import "./clienteDashboard.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  doc,
+  getDoc
+} from "firebase/firestore";
+
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL
+} from "firebase/storage";
+
+import { auth, db, storage } from "../firebaseConfig";
 function ClienteDashboard() {
 
   const navigate = useNavigate();
-  useEffect(() => {
+  const [documentos, setDocumentos] = useState([]);
+
+  // 👇 AQUÍ va la función
+ const cargarDocumentos = async (userId) => {
+  try {
+    console.log("UID:", userId);
+
+    const snapshot = await getDocs(
+      collection(db, "usuarios", userId, "documentos")
+    );
+
+    console.log("Documentos encontrados:", snapshot.size);
+
+    const docs = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    console.log("Datos:", docs);
+
+    setDocumentos(docs);
+
+  } catch (error) {
+    console.error("Error cargando documentos:", error);
+  }
+};
+
+  const cerrarSesion = async () => {
+  try {
+    await signOut(auth);
+
+    console.log("Sesión cerrada correctamente");
+
+    navigate("/login", { replace: true });
+
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+
+    alert(
+      error?.message ||
+      "No fue posible cerrar la sesión. Inténtalo nuevamente."
+    );
+  }
+};
+useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (user) => {
     if (!user) {
       navigate("/login");
+      return;
     }
+
+    console.log("UID REAL:", user.uid);
+
+    cargarDocumentos(user.uid);
   });
 
   return () => unsubscribe();
 }, [navigate]);
+  
 
-  const cerrarSesion = async () => {
-    try {
-      await signOut(auth);
-
-      
-
-      navigate("/login", { replace: true });
-
-    } catch (error) {
-      console.error(error);
-      alert("Error al cerrar sesión");
-    }
-  };
-
- 
   return (
     <div className="dashboard-container">
 
       <aside className="sidebar">
-        <h2>PWA Contador</h2>
+  <h2>PWA Contador</h2>
 
-        <nav>
-          <ul>
-            <li>🏠 Inicio</li>
-            <li>📄 Mis Documentos</li>
-            <li>📅 Mis Citas</li>
-            <li>📊 Declaraciones</li>
-            <li>💬 Soporte</li>
-            <li>👤 Mi Perfil</li>
-          </ul>
-        </nav>
-      </aside>
+  <nav>
+    <ul>
+      <li>🏠 Inicio</li>
+    
+      <li onClick={() => navigate("/mis-documentos")}>
+  📄 Mis Documentos
+</li>
+      <li>📅 Mis Citas</li>
+      <li>📊 Declaraciones</li>
+      <li
+  onClick={() => navigate("/subir-documento")}
+  style={{ cursor: "pointer" }}
+>
+  📤 Subir Documentos
+</li>
+      <li>👤 Mi Perfil</li>
+    </ul>
+  </nav>
+</aside>
 
       <main className="dashboard-content">
 
@@ -64,10 +121,10 @@ function ClienteDashboard() {
 
         <section className="cards">
 
-          <div className="card">
-            <h3>Documentos</h3>
-            <p>5</p>
-          </div>
+       <div className="card clickable" onClick={() => navigate("/mis-documentos")}>
+  <h3>Documentos</h3>
+  <p>{documentos.length}</p>
+</div>
 
           <div className="card">
             <h3>Citas Programadas</h3>
@@ -116,6 +173,32 @@ function ClienteDashboard() {
           </table>
 
         </section>
+
+        <section className="services">
+  <h2>Mis Documentos</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th>Periodo</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {documentos.map((doc) => (
+        <tr key={doc.id}>
+          <td>{doc.nombre}</td>
+          <td>{doc.tipo}</td>
+          <td>{doc.estado}</td>
+          <td>{doc.periodo}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</section>
 
       </main>
 
