@@ -1,6 +1,33 @@
 import "./contadorDashboard.css";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function ContadorDashboard() {
+  const navigate = useNavigate();
+
+  // 🔐 PROTECCIÓN DE SESIÓN
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/login", { replace: true });
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
+
+  // 🚪 LOGOUT
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/login", { replace: true });
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
+
   return (
     <div className="dashboard-container">
 
@@ -24,35 +51,20 @@ function ContadorDashboard() {
 
         <header className="dashboard-header">
           <h1>Panel del Contador</h1>
-          <button>Cerrar Sesión</button>
+
+          <button onClick={handleLogout}>
+            Cerrar Sesión
+          </button>
         </header>
 
         <section className="cards">
-
-          <div className="card">
-            <h3>Clientes</h3>
-            <p>25</p>
-          </div>
-
-          <div className="card">
-            <h3>Citas Pendientes</h3>
-            <p>8</p>
-          </div>
-
-          <div className="card">
-            <h3>Documentos</h3>
-            <p>42</p>
-          </div>
-
-          <div className="card">
-            <h3>Facturas</h3>
-            <p>15</p>
-          </div>
-
+          <div className="card"><h3>Clientes</h3><p>25</p></div>
+          <div className="card"><h3>Citas Pendientes</h3><p>8</p></div>
+          <div className="card"><h3>Documentos</h3><p>42</p></div>
+          <div className="card"><h3>Facturas</h3><p>15</p></div>
         </section>
 
         <section className="recent">
-
           <h2>Actividad Reciente</h2>
 
           <table>
@@ -88,7 +100,6 @@ function ContadorDashboard() {
         </section>
 
       </main>
-
     </div>
   );
 }
