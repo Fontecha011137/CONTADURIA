@@ -14,19 +14,15 @@ function SubirDocumento() {
     try {
       setLoading(true);
 
-      const id = await subirDocumento(file, {
+      await subirDocumento(file, {
         nombre: file.name,
         tipo: file.type,
         estado: "pendiente",
         periodo: "2026",
       });
 
-      console.log("Documento subido con ID:", id);
-
       alert("✅ Documento subido correctamente");
-
       setFile(null);
-
     } catch (error) {
       console.error(error);
       alert("❌ Error subiendo documento");
@@ -41,25 +37,25 @@ function SubirDocumento() {
 
       <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
 
-        {/* Tomar foto */}
-        <label>
-          <button type="button">📷 Tomar foto</button>
+        {/* 📷 FOTO */}
+        <label style={{ cursor: "pointer" }}>
+          📷 Tomar foto
           <input
             type="file"
             accept="image/*"
             capture="environment"
-            hidden
+            style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
           />
         </label>
 
-        {/* Seleccionar archivo */}
-        <label>
-          <button type="button">📁 Seleccionar archivo</button>
+        {/* 📁 ARCHIVO */}
+        <label style={{ cursor: "pointer" }}>
+          📁 Seleccionar archivo
           <input
             type="file"
             accept=".pdf,.jpg,.jpeg,.png,.webp,image/*"
-            hidden
+            style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
           />
         </label>
@@ -67,49 +63,22 @@ function SubirDocumento() {
       </div>
 
       {file && (
-        <>
-          <p>
-            <strong>Archivo:</strong> {file.name}
-          </p>
-
-          <p>
-            <strong>Tamaño:</strong>{" "}
-            {(file.size / 1024).toFixed(1)} KB
-          </p>
+        <div>
+          <p><strong>Archivo:</strong> {file.name}</p>
 
           {file.type.startsWith("image/") ? (
             <img
               src={URL.createObjectURL(file)}
-              alt="Vista previa"
-              style={{
-                width: 300,
-                border: "1px solid #ccc",
-                borderRadius: 8,
-                marginBottom: 20,
-              }}
+              alt="preview"
+              style={{ width: 300, borderRadius: 8 }}
             />
           ) : (
-            <div
-              style={{
-                width: 300,
-                padding: 20,
-                border: "1px solid #ccc",
-                borderRadius: 8,
-                marginBottom: 20,
-                background: "#f8f8f8",
-                textAlign: "center",
-              }}
-            >
-              📄 {file.name}
-            </div>
+            <div>📄 {file.name}</div>
           )}
-        </>
+        </div>
       )}
 
-      <button
-        onClick={handleUpload}
-        disabled={loading || !file}
-      >
+      <button onClick={handleUpload} disabled={loading || !file}>
         {loading ? "Subiendo..." : "Subir documento"}
       </button>
     </div>
