@@ -96,7 +96,12 @@ useEffect(() => {
       <li onClick={() => navigate("/mis-documentos")}>
   📄 Mis Documentos
 </li>
-      <li>📅 Mis Citas</li>
+      <li
+  onClick={() => navigate("/mis-citas")}
+  style={{ cursor: "pointer" }}
+>
+  📅 Mis Citas
+</li>
       <li>📊 Declaraciones</li>
       <li
   onClick={() => navigate("/subir-documento")}
@@ -104,7 +109,12 @@ useEffect(() => {
 >
   📤 Subir Documentos
 </li>
-      <li>👤 Mi Perfil</li>
+     <li
+  onClick={() => navigate("/mi-perfil")}
+  style={{ cursor: "pointer" }}
+>
+  👤 Mi Perfil
+</li>
     </ul>
   </nav>
 </aside>
@@ -126,10 +136,13 @@ useEffect(() => {
   <p>{documentos.length}</p>
 </div>
 
-          <div className="card">
-            <h3>Citas Programadas</h3>
-            <p>2</p>
-          </div>
+         <div
+  className="card clickable"
+  onClick={() => navigate("/mis-citas")}
+>
+  <h3>Citas Programadas</h3>
+  <p>Ver</p>
+</div>
 
           <div className="card">
             <h3>Solicitudes</h3>

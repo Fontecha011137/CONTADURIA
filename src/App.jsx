@@ -7,18 +7,32 @@ import ClienteDashboard from "./pages/clienteDashboard";
 import ContadorDashboard from "./pages/contadorDashboard";
 import MisDocumentos from "./pages/misDocumentos";
 import SubirDocumento from "./pages/subirDocumentos";
+import MisCitas from "./pages/misCitas";
+import MiPerfil from "./pages/miPerfil";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<Home />} />
+
         <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
+
         <Route path="/cliente" element={<ClienteDashboard />} />
+
         <Route path="/contador" element={<ContadorDashboard />} />
+
         <Route path="/mis-documentos" element={<MisDocumentos />} />
+
         <Route path="/subir-documento" element={<SubirDocumento />} />
+
+        <Route path="/mis-citas" element={<MisCitas />} />
+
+        <Route path="/mi-perfil" element={<MiPerfil />} />
+
       </Routes>
     </BrowserRouter>
   );

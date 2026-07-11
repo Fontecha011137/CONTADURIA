@@ -1,0 +1,340 @@
+/* ========================= */
+/* CONTENEDOR */
+/* ========================= */
+
+.mis-citas-container {
+  min-height: 100vh;
+  background: #f8fafc;
+  padding: 40px 20px;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.header {
+  max-width: 1200px;
+  margin: auto;
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  color: #059669;
+  font-size: 2.6rem;
+  font-weight: bold;
+}
+
+.header button {
+  background: #059669;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: .3s;
+}
+
+.header button:hover {
+  background: #047857;
+}
+
+/* ========================= */
+/* TARJETA NUEVA CITA */
+/* ========================= */
+
+.nueva-cita {
+  max-width: 1200px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+  margin-bottom: 35px;
+}
+
+.nueva-cita h2 {
+  color: #059669;
+  margin-bottom: 25px;
+}
+
+/* ========================= */
+/* FORMULARIO */
+/* ========================= */
+
+.form-cita {
+
+  display: grid;
+
+  grid-template-columns: 2.5fr 1.3fr 1fr auto;
+
+  gap: 20px;
+
+  align-items: end;
+
+}
+
+.form-cita select,
+.form-cita input {
+
+  width: 100%;
+  height: 50px;
+
+  padding: 0 15px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  background: white;
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: .3s;
+
+}
+
+.form-cita select:focus,
+.form-cita input:focus {
+
+  border-color: #059669;
+
+  box-shadow: 0 0 0 3px rgba(5,150,105,.15);
+
+}
+
+.form-cita button {
+
+  height: 50px;
+
+  padding: 0 28px;
+
+  background: #059669;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .3s;
+
+  white-space: nowrap;
+
+}
+
+.form-cita button:hover {
+
+  background: #047857;
+
+  transform: translateY(-2px);
+
+}
+
+/* ========================= */
+/* TABLA */
+/* ========================= */
+
+.tabla-citas {
+
+  max-width: 1200px;
+
+  margin: auto;
+
+  background: white;
+
+  padding: 30px;
+
+  border-radius: 15px;
+
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+
+}
+
+.tabla-citas h2 {
+
+  color: #059669;
+
+  margin-bottom: 25px;
+
+}
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+}
+
+thead {
+
+  background: #059669;
+
+  color: white;
+
+}
+
+th {
+
+  padding: 15px;
+
+  font-weight: 600;
+
+}
+
+td {
+
+  padding: 15px;
+
+  border-bottom: 1px solid #e5e7eb;
+
+  text-align: center;
+
+}
+
+tbody tr {
+
+  transition: .2s;
+
+}
+
+tbody tr:hover {
+
+  background: #f1f5f9;
+
+}
+
+/* ========================= */
+/* ESTADOS */
+/* ========================= */
+
+.estado-pendiente {
+
+  color: #d97706;
+
+  font-weight: bold;
+
+}
+
+.estado-confirmada {
+
+  color: #16a34a;
+
+  font-weight: bold;
+
+}
+
+.estado-cancelada {
+
+  color: #dc2626;
+
+  font-weight: bold;
+
+}
+
+/* ========================= */
+/* TABLETS */
+/* ========================= */
+
+@media (max-width: 992px) {
+
+  .form-cita {
+
+    grid-template-columns: 1fr 1fr;
+
+  }
+
+}
+
+/* ========================= */
+/* MOVILES */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+  .header {
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    text-align: center;
+
+  }
+
+  .header h1 {
+
+    font-size: 2rem;
+
+  }
+
+  .nueva-cita,
+  .tabla-citas {
+
+    padding: 20px;
+
+  }
+
+  .form-cita {
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .form-cita button {
+
+    width: 100%;
+
+  }
+
+  table {
+
+    display: block;
+
+    overflow-x: auto;
+
+    white-space: nowrap;
+
+  }
+
+}
+
+/* ========================= */
+/* CELULARES PEQUEÑOS */
+/* ========================= */
+
+@media (max-width: 480px) {
+
+  .mis-citas-container {
+
+    padding: 20px 10px;
+
+  }
+
+  .header h1 {
+
+    font-size: 1.7rem;
+
+  }
+
+  .nueva-cita h2,
+  .tabla-citas h2 {
+
+    font-size: 1.4rem;
+
+  }
+
+}
