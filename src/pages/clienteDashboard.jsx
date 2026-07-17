@@ -3,6 +3,7 @@ import "./clienteDashboard.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import {
   collection,
@@ -22,6 +23,7 @@ import {
 import { auth, db, storage } from "../firebaseConfig";
 function ClienteDashboard() {
 
+  
   const navigate = useNavigate();
   const [documentos, setDocumentos] = useState([]);
 
@@ -144,10 +146,14 @@ useEffect(() => {
   <p>Ver</p>
 </div>
 
-          <div className="card">
-            <h3>Solicitudes</h3>
-            <p>3</p>
-          </div>
+<div
+  className="card clickable"
+  onClick={() => navigate("/mis-solicitudes")}
+  style={{ cursor: "pointer" }}
+>
+  <h3>Solicitudes</h3>
+  <p>Ver</p>
+</div>
 
         </section>
 

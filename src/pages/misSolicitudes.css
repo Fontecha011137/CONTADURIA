@@ -1,0 +1,330 @@
+/* ========================= */
+/* CONTENEDOR */
+/* ========================= */
+
+.solicitudes-container{
+    min-height:100vh;
+    background:#f8fafc;
+    padding:40px 20px;
+}
+
+.solicitudes-card{
+
+    max-width:1100px;
+    margin:auto;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+/* ========================= */
+/* TITULOS */
+/* ========================= */
+
+.solicitudes-card h1{
+
+    color:#059669;
+
+    font-size:2.5rem;
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.solicitudes-card h2{
+
+    color:#059669;
+
+    margin-top:25px;
+
+    margin-bottom:18px;
+
+}
+
+/* ========================= */
+/* CAMPOS */
+/* ========================= */
+
+.campo{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:20px;
+
+}
+
+.campo label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+    color:#374151;
+
+}
+
+.campo input,
+.campo select,
+.campo textarea{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    outline:none;
+
+    background:white;
+
+}
+
+.campo textarea{
+
+    resize:vertical;
+
+    min-height:140px;
+
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus{
+
+    border-color:#059669;
+
+    box-shadow:0 0 0 3px rgba(5,150,105,.15);
+
+}
+
+/* ========================= */
+/* BOTON ENVIAR */
+/* ========================= */
+
+.btn-enviar{
+
+    width:100%;
+
+    height:50px;
+
+    background:#059669;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    margin-top:10px;
+
+}
+
+.btn-enviar:hover{
+
+    background:#047857;
+
+}
+
+/* ========================= */
+/* TABLA */
+/* ========================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:25px;
+
+}
+
+thead{
+
+    background:#059669;
+
+    color:white;
+
+}
+
+th{
+
+    padding:15px;
+
+}
+
+td{
+
+    padding:15px;
+
+    border-bottom:1px solid #e5e7eb;
+
+    text-align:center;
+
+}
+
+tbody tr:hover{
+
+    background:#f8fafc;
+
+}
+
+/* ========================= */
+/* BOTON VOLVER */
+/* ========================= */
+
+.btn-volver{
+
+    margin-top:30px;
+
+    background:#6b7280;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    transition:.3s;
+
+}
+
+.btn-volver:hover{
+
+    background:#4b5563;
+
+}
+
+/* ========================= */
+/* MODAL */
+/* ========================= */
+
+.modal-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.modal{
+
+    width:420px;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+}
+
+.modal h2{
+
+    color:#059669;
+
+    margin-bottom:15px;
+
+}
+
+.modal p{
+
+    margin-bottom:25px;
+
+    color:#444;
+
+}
+
+.modal button{
+
+    background:#059669;
+
+    color:white;
+
+    border:none;
+
+    padding:12px 30px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+}
+
+.modal button:hover{
+
+    background:#047857;
+
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+@media(max-width:768px){
+
+    .solicitudes-card{
+
+        padding:20px;
+
+    }
+
+    .solicitudes-card h1{
+
+        font-size:2rem;
+
+    }
+
+    table{
+
+        display:block;
+
+        overflow-x:auto;
+
+        white-space:nowrap;
+
+    }
+
+}

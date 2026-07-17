@@ -9,6 +9,7 @@ import MisDocumentos from "./pages/misDocumentos";
 import SubirDocumento from "./pages/subirDocumentos";
 import MisCitas from "./pages/misCitas";
 import MiPerfil from "./pages/miPerfil";
+import MisSolicitudes from "./pages/misSolicitudes";
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
         <Route path="/mis-citas" element={<MisCitas />} />
 
         <Route path="/mi-perfil" element={<MiPerfil />} />
+
+        <Route
+          path="/mis-solicitudes" element={<MisSolicitudes />} />
 
       </Routes>
     </BrowserRouter>
