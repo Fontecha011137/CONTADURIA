@@ -1,3 +1,4 @@
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home";
@@ -15,6 +16,12 @@ import MiPerfil from "./pages/miPerfil";
 
 import MisSolicitudes from "./pages/misSolicitudes";
 
+import Clientes from "./pages/Clientes";
+import Documentos from "./pages/Documentos";
+import Facturacion from "./pages/Facturacion";
+import Citas from "./pages/Citas";
+import Reportes from "./pages/Reportes";
+
 
 function App() {
 
@@ -24,6 +31,7 @@ function App() {
 
       <Routes>
 
+        {/* 🏠 INICIO */}
 
         <Route
           path="/"
@@ -31,11 +39,15 @@ function App() {
         />
 
 
+        {/* 🔐 LOGIN */}
+
         <Route
           path="/login"
           element={<Login />}
         />
 
+
+        {/* 📝 REGISTRO */}
 
         <Route
           path="/register"
@@ -43,11 +55,15 @@ function App() {
         />
 
 
+        {/* 👤 DASHBOARD CLIENTE */}
+
         <Route
           path="/cliente"
           element={<ClienteDashboard />}
         />
 
+
+        {/* 👨‍💼 DASHBOARD CONTADOR */}
 
         <Route
           path="/contador"
@@ -55,11 +71,45 @@ function App() {
         />
 
 
+        {/* 👥 CLIENTES */}
+
+        <Route
+          path="/clientes"
+          element={<Clientes />}
+        />
+
+
+        {/* 📄 DOCUMENTOS DEL CONTADOR */}
+
+        <Route
+          path="/documentos"
+          element={<Documentos />}
+        />
+
+        <Route
+        path="/facturacion"
+        element={<Facturacion />}
+        />
+
+        <Route
+        path="/citas"
+        element={<Citas />}
+        />
+
+        <Route
+        path="/reportes"
+        element={<Reportes />}
+        />
+
+        {/* 📄 MIS DOCUMENTOS */}
+
         <Route
           path="/mis-documentos"
           element={<MisDocumentos />}
         />
 
+
+        {/* 📤 SUBIR DOCUMENTO */}
 
         <Route
           path="/subir-documento"
@@ -67,11 +117,15 @@ function App() {
         />
 
 
+        {/* 📅 MIS CITAS */}
+
         <Route
           path="/mis-citas"
           element={<MisCitas />}
         />
 
+
+        {/* 👤 MI PERFIL */}
 
         <Route
           path="/mi-perfil"
@@ -79,11 +133,12 @@ function App() {
         />
 
 
+        {/* 📋 MIS SOLICITUDES */}
+
         <Route
           path="/mis-solicitudes"
           element={<MisSolicitudes />}
         />
-
 
       </Routes>
 
@@ -95,3 +150,4 @@ function App() {
 
 
 export default App;
+

@@ -1,0 +1,935 @@
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.citas-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+  box-sizing: border-box;
+  color: #2f241f;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+========================================================= */
+
+.btn-volver {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #5a3825;
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  margin-bottom: 25px;
+}
+
+.btn-volver:hover {
+  background: #3f271a;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-volver:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.mensaje-error-citas {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 18px 20px;
+
+  margin-bottom: 25px;
+
+  border-radius: 12px;
+
+  background: #fff0f0;
+  border: 1px solid #e3a2a2;
+
+  color: #8b1e1e;
+}
+
+.mensaje-error-citas strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.mensaje-error-citas p {
+  margin: 0;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.citas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 25px;
+
+  margin-bottom: 30px;
+
+  padding: 25px;
+
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd7;
+
+  box-shadow: 0 5px 18px rgba(75, 46, 31, 0.08);
+}
+
+.citas-header h1 {
+  margin: 0 0 7px;
+
+  font-size: 34px;
+
+  color: #4b2e1f;
+}
+
+.citas-header p {
+  margin: 0;
+
+  color: #75675f;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   TOTAL CITAS
+========================================================= */
+
+.citas-total {
+  min-width: 130px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px 25px;
+
+  border-radius: 14px;
+
+  background: #f8f2ed;
+
+  border: 1px solid #e8d8ca;
+}
+
+.citas-total strong {
+  font-size: 32px;
+  line-height: 1;
+
+  color: #4b2e1f;
+}
+
+.citas-total span {
+  margin-top: 7px;
+
+  font-size: 14px;
+
+  color: #75675f;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   RESUMEN
+========================================================= */
+
+.citas-resumen {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 30px;
+}
+
+.cita-resumen-card {
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  min-height: 100px;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd7;
+
+  box-shadow:
+    0 4px 14px
+    rgba(75, 46, 31, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.cita-resumen-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(75, 46, 31, 0.12);
+}
+
+.cita-resumen-card span {
+  font-size: 14px;
+
+  color: #75675f;
+
+  font-weight: 600;
+}
+
+.cita-resumen-card strong {
+  margin-top: 10px;
+
+  font-size: 30px;
+
+  color: #4b2e1f;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.citas-filtros {
+  display: flex;
+
+  align-items: stretch;
+
+  gap: 15px;
+
+  width: 100%;
+
+  margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   BUSCADOR
+========================================================= */
+
+.citas-buscador {
+  position: relative;
+
+  flex: 1;
+
+  min-width: 0;
+}
+
+.citas-buscador input {
+  width: 100%;
+
+  height: 58px;
+
+  padding: 0 55px 0 20px;
+
+  box-sizing: border-box;
+
+  border: 2px solid #d8c7ba;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #2f241f;
+
+  font-size: 17px;
+
+  outline: none;
+
+  box-shadow:
+    0 3px 10px
+    rgba(75, 46, 31, 0.06);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.citas-buscador input::placeholder {
+  color: #9a8d84;
+}
+
+.citas-buscador input:focus {
+  border-color: #6b4f3a;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(107, 79, 58, 0.12);
+}
+
+
+/* =========================================================
+   BOTÓN X DEL BUSCADOR
+========================================================= */
+
+.citas-buscador .btn-limpiar-busqueda {
+  position: absolute;
+
+  top: 50%;
+  right: 10px;
+
+  transform: translateY(-50%);
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #eee4dd;
+
+  color: #5a3825;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.citas-buscador .btn-limpiar-busqueda:hover {
+  background: #5a3825;
+
+  color: #ffffff;
+
+  transform:
+    translateY(-50%)
+    scale(1.08);
+}
+
+
+/* =========================================================
+   SELECT ESTADO
+========================================================= */
+
+.citas-filtros select {
+  height: 58px;
+
+  min-width: 210px;
+
+  padding: 0 45px 0 17px;
+
+  border: 2px solid #d8c7ba;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #4b2e1f;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.citas-filtros select:focus {
+  border-color: #6b4f3a;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(107, 79, 58, 0.12);
+}
+
+
+/* =========================================================
+   ACCIONES DE FILTROS
+========================================================= */
+
+.acciones-filtros {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-bottom: 18px;
+}
+
+.btn-limpiar-todo {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 18px;
+
+  border: 1px solid #cdbbad;
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #5a3825;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-limpiar-todo:hover {
+  background: #5a3825;
+
+  border-color: #5a3825;
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESULTADO INFO
+========================================================= */
+
+.resultado-info {
+  margin-bottom: 15px;
+
+  color: #75675f;
+
+  font-size: 14px;
+}
+
+.resultado-info strong {
+  color: #4b2e1f;
+}
+
+
+/* =========================================================
+   TABLA
+========================================================= */
+
+.tabla-citas {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd7;
+
+  box-shadow:
+    0 5px 18px
+    rgba(75, 46, 31, 0.08);
+}
+
+.tabla-citas table {
+  width: 100%;
+
+  min-width: 900px;
+
+  border-collapse: collapse;
+}
+
+.tabla-citas thead {
+  background: #4b2e1f;
+
+  color: #ffffff;
+}
+
+.tabla-citas th {
+  padding: 17px 15px;
+
+  text-align: left;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.tabla-citas td {
+  padding: 17px 15px;
+
+  border-bottom: 1px solid #eee5df;
+
+  vertical-align: middle;
+
+  font-size: 14px;
+
+  color: #4a3a32;
+}
+
+.tabla-citas tbody tr {
+  transition:
+    background 0.15s ease;
+}
+
+.tabla-citas tbody tr:hover {
+  background: #fcf8f5;
+}
+
+.tabla-citas tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   INFORMACIÓN CLIENTE
+========================================================= */
+
+.tabla-citas td:first-child {
+  min-width: 210px;
+}
+
+.tabla-citas td:first-child strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #3f291e;
+
+  font-size: 15px;
+}
+
+.tabla-citas td:first-child small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #7d6d64;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   ESTADOS
+========================================================= */
+
+.estado-cita {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 95px;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  text-transform: capitalize;
+}
+
+
+/* PENDIENTE */
+
+.estado-cita-pendiente {
+  background: #fff4d6;
+
+  color: #8a6200;
+}
+
+
+/* CONFIRMADA */
+
+.estado-cita-confirmada {
+  background: #e3f5e8;
+
+  color: #20753a;
+}
+
+
+/* CANCELADA */
+
+.estado-cita-cancelada {
+  background: #fbe4e4;
+
+  color: #a52c2c;
+}
+
+
+/* PERDIDA */
+
+.estado-cita-perdida {
+  background: #e8e8e8;
+
+  color: #555555;
+}
+
+
+/* =========================================================
+   BOTÓN CANCELAR
+========================================================= */
+
+.btn-cancelar-cita {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #b33a3a;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-cancelar-cita:hover {
+  background: #8f2929;
+
+  transform: translateY(-1px);
+}
+
+.btn-cancelar-cita:disabled {
+  opacity: 0.6;
+
+  cursor: wait;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   TEXTO CITA CANCELADA
+========================================================= */
+
+.cita-cancelada-texto {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 12px;
+
+  border-radius: 8px;
+
+  background: #f3eeee;
+
+  color: #8c7770;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+.mensaje-citas {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 50px 25px;
+
+  text-align: center;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfd7;
+
+  box-shadow:
+    0 5px 18px
+    rgba(75, 46, 31, 0.06);
+}
+
+.mensaje-citas h3 {
+  margin: 0 0 10px;
+
+  color: #4b2e1f;
+
+  font-size: 20px;
+}
+
+.mensaje-citas p {
+  margin: 0;
+
+  color: #75675f;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .citas-container {
+    padding: 22px;
+  }
+
+  .citas-resumen {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .citas-header {
+    padding: 20px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE CELULAR
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .citas-container {
+    padding: 15px;
+  }
+
+
+  /* -------------------------------
+     VOLVER
+  ------------------------------- */
+
+  .btn-volver {
+    width: 100%;
+
+    margin-bottom: 18px;
+
+    padding: 13px;
+  }
+
+
+  /* -------------------------------
+     HEADER
+  ------------------------------- */
+
+  .citas-header {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 20px;
+
+    gap: 18px;
+  }
+
+  .citas-header h1 {
+    font-size: 28px;
+  }
+
+  .citas-total {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+
+  /* -------------------------------
+     RESUMEN
+  ------------------------------- */
+
+  .citas-resumen {
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 10px;
+  }
+
+  .cita-resumen-card {
+    min-height: 90px;
+
+    padding: 15px;
+  }
+
+  .cita-resumen-card strong {
+    font-size: 25px;
+  }
+
+
+  /* -------------------------------
+     FILTROS
+  ------------------------------- */
+
+  .citas-filtros {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .citas-buscador {
+    width: 100%;
+  }
+
+  .citas-buscador input {
+    height: 58px;
+
+    font-size: 16px;
+  }
+
+  .citas-filtros select {
+    width: 100%;
+
+    height: 55px;
+  }
+
+
+  /* -------------------------------
+     LIMPIAR FILTROS
+  ------------------------------- */
+
+  .acciones-filtros {
+    justify-content: flex-end;
+
+    margin-top: 5px;
+  }
+
+  .btn-limpiar-todo {
+    width: auto;
+
+    padding: 10px 15px;
+  }
+
+
+  /* -------------------------------
+     TABLA
+  ------------------------------- */
+
+  .tabla-citas {
+    border-radius: 12px;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tabla-citas table {
+    min-width: 850px;
+  }
+
+
+  /* -------------------------------
+     MENSAJE
+  ------------------------------- */
+
+  .mensaje-citas {
+    padding: 40px 20px;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES MUY PEQUEÑOS
+========================================================= */
+
+@media (max-width: 400px) {
+
+  .citas-container {
+    padding: 10px;
+  }
+
+  .citas-resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .cita-resumen-card {
+    min-height: auto;
+  }
+
+}
+

@@ -1,0 +1,776 @@
+
+/* =========================================
+   CONTENEDOR
+========================================= */
+
+.clientes-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   BOTÓN VOLVER
+========================================= */
+
+.btn-volver-clientes {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 18px !important;
+
+  border: none !important;
+  border-radius: 8px !important;
+
+  background: #6b4f3a !important;
+  color: #ffffff !important;
+
+  font-size: 14px !important;
+  font-weight: 600 !important;
+
+  cursor: pointer;
+
+  margin-bottom: 20px;
+
+  box-shadow: 0 3px 8px
+    rgba(0, 0, 0, 0.15);
+
+  transition: 0.2s ease;
+}
+
+.btn-volver-clientes:hover {
+  background: #4b3425 !important;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.clientes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 25px;
+}
+
+.clientes-header h1 {
+  margin: 0 0 6px;
+
+  color: #3d2b1f;
+
+  font-size: 30px;
+}
+
+.clientes-header p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 15px;
+}
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.clientes-total {
+  min-width: 150px;
+
+  padding: 15px 20px;
+
+  border-radius: 12px;
+
+  background: #f5eee8;
+
+  text-align: center;
+}
+
+.clientes-total strong {
+  display: block;
+
+  font-size: 30px;
+
+  color: #6b4f3a;
+}
+
+.clientes-total span {
+  display: block;
+
+  font-weight: 600;
+
+  color: #4b3425;
+}
+
+.clientes-total small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #777;
+}
+
+/* =========================================
+   BUSCADOR
+========================================= */
+
+.buscador-clientes {
+  position: relative;
+
+  width: 100%;
+  max-width: 750px;
+
+  margin: 0 auto 15px;
+
+  z-index: 100;
+}
+
+/* =========================================
+   CONTENEDOR INPUT
+========================================= */
+
+.buscador-input-contenedor {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  background: #ffffff;
+
+  border: 2px solid #cfc5bc;
+
+  border-radius: 10px;
+
+  box-sizing: border-box;
+
+  transition: 0.2s ease;
+}
+
+.buscador-input-contenedor:focus-within {
+  border-color: #6b4f3a;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(107, 79, 58, 0.12);
+}
+
+/* =========================================
+   ICONO
+========================================= */
+
+.icono-busqueda {
+  padding-left: 15px;
+
+  font-size: 18px;
+
+  flex-shrink: 0;
+}
+
+/* =========================================
+   INPUT
+========================================= */
+
+.buscador-input-contenedor input {
+  width: 100%;
+
+  min-width: 0;
+
+  padding: 15px 45px 15px 10px;
+
+  border: none !important;
+
+  outline: none !important;
+
+  background: transparent !important;
+
+  color: #222 !important;
+
+  font-size: 16px;
+}
+
+/* =========================================
+   X DEL BUSCADOR
+========================================= */
+
+.btn-x-buscador {
+  position: absolute;
+
+  right: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 !important;
+
+  border: none !important;
+
+  border-radius: 50% !important;
+
+  background: #e8e0da !important;
+
+  color: #4b3425 !important;
+
+  font-size: 22px !important;
+
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.btn-x-buscador:hover {
+  background: #d6c9bf !important;
+}
+
+/* =========================================
+   RESULTADOS
+========================================= */
+
+.resultados-busqueda {
+  position: absolute;
+
+  top: calc(100% + 6px);
+
+  left: 0;
+  right: 0;
+
+  max-height: 400px;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  border: 1px solid #d8d0c8;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.18);
+
+  z-index: 9999;
+}
+
+/* =========================================
+   RESULTADO CLIENTE
+========================================= */
+
+.resultado-cliente {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 13px 15px;
+
+  border: none;
+
+  border-bottom: 1px solid #eeeeee;
+
+  background: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.resultado-cliente:last-child {
+  border-bottom: none;
+}
+
+.resultado-cliente:hover {
+  background: #f7f3ef;
+}
+
+/* =========================================
+   AVATAR RESULTADO
+========================================= */
+
+.resultado-avatar {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #6b4f3a;
+
+  color: #ffffff;
+
+  font-size: 17px;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   DATOS RESULTADO
+========================================= */
+
+.resultado-datos {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.resultado-datos strong {
+  color: #3d2b1f;
+
+  font-size: 15px;
+}
+
+.resultado-datos span {
+  color: #666;
+
+  font-size: 13px;
+
+  word-break: break-word;
+}
+
+.resultado-datos small {
+  color: #777;
+
+  font-size: 12px;
+}
+
+/* =========================================
+   SIN RESULTADOS
+========================================= */
+
+.sin-resultados {
+  padding: 20px;
+
+  text-align: center;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   BOTÓN LIMPIAR
+========================================= */
+
+.limpiar-contenedor {
+  width: 100%;
+  max-width: 750px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+
+  justify-content: flex-end;
+}
+
+.btn-limpiar-clientes {
+  display: inline-flex !important;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 18px !important;
+
+  border: none !important;
+
+  border-radius: 8px !important;
+
+  background: #8b5e3c !important;
+
+  color: #ffffff !important;
+
+  font-size: 14px !important;
+
+  font-weight: 700 !important;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 8px
+    rgba(0, 0, 0, 0.15);
+
+  transition: 0.2s ease;
+}
+
+.btn-limpiar-clientes:hover {
+  background: #6b4328 !important;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   MENSAJES
+========================================= */
+
+.mensaje {
+  padding: 40px 20px;
+
+  text-align: center;
+
+  background: #faf8f6;
+
+  border-radius: 12px;
+
+  color: #666;
+}
+
+.mensaje h3 {
+  margin: 0 0 8px;
+
+  color: #4b3425;
+}
+
+.mensaje p {
+  margin: 0;
+}
+
+.mensaje-error {
+  margin-bottom: 20px;
+
+  padding: 13px 16px;
+
+  border-radius: 8px;
+
+  background: #fdecec;
+
+  color: #a33;
+}
+
+/* =========================================
+   LISTA
+========================================= */
+
+.clientes-lista {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+/* =========================================
+   TARJETA CLIENTE
+========================================= */
+
+.cliente-card {
+  display: grid;
+
+  grid-template-columns:
+    70px
+    minmax(200px, 1fr)
+    minmax(350px, 2fr);
+
+  gap: 20px;
+
+  align-items: start;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e4ddd6;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 12px
+    rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================
+   AVATAR CLIENTE
+========================================= */
+
+.cliente-avatar {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #6b4f3a;
+
+  color: #ffffff;
+
+  font-size: 25px;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   INFO CLIENTE
+========================================= */
+
+.cliente-info h3 {
+  margin: 0 0 10px;
+
+  color: #3d2b1f;
+
+  font-size: 20px;
+}
+
+.cliente-info p {
+  margin: 6px 0;
+
+  color: #666;
+
+  font-size: 14px;
+
+  word-break: break-word;
+}
+
+.cliente-rol {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  background: #f5eee8;
+
+  color: #6b4f3a;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   CITAS
+========================================= */
+
+.cliente-citas {
+  width: 100%;
+}
+
+.cliente-citas-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.cliente-citas-header h4 {
+  margin: 0;
+
+  color: #4b3425;
+}
+
+.cliente-citas-header span {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f5eee8;
+
+  color: #6b4f3a;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   LISTA CITAS
+========================================= */
+
+.lista-citas-cliente {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+/* =========================================
+   CITA
+========================================= */
+
+.cita-card {
+  padding: 14px;
+
+  border-radius: 10px;
+
+  background: #faf8f6;
+
+  border: 1px solid #e8e1db;
+}
+
+.cita-info strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #3d2b1f;
+}
+
+.cita-info p {
+  margin: 5px 0;
+
+  color: #666;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   ESTADO
+========================================= */
+
+.estado-cita {
+  display: inline-block;
+
+  margin-top: 8px;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.estado-pendiente {
+  background: #fff3cd;
+
+  color: #856404;
+}
+
+.estado-aceptada {
+  background: #d4edda;
+
+  color: #155724;
+}
+
+.estado-denegada {
+  background: #f8d7da;
+
+  color: #721c24;
+}
+
+.estado-cancelada {
+  background: #e2e3e5;
+
+  color: #383d41;
+}
+
+/* =========================================
+   SIN CITAS
+========================================= */
+
+.sin-citas {
+  padding: 20px;
+
+  text-align: center;
+
+  border-radius: 10px;
+
+  background: #faf8f6;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .cliente-card {
+    grid-template-columns:
+      60px
+      1fr;
+  }
+
+  .cliente-citas {
+    grid-column: 1 / -1;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .clientes-container {
+    padding: 15px;
+  }
+
+  .clientes-header {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .clientes-total {
+    width: 100%;
+
+    box-sizing: border-box;
+  }
+
+  .cliente-card {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+  }
+
+  .cliente-citas {
+    grid-column: auto;
+  }
+
+  .limpiar-contenedor {
+    width: 100%;
+  }
+
+  .btn-limpiar-clientes {
+    width: 100%;
+  }
+
+  .btn-volver-clientes {
+    width: 100%;
+  }
+
+}
+

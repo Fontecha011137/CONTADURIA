@@ -1,0 +1,1848 @@
+/* =========================================================
+   PÁGINA DOCUMENTOS
+========================================================= */
+
+.documentos-page {
+  min-height: 100vh;
+  padding: 30px;
+  background: #f5f5f5;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+========================================================= */
+
+.btn-volver-documentos {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 18px;
+  margin-bottom: 25px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #4caf50;
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+
+  transition: all 0.2s ease;
+}
+
+.btn-volver-documentos:hover {
+  background-color: #43a047;
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
+}
+
+.btn-volver-documentos:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+.documentos-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.documentos-header h1 {
+  margin: 0;
+
+  color: #333;
+
+  font-size: 30px;
+}
+
+.documentos-header p {
+  margin: 6px 0 0;
+
+  color: #777;
+}
+
+
+/* =========================================================
+   TOTAL DOCUMENTOS
+========================================================= */
+
+.documentos-total {
+  min-width: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px 20px;
+
+  background: #fff;
+
+  border-radius: 12px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+  box-sizing: border-box;
+}
+
+.documentos-total strong {
+  color: #198754;
+
+  font-size: 28px;
+}
+
+.documentos-total span {
+  color: #777;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   CONTENEDOR GENERAL DE FILTROS
+========================================================= */
+
+.documentos-filtros {
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 2fr)
+    minmax(170px, 1fr)
+    minmax(170px, 1fr)
+    minmax(170px, 1fr)
+    auto;
+
+  align-items: end;
+
+  gap: 14px;
+
+  width: 100%;
+
+  margin-bottom: 18px;
+
+  padding: 18px;
+
+  background: #fff;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 14px;
+
+  box-sizing: border-box;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   BUSCADOR DENTRO DE FILTROS
+========================================================= */
+
+.documentos-filtros .documentos-busqueda {
+  width: 100%;
+
+  margin: 0;
+}
+
+.documentos-filtros .documentos-busqueda input {
+  width: 100%;
+  max-width: none;
+
+  height: 46px;
+
+  padding: 0 15px;
+
+  border: 1px solid #dfe3e6;
+  border-radius: 9px;
+
+  background: #fff;
+
+  color: #333;
+
+  font-size: 14px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.documentos-filtros .documentos-busqueda input::placeholder {
+  color: #999;
+}
+
+.documentos-filtros .documentos-busqueda input:hover {
+  border-color: #c8ced3;
+}
+
+.documentos-filtros .documentos-busqueda input:focus {
+  border-color: #198754;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 3px rgba(25, 135, 84, 0.10);
+}
+
+
+/* =========================================================
+   FILTRO INDIVIDUAL
+========================================================= */
+
+.filtro-documento {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+
+  min-width: 0;
+}
+
+.filtro-documento label {
+  display: block;
+
+  margin: 0;
+
+  color: #555;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUTS DE FECHA
+========================================================= */
+
+.filtro-documento input[type="date"] {
+  width: 100%;
+
+  height: 46px;
+
+  padding: 0 11px;
+
+  border: 1px solid #dfe3e6;
+  border-radius: 9px;
+
+  background: #fff;
+
+  color: #333;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.filtro-documento input[type="date"]:hover {
+  border-color: #c8ced3;
+}
+
+.filtro-documento input[type="date"]:focus {
+  border-color: #198754;
+
+  box-shadow:
+    0 0 0 3px rgba(25, 135, 84, 0.10);
+}
+
+
+/* =========================================================
+   SELECT ORIGEN
+========================================================= */
+
+.filtro-documento select {
+  width: 100%;
+
+  height: 46px;
+
+  padding: 0 34px 0 12px;
+
+  border: 1px solid #dfe3e6;
+  border-radius: 9px;
+
+  background-color: #fff;
+  color: #333;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.filtro-documento select:hover {
+  border-color: #c8ced3;
+}
+
+.filtro-documento select:focus {
+  border-color: #198754;
+
+  box-shadow:
+    0 0 0 3px rgba(25, 135, 84, 0.10);
+}
+
+
+/* =========================================================
+   BOTÓN LIMPIAR FILTROS
+========================================================= */
+
+.btn-limpiar-documentos {
+  height: 46px;
+
+  padding: 0 16px;
+
+  border: 1px solid #e0e0e0;
+  border-radius: 9px;
+
+  background: #f8f9fa;
+  color: #666;
+
+  font-family: inherit;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-limpiar-documentos:hover {
+  background: #fff0f0;
+
+  border-color: #f0b5b5;
+
+  color: #c0392b;
+
+  transform: translateY(-1px);
+}
+
+.btn-limpiar-documentos:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   RESULTADOS
+========================================================= */
+
+.documentos-resultados {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin: 0 0 12px 2px;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+.documentos-resultados strong {
+  color: #198754;
+
+  font-size: 16px;
+}
+
+.documentos-resultados span {
+  color: #777;
+}
+
+
+/* =========================================================
+   HISTORIAL GENERAL
+========================================================= */
+
+.historial-documentos {
+  width: 100%;
+
+  margin-bottom: 22px;
+
+  background: #fff;
+
+  border: 1px solid #e9ecef;
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =========================================================
+   HEADER HISTORIAL
+========================================================= */
+
+.historial-documentos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 17px 20px;
+
+  border-bottom: 1px solid #eee;
+
+  background: #fff;
+}
+
+.historial-documentos-header h2 {
+  margin: 0;
+
+  color: #333;
+
+  font-size: 19px;
+}
+
+.historial-documentos-header span {
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  background: #e8f5e9;
+  color: #198754;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   LISTA HISTORIAL
+========================================================= */
+
+.lista-historial-documentos {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* =========================================================
+   FILA HISTORIAL
+========================================================= */
+
+.historial-documento {
+  display: grid;
+
+  grid-template-columns:
+    115px
+    minmax(190px, 1.3fr)
+    minmax(200px, 1.5fr)
+    125px
+    120px
+    65px;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px 20px;
+
+  border-bottom: 1px solid #f0f0f0;
+
+  transition:
+    background 0.2s ease;
+}
+
+.historial-documento:hover {
+  background: #f8fff9;
+}
+
+.historial-documento:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   FECHA HISTORIAL
+========================================================= */
+
+.historial-fecha strong {
+  color: #555;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CLIENTE HISTORIAL
+========================================================= */
+
+.historial-cliente {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.historial-avatar {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e8f5e9;
+  color: #198754;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.historial-cliente > div:last-child {
+  min-width: 0;
+}
+
+.historial-cliente strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #333;
+
+  font-size: 13px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historial-cliente small {
+  display: block;
+
+  margin-top: 2px;
+
+  overflow: hidden;
+
+  color: #777;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   NOMBRE DOCUMENTO
+========================================================= */
+
+.historial-nombre {
+  min-width: 0;
+}
+
+.historial-nombre strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #333;
+
+  font-size: 13px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.historial-nombre small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #888;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   ORIGEN HISTORIAL
+========================================================= */
+
+.historial-origen {
+  display: flex;
+  align-items: center;
+}
+
+
+/* =========================================================
+   ESTADO HISTORIAL
+========================================================= */
+
+.historial-estado {
+  display: flex;
+  align-items: center;
+}
+
+
+/* =========================================================
+   ACCIÓN HISTORIAL
+========================================================= */
+
+.historial-accion {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+/* =========================================================
+   BOTÓN VER
+========================================================= */
+
+.btn-ver-documento {
+  padding: 7px 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #e9f5ec;
+  color: #198754;
+
+  font-family: inherit;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-ver-documento:hover {
+  background: #d7eddd;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MENSAJES
+========================================================= */
+
+.mensaje-documentos {
+  width: 100%;
+
+  padding: 30px;
+
+  background: #fff;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.mensaje-documentos h3 {
+  margin: 0 0 8px;
+
+  color: #333;
+}
+
+.mensaje-documentos p {
+  margin: 0;
+
+  color: #777;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   LISTA CLIENTES
+========================================================= */
+
+.lista-clientes-documentos {
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+
+/* =========================================================
+   TARJETA CLIENTE
+========================================================= */
+
+.cliente-documentos-card {
+  padding: 20px;
+
+  background: #fff;
+
+  border: 1px solid #eee;
+  border-radius: 14px;
+
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================================
+   INFORMACIÓN CLIENTE
+========================================================= */
+
+.cliente-documentos-info {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.cliente-documentos-avatar {
+  width: 52px;
+  height: 52px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e8f5e9;
+  color: #198754;
+
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.cliente-documentos-info h2 {
+  margin: 0 0 4px;
+
+  color: #333;
+
+  font-size: 19px;
+}
+
+.cliente-documentos-info p {
+  margin: 0 0 3px;
+
+  color: #666;
+
+  font-size: 14px;
+}
+
+.cliente-documentos-info small {
+  color: #777;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   ESTADÍSTICAS
+========================================================= */
+
+.cliente-documentos-stats {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.cliente-stat {
+  min-width: 110px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px 15px;
+
+  background: #f8f9fa;
+
+  border-radius: 9px;
+}
+
+.cliente-stat strong {
+  color: #198754;
+
+  font-size: 21px;
+}
+
+.cliente-stat span {
+  color: #777;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   ACCIONES CLIENTE
+========================================================= */
+
+.cliente-documentos-acciones {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 18px;
+}
+
+
+/* =========================================================
+   BOTÓN ENVIAR
+========================================================= */
+
+.btn-enviar-documento {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #198754;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-enviar-documento:hover {
+  background: #157347;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 3px 8px rgba(25, 135, 84, 0.25);
+}
+
+
+/* =========================================================
+   LISTA DOCUMENTOS CLIENTE
+========================================================= */
+
+.cliente-documentos-lista {
+  margin-top: 20px;
+  padding-top: 18px;
+
+  border-top: 1px solid #eee;
+}
+
+.cliente-documentos-lista h3 {
+  margin: 0 0 12px;
+
+  color: #444;
+
+  font-size: 16px;
+}
+
+.mini-tabla-documentos {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.mini-documento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 11px 12px;
+
+  background: #f8f9fa;
+
+  border-radius: 8px;
+}
+
+.mini-documento strong {
+  display: block;
+
+  color: #333;
+
+  font-size: 14px;
+}
+
+.mini-documento small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #777;
+
+  font-size: 12px;
+}
+
+.mini-documento-derecha {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 7px;
+
+  flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   ESTADOS
+========================================================= */
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.estado-pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.estado-enviado {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.estado-revisado {
+  background: #d1ecf1;
+  color: #055160;
+}
+
+.estado-aprobado {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+.estado-rechazado {
+  background: #f8d7da;
+  color: #842029;
+}
+
+
+/* =========================================================
+   ORIGEN
+========================================================= */
+
+.origen-contador,
+.origen-cliente {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.origen-contador {
+  background: #e8f5e9;
+  color: #198754;
+}
+
+.origen-cliente {
+  background: #f1f3f5;
+  color: #666;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-documentos {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  box-sizing: border-box;
+}
+
+.modal-documentos-contenido {
+  width: 100%;
+  max-width: 520px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  padding: 25px;
+
+  background: #fff;
+
+  border-radius: 16px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.25);
+
+  animation: aparecerModal 0.2s ease;
+}
+
+
+/* =========================================================
+   ANIMACIÓN MODAL
+========================================================= */
+
+@keyframes aparecerModal {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-15px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+
+/* =========================================================
+   HEADER MODAL
+========================================================= */
+
+.modal-documentos-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 20px;
+}
+
+.modal-documentos-header h2 {
+  margin: 0 0 5px;
+
+  color: #333;
+
+  font-size: 22px;
+}
+
+.modal-documentos-header p {
+  margin: 0;
+
+  color: #777;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   CERRAR MODAL
+========================================================= */
+
+.btn-cerrar-modal {
+  width: 36px;
+  height: 36px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f1f3f5;
+  color: #555;
+
+  font-size: 17px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-cerrar-modal:hover {
+  background: #e9ecef;
+
+  color: #222;
+}
+
+
+/* =========================================================
+   CLIENTE DESTINO
+========================================================= */
+
+.cliente-destino {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  padding: 15px;
+  margin-bottom: 20px;
+
+  background: #f8f9fa;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 10px;
+}
+
+.cliente-destino span {
+  color: #777;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.cliente-destino strong {
+  color: #333;
+
+  font-size: 17px;
+}
+
+.cliente-destino small {
+  color: #777;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FORMULARIO MODAL
+========================================================= */
+
+.modal-documentos-contenido label {
+  display: block;
+
+  margin-top: 14px;
+  margin-bottom: 7px;
+
+  color: #444;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.modal-documentos-contenido input[type="text"],
+.modal-documentos-contenido input[type="file"] {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  border: 1px solid #d8d8d8;
+  border-radius: 8px;
+
+  background: #fff;
+  color: #333;
+
+  font-size: 14px;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition: all 0.2s ease;
+}
+
+.modal-documentos-contenido input[type="text"]:focus {
+  border-color: #4caf50;
+
+  box-shadow:
+    0 0 0 3px rgba(76, 175, 80, 0.12);
+}
+
+.modal-documentos-contenido input[type="file"] {
+  cursor: pointer;
+
+  background: #fafafa;
+}
+
+
+/* =========================================================
+   ARCHIVO SELECCIONADO
+========================================================= */
+
+.archivo-seleccionado {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 12px;
+  padding: 12px;
+
+  background: #f8f9fa;
+
+  border: 1px solid #e9ecef;
+
+  border-radius: 8px;
+
+  color: #444;
+
+  font-size: 13px;
+
+  word-break: break-word;
+}
+
+.archivo-seleccionado strong {
+  margin: 0;
+
+  color: #333;
+}
+
+
+/* =========================================================
+   BOTONES MODAL
+========================================================= */
+
+.modal-documentos-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+.btn-cancelar-modal,
+.btn-confirmar-envio {
+  border: none;
+
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.btn-cancelar-modal {
+  padding: 11px 16px;
+
+  background: #e9ecef;
+  color: #444;
+}
+
+.btn-cancelar-modal:hover {
+  background: #dee2e6;
+}
+
+.btn-confirmar-envio {
+  padding: 11px 18px;
+
+  background: #198754;
+  color: #fff;
+}
+
+.btn-confirmar-envio:hover {
+  background: #157347;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 3px 8px rgba(25, 135, 84, 0.25);
+}
+
+.btn-confirmar-envio:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+.btn-cancelar-modal:disabled,
+.btn-cerrar-modal:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TABLET - HASTA 1200PX
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .documentos-filtros {
+    grid-template-columns:
+      minmax(280px, 2fr)
+      minmax(160px, 1fr)
+      minmax(160px, 1fr);
+
+    align-items: end;
+  }
+
+  .documentos-filtros .documentos-busqueda {
+    grid-column: span 3;
+  }
+
+  .btn-limpiar-documentos {
+    width: 100%;
+  }
+
+
+  .historial-documento {
+    grid-template-columns:
+      100px
+      minmax(170px, 1.2fr)
+      minmax(180px, 1.4fr)
+      115px
+      110px
+      60px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET - HASTA 1024PX
+========================================================= */
+
+@media (max-width: 1024px) {
+
+  .documentos-page {
+    padding: 25px;
+  }
+
+  .documentos-header h1 {
+    font-size: 27px;
+  }
+
+  .documentos-total {
+    min-width: 110px;
+
+    padding: 13px 18px;
+  }
+
+  .documentos-total strong {
+    font-size: 25px;
+  }
+
+
+  .historial-documento {
+    grid-template-columns:
+      100px
+      1fr
+      1fr;
+  }
+
+  .historial-fecha {
+    grid-column: 1;
+  }
+
+  .historial-cliente {
+    grid-column: 2;
+  }
+
+  .historial-nombre {
+    grid-column: 3;
+  }
+
+  .historial-origen {
+    grid-column: 1;
+  }
+
+  .historial-estado {
+    grid-column: 2;
+  }
+
+  .historial-accion {
+    grid-column: 3;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVIL / TABLET PEQUEÑA - 768PX
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .documentos-page {
+    padding: 20px 15px;
+  }
+
+
+  /* -------------------------------
+     ENCABEZADO
+  -------------------------------- */
+
+  .documentos-header {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 15px;
+  }
+
+  .documentos-header h1 {
+    font-size: 25px;
+  }
+
+  .documentos-header p {
+    font-size: 14px;
+  }
+
+
+  /* -------------------------------
+     TOTAL
+  -------------------------------- */
+
+  .documentos-total {
+    width: 100%;
+
+    flex-direction: row;
+
+    justify-content: space-between;
+
+    padding: 12px 18px;
+  }
+
+  .documentos-total strong {
+    font-size: 24px;
+  }
+
+
+  /* -------------------------------
+     FILTROS
+  -------------------------------- */
+
+  .documentos-filtros {
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 12px;
+
+    padding: 15px;
+  }
+
+  .documentos-filtros .documentos-busqueda {
+    width: 100%;
+  }
+
+  .filtro-documento {
+    width: 100%;
+  }
+
+  .filtro-documento input[type="date"],
+  .filtro-documento select {
+    width: 100%;
+  }
+
+  .btn-limpiar-documentos {
+    width: 100%;
+  }
+
+
+  /* -------------------------------
+     HISTORIAL
+  -------------------------------- */
+
+  .historial-documentos {
+    border-radius: 12px;
+  }
+
+  .historial-documentos-header {
+    padding: 15px;
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 8px;
+  }
+
+  .lista-historial-documentos {
+    padding: 0;
+  }
+
+  .historial-documento {
+    display: flex;
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 10px;
+
+    padding: 15px;
+  }
+
+  .historial-fecha {
+    order: 1;
+  }
+
+  .historial-cliente {
+    order: 2;
+  }
+
+  .historial-nombre {
+    order: 3;
+  }
+
+  .historial-origen {
+    order: 4;
+  }
+
+  .historial-estado {
+    order: 5;
+  }
+
+  .historial-accion {
+    order: 6;
+
+    justify-content: flex-start;
+  }
+
+  .historial-accion .btn-ver-documento {
+    width: 100%;
+  }
+
+
+  /* -------------------------------
+     CLIENTES
+  -------------------------------- */
+
+  .cliente-documentos-card {
+    padding: 16px;
+  }
+
+  .cliente-documentos-stats {
+    width: 100%;
+  }
+
+  .cliente-stat {
+    flex: 1;
+
+    min-width: 0;
+  }
+
+  .cliente-documentos-acciones {
+    justify-content: stretch;
+  }
+
+  .cliente-documentos-acciones
+  .btn-enviar-documento {
+    width: 100%;
+  }
+
+
+  /* -------------------------------
+     MINI DOCUMENTOS
+  -------------------------------- */
+
+  .mini-documento {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .mini-documento-derecha {
+    width: 100%;
+
+    justify-content: flex-start;
+  }
+
+
+  /* -------------------------------
+     MODAL
+  -------------------------------- */
+
+  .modal-documentos {
+    padding: 15px;
+
+    align-items: flex-start;
+  }
+
+  .modal-documentos-contenido {
+    margin-top: 25px;
+
+    max-height:
+      calc(100vh - 50px);
+
+    padding: 20px;
+  }
+
+  .modal-documentos-acciones {
+    flex-direction: column;
+  }
+
+  .btn-cancelar-modal,
+  .btn-confirmar-envio {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES - 480PX
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .documentos-page {
+    padding: 15px 12px;
+  }
+
+
+  /* -------------------------------
+     VOLVER
+  -------------------------------- */
+
+  .btn-volver-documentos {
+    width: 100%;
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    font-size: 14px;
+  }
+
+
+  /* -------------------------------
+     ENCABEZADO
+  -------------------------------- */
+
+  .documentos-header h1 {
+    font-size: 22px;
+  }
+
+  .documentos-header p {
+    font-size: 13px;
+  }
+
+
+  /* -------------------------------
+     TOTAL
+  -------------------------------- */
+
+  .documentos-total {
+    padding: 11px 15px;
+  }
+
+  .documentos-total strong {
+    font-size: 22px;
+  }
+
+  .documentos-total span {
+    font-size: 13px;
+  }
+
+
+  /* -------------------------------
+     FILTROS
+  -------------------------------- */
+
+  .documentos-filtros {
+    padding: 13px;
+
+    border-radius: 12px;
+  }
+
+  .documentos-filtros
+  .documentos-busqueda input,
+  .filtro-documento input[type="date"],
+  .filtro-documento select,
+  .btn-limpiar-documentos {
+    height: 44px;
+  }
+
+  .documentos-filtros
+  .documentos-busqueda input {
+    font-size: 13px;
+  }
+
+
+  /* -------------------------------
+     RESULTADOS
+  -------------------------------- */
+
+  .documentos-resultados {
+    font-size: 13px;
+  }
+
+
+  /* -------------------------------
+     HISTORIAL
+  -------------------------------- */
+
+  .historial-documentos-header h2 {
+    font-size: 17px;
+  }
+
+  .historial-documento {
+    padding: 14px;
+  }
+
+  .historial-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+
+  /* -------------------------------
+     CLIENTE
+  -------------------------------- */
+
+  .cliente-documentos-info {
+    align-items: flex-start;
+  }
+
+  .cliente-documentos-avatar {
+    width: 44px;
+    height: 44px;
+
+    font-size: 18px;
+  }
+
+  .cliente-documentos-info h2 {
+    font-size: 16px;
+  }
+
+  .cliente-documentos-info p {
+    font-size: 12px;
+  }
+
+
+  /* -------------------------------
+     ESTADÍSTICAS
+  -------------------------------- */
+
+  .cliente-documentos-stats {
+    gap: 6px;
+  }
+
+  .cliente-stat {
+    padding: 8px 5px;
+  }
+
+  .cliente-stat strong {
+    font-size: 18px;
+  }
+
+  .cliente-stat span {
+    font-size: 10px;
+  }
+
+
+  /* -------------------------------
+     MODAL
+  -------------------------------- */
+
+  .modal-documentos {
+    padding: 10px;
+  }
+
+  .modal-documentos-contenido {
+    margin-top: 10px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+  }
+
+  .modal-documentos-header h2 {
+    font-size: 18px;
+  }
+
+  .cliente-destino strong {
+    font-size: 15px;
+  }
+
+  .archivo-seleccionado {
+    font-size: 12px;
+  }
+
+}

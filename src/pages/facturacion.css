@@ -1,0 +1,927 @@
+
+/* =========================================================
+   FACTURACIÓN
+   ========================================================= */
+
+.facturacion-page {
+  min-height: 100vh;
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  background: #f5f1eb;
+
+  color: #2f241f;
+}
+
+
+/* =========================================================
+   VOLVER
+   ========================================================= */
+
+.btn-volver-facturacion {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 16px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #4b2e1f;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-volver-facturacion:hover {
+  background: #362117;
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.facturacion-header {
+  margin-top: 25px;
+
+  margin-bottom: 25px;
+}
+
+.facturacion-header h1 {
+  margin: 0 0 6px;
+
+  color: #4b2e1f;
+
+  font-size: 32px;
+}
+
+.facturacion-header p {
+  margin: 0;
+
+  color: #756860;
+
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   RESUMEN
+   ========================================================= */
+
+.facturacion-resumen {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 18px;
+
+  margin-bottom: 25px;
+}
+
+.facturacion-card {
+  padding: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5ddd5;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.facturacion-card span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #756860;
+
+  font-size: 13px;
+}
+
+.facturacion-card strong {
+  display: block;
+
+  color: #4b2e1f;
+
+  font-size: 24px;
+}
+
+
+/* =========================================================
+   BUSCADOR
+   ========================================================= */
+
+.facturacion-buscador {
+  margin-bottom: 20px;
+}
+
+.facturacion-buscador input {
+  width: 100%;
+
+  max-width: 600px;
+
+  box-sizing: border-box;
+
+  padding: 14px 18px;
+
+  border: 1px solid #d8cec5;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  color: #2f241f;
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+.facturacion-buscador input:focus {
+  border-color: #8b5e3c;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 94, 60, 0.12);
+}
+
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.facturacion-contenido {
+  display: grid;
+
+  grid-template-columns:
+    300px 1fr;
+
+  gap: 20px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   LISTA CLIENTES
+   ========================================================= */
+
+.lista-clientes {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e5ddd5;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.lista-clientes-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 17px 18px;
+
+  border-bottom: 1px solid #eee7e1;
+}
+
+.lista-clientes-header h2 {
+  margin: 0;
+
+  color: #4b2e1f;
+
+  font-size: 17px;
+}
+
+.lista-clientes-header span {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 28px;
+
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: #f1e8df;
+
+  color: #4b2e1f;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   CLIENTE
+   ========================================================= */
+
+.cliente-item {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  padding: 15px 16px;
+
+  border: none;
+
+  border-bottom: 1px solid #eee7e1;
+
+  background: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease;
+}
+
+.cliente-item:hover {
+  background: #faf7f4;
+}
+
+.cliente-item-activo {
+  background: #f3ebe3;
+}
+
+.cliente-item > div {
+  min-width: 0;
+}
+
+.cliente-item strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #3b2a22;
+
+  font-size: 14px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.cliente-item small {
+  display: block;
+
+  margin-top: 4px;
+
+  overflow: hidden;
+
+  color: #8b8078;
+
+  font-size: 11px;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.cliente-saldo {
+  flex-shrink: 0;
+
+  color: #a73530;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.cliente-al-dia {
+  flex-shrink: 0;
+
+  color: #28733d;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   SIN CLIENTES
+   ========================================================= */
+
+.sin-clientes {
+  padding: 30px 18px;
+
+  color: #81766e;
+
+  font-size: 13px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DETALLE
+   ========================================================= */
+
+.facturacion-detalle {
+  min-width: 0;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5ddd5;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+/* =========================================================
+   DETALLE VACÍO
+   ========================================================= */
+
+.detalle-vacio {
+  padding: 70px 25px;
+
+  text-align: center;
+}
+
+.detalle-vacio > div {
+  margin-bottom: 15px;
+
+  font-size: 42px;
+}
+
+.detalle-vacio h2 {
+  margin: 0 0 8px;
+
+  color: #4b2e1f;
+
+  font-size: 21px;
+}
+
+.detalle-vacio p {
+  max-width: 450px;
+
+  margin: auto;
+
+  color: #81766e;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   CABECERA CLIENTE
+   ========================================================= */
+
+.cliente-detalle-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+}
+
+.cliente-detalle-header h2 {
+  margin: 0 0 5px;
+
+  color: #4b2e1f;
+
+  font-size: 23px;
+}
+
+.cliente-detalle-header p {
+  margin: 0 0 4px;
+
+  color: #756860;
+
+  font-size: 13px;
+}
+
+.cliente-detalle-header small {
+  color: #8b8078;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   BOTÓN AGREGAR
+   ========================================================= */
+
+.btn-agregar-concepto {
+  padding: 10px 15px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #8b5e3c;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.btn-agregar-concepto:hover {
+  background: #6f482d;
+}
+
+
+/* =========================================================
+   RESUMEN CLIENTE
+   ========================================================= */
+
+.cliente-resumen {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+.cliente-resumen > div {
+  padding: 15px;
+
+  border-radius: 11px;
+
+  background: #f8f5f2;
+
+  border: 1px solid #eee7e1;
+}
+
+.cliente-resumen span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #81766e;
+
+  font-size: 12px;
+}
+
+.cliente-resumen strong {
+  display: block;
+
+  color: #4b2e1f;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.formulario-facturacion {
+  margin-bottom: 22px;
+
+  padding: 20px;
+
+  border: 1px solid #e5ddd5;
+
+  border-radius: 12px;
+
+  background: #faf8f5;
+}
+
+.formulario-facturacion h3 {
+  margin: 0 0 18px;
+
+  color: #4b2e1f;
+
+  font-size: 17px;
+}
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns:
+    2fr 1fr 1fr 1fr;
+
+  gap: 14px;
+}
+
+.form-grid label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #5e5149;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.form-grid input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 11px 12px;
+
+  border: 1px solid #d8cec5;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #2f241f;
+
+  outline: none;
+}
+
+.form-grid input:focus {
+  border-color: #8b5e3c;
+}
+
+
+/* =========================================================
+   BOTONES FORMULARIO
+   ========================================================= */
+
+.formulario-botones {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 18px;
+}
+
+.btn-cancelar,
+.btn-guardar {
+  padding: 10px 16px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background: #e8e1db;
+
+  color: #4b3d35;
+}
+
+.btn-guardar {
+  background: #4b2e1f;
+
+  color: #ffffff;
+}
+
+.btn-guardar:hover {
+  background: #362117;
+}
+
+.btn-guardar:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.tabla-facturacion {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border: 1px solid #e5ddd5;
+
+  border-radius: 11px;
+}
+
+.tabla-facturacion table {
+  width: 100%;
+
+  min-width: 700px;
+
+  border-collapse: collapse;
+}
+
+.tabla-facturacion thead {
+  background: #4b2e1f;
+}
+
+.tabla-facturacion th {
+  padding: 13px;
+
+  color: #ffffff;
+
+  font-size: 12px;
+
+  text-align: left;
+
+  white-space: nowrap;
+}
+
+.tabla-facturacion td {
+  padding: 13px;
+
+  border-bottom: 1px solid #eee7e1;
+
+  color: #51443c;
+
+  font-size: 13px;
+}
+
+.tabla-facturacion tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabla-facturacion tbody tr:hover {
+  background: #faf7f4;
+}
+
+.tabla-facturacion td strong {
+  color: #3b2a22;
+}
+
+
+/* =========================================================
+   ESTADOS
+   ========================================================= */
+
+.estado-facturacion {
+  display: inline-flex;
+
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: capitalize;
+}
+
+.estado-pagado {
+  background: #e4f5e9;
+
+  color: #28733d;
+}
+
+.estado-abono {
+  background: #e7eefb;
+
+  color: #315a98;
+}
+
+.estado-pendiente {
+  background: #fff4d6;
+
+  color: #8a6500;
+}
+
+
+/* =========================================================
+   SIN REGISTROS
+   ========================================================= */
+
+.sin-registros {
+  padding: 45px 20px;
+
+  text-align: center;
+}
+
+.sin-registros h3 {
+  margin: 0 0 8px;
+
+  color: #4b2e1f;
+
+  font-size: 18px;
+}
+
+.sin-registros p {
+  margin: 0;
+
+  color: #81766e;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   CARGANDO
+   ========================================================= */
+
+.facturacion-cargando {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 300px;
+
+  color: #756860;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .facturacion-resumen {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .facturacion-contenido {
+    grid-template-columns:
+      250px 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .facturacion-page {
+    padding: 16px;
+  }
+
+
+  .btn-volver-facturacion {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+
+  .facturacion-header {
+    margin-top: 20px;
+  }
+
+
+  .facturacion-header h1 {
+    font-size: 26px;
+  }
+
+
+  .facturacion-resumen {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .facturacion-buscador input {
+    max-width: none;
+  }
+
+
+  .facturacion-contenido {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .lista-clientes {
+    max-height: 350px;
+
+    overflow-y: auto;
+  }
+
+
+  .facturacion-detalle {
+    padding: 16px;
+  }
+
+
+  .cliente-detalle-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+
+  .btn-agregar-concepto {
+    width: 100%;
+  }
+
+
+  .cliente-resumen {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .form-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .formulario-botones {
+    flex-direction: column;
+  }
+
+
+  .btn-cancelar,
+  .btn-guardar {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVIL PEQUEÑO
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  .facturacion-page {
+    padding: 12px;
+  }
+
+
+  .facturacion-card strong {
+    font-size: 21px;
+  }
+
+
+  .cliente-detalle-header h2 {
+    font-size: 21px;
+  }
+
+}
+

@@ -169,7 +169,19 @@ function MisSolicitudes() {
       <div className="solicitudes-card">
 
         <h1>Mis Solicitudes</h1>
+ <button
 
+          className="btn-volver"
+
+          onClick={() =>
+            navigate("/cliente")
+          }
+
+        >
+
+          Volver
+
+        </button>
         <h2>Nueva Solicitud</h2>
 
         <div className="campo">
@@ -358,19 +370,7 @@ function MisSolicitudes() {
 
         </table>
 
-        <button
-
-          className="btn-volver"
-
-          onClick={() =>
-            navigate("/cliente")
-          }
-
-        >
-
-          Volver
-
-        </button>
+       
 
       </div>
 

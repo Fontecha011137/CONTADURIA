@@ -104,7 +104,7 @@ useEffect(() => {
 >
   📅 Mis Citas
 </li>
-      <li>📊 Declaraciones</li>
+      
       <li
   onClick={() => navigate("/subir-documento")}
   style={{ cursor: "pointer" }}
