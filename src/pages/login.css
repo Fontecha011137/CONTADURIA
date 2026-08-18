@@ -183,6 +183,43 @@
   padding: 10px 20px;
   cursor: pointer;
 }
+/* =========================================================
+   BOTÓN VOLVER AL INICIO
+========================================================= */
+
+.btn-volver-home {
+  display: inline-flex;
+  align-items: center;
+
+  background: transparent;
+  color: #059669;
+
+  border: 1px solid #059669;
+  border-radius: 7px;
+
+  padding: 8px 14px;
+
+  margin-bottom: 20px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.btn-volver-home:hover {
+  background: #059669;
+  color: white;
+
+  transform: translateY(-1px);
+}
+
 /* ========================= */
 /* TABLETS */
 /* ========================= */

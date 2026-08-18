@@ -93,7 +93,7 @@ useEffect(() => {
 
   <nav>
     <ul>
-      <li>🏠 Inicio</li>
+      
     
       <li onClick={() => navigate("/mis-documentos")}>
   📄 Mis Documentos

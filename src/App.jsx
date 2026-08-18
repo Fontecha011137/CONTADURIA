@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home";
@@ -21,6 +20,8 @@ import Documentos from "./pages/Documentos";
 import Facturacion from "./pages/Facturacion";
 import Citas from "./pages/Citas";
 import Reportes from "./pages/Reportes";
+
+import Solicitudes from "./pages/Solicitudes";
 
 
 function App() {
@@ -86,20 +87,38 @@ function App() {
           element={<Documentos />}
         />
 
-        <Route
-        path="/facturacion"
-        element={<Facturacion />}
-        />
+
+        {/* 💰 FACTURACIÓN */}
 
         <Route
-        path="/citas"
-        element={<Citas />}
+          path="/facturacion"
+          element={<Facturacion />}
         />
 
+
+        {/* 📅 CITAS */}
+
         <Route
-        path="/reportes"
-        element={<Reportes />}
+          path="/citas"
+          element={<Citas />}
         />
+
+
+        {/* 📈 REPORTES */}
+
+        <Route
+          path="/reportes"
+          element={<Reportes />}
+        />
+
+
+        {/* 📋 SOLICITUDES DE ASESORÍA */}
+
+        <Route
+          path="/solicitudes"
+          element={<Solicitudes />}
+        />
+
 
         {/* 📄 MIS DOCUMENTOS */}
 
@@ -150,4 +169,3 @@ function App() {
 
 
 export default App;
-

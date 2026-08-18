@@ -1,0 +1,776 @@
+/* =========================================================
+   PÁGINA SOLICITUDES
+========================================================= */
+
+.solicitudes-page {
+  min-height: 100vh;
+  display: flex;
+  background: #f4f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.solicitudes-page .sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #198754;
+  color: white;
+  padding: 25px 18px;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+
+.solicitudes-page .sidebar h2 {
+  margin: 0 0 35px;
+  text-align: center;
+  font-size: 22px;
+}
+
+
+.solicitudes-page .sidebar nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+.solicitudes-page .sidebar nav li {
+  padding: 14px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.2s ease;
+}
+
+
+.solicitudes-page .sidebar nav li:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+.solicitudes-page .sidebar nav li.menu-activo {
+  background: rgba(255, 255, 255, 0.22);
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.solicitudes-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.solicitudes-header {
+  background: white;
+  border-radius: 14px;
+  padding: 24px 28px;
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+
+.solicitudes-header h1 {
+  margin: 0 0 7px;
+  color: #212529;
+  font-size: 28px;
+}
+
+
+.solicitudes-header p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 15px;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER
+========================================================= */
+
+.btn-volver-solicitudes {
+  border: none;
+  background: #198754;
+  color: white;
+
+  padding: 11px 18px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease,
+              transform 0.2s ease;
+}
+
+
+.btn-volver-solicitudes:hover {
+  background: #157347;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESUMEN
+========================================================= */
+
+.solicitudes-resumen {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+
+.resumen-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+
+  border-left: 5px solid #198754;
+}
+
+
+.resumen-card span {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+.resumen-card strong {
+  font-size: 30px;
+  color: #212529;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.solicitudes-filtros {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+
+.solicitudes-filtros > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.solicitudes-filtros label {
+  font-weight: bold;
+  color: #343a40;
+  font-size: 15px;
+}
+
+
+.solicitudes-filtros select {
+  min-width: 210px;
+  padding: 11px 14px;
+
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+
+  background: white;
+  color: #212529;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  outline: none;
+}
+
+
+.solicitudes-filtros select:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.12);
+}
+
+
+/* =========================================================
+   BOTÓN ACTUALIZAR
+========================================================= */
+
+.btn-recargar {
+  border: 1px solid #198754;
+  background: white;
+  color: #198754;
+
+  padding: 10px 17px;
+  border-radius: 8px;
+
+  font-weight: bold;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+
+.btn-recargar:hover {
+  background: #198754;
+  color: white;
+}
+
+
+/* =========================================================
+   LISTA DE SOLICITUDES
+========================================================= */
+
+.solicitudes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* =========================================================
+   TARJETA SOLICITUD
+========================================================= */
+
+.solicitud-card {
+  background: white;
+  border-radius: 14px;
+  padding: 24px;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+
+.solicitud-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+}
+
+
+/* =========================================================
+   CABECERA SOLICITUD
+========================================================= */
+
+.solicitud-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+
+.solicitud-card-header h2 {
+  margin: 0 0 8px;
+  color: #212529;
+  font-size: 20px;
+}
+
+
+.solicitud-tipo {
+  display: inline-block;
+
+  background: #e9f7ef;
+  color: #198754;
+
+  padding: 6px 10px;
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   ESTADOS
+========================================================= */
+
+.solicitud-estado {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 100px;
+
+  padding: 7px 12px;
+
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  text-transform: capitalize;
+}
+
+
+.estado-pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+
+.estado-atendida {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+
+.estado-cancelada {
+  background: #f8d7da;
+  color: #842029;
+}
+
+
+/* =========================================================
+   INFORMACIÓN
+========================================================= */
+
+.solicitud-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+
+  padding: 20px 0;
+}
+
+
+.solicitud-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+
+.solicitud-info strong {
+  color: #495057;
+  font-size: 13px;
+}
+
+
+.solicitud-info span {
+  color: #212529;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   TEXTO DE SOLICITUD
+========================================================= */
+
+.solicitud-texto {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 17px;
+
+  margin-bottom: 20px;
+}
+
+
+.solicitud-texto strong {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #343a40;
+  font-size: 14px;
+}
+
+
+.solicitud-texto p {
+  margin: 0;
+
+  color: #495057;
+
+  font-size: 15px;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+}
+
+
+/* =========================================================
+   ACCIONES
+========================================================= */
+
+.solicitud-acciones {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  padding-top: 17px;
+  border-top: 1px solid #e9ecef;
+}
+
+
+.solicitud-acciones > span {
+  font-size: 14px;
+  font-weight: bold;
+  color: #495057;
+
+  margin-right: 5px;
+}
+
+
+/* =========================================================
+   BOTONES DE ESTADO
+========================================================= */
+
+.btn-estado {
+  border: none;
+
+  padding: 9px 13px;
+
+  border-radius: 7px;
+
+  font-size: 13px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+
+.btn-estado:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+
+.btn-estado.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+
+.btn-estado.pendiente:hover:not(:disabled) {
+  background: #ffecb5;
+}
+
+
+.btn-estado.atendida {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+
+
+.btn-estado.atendida:hover:not(:disabled) {
+  background: #badbcc;
+}
+
+
+.btn-estado.cancelada {
+  background: #f8d7da;
+  color: #842029;
+}
+
+
+.btn-estado.cancelada:hover:not(:disabled) {
+  background: #f1b0b7;
+}
+
+
+/* =========================================================
+   CARGANDO
+========================================================= */
+
+.solicitudes-mensaje {
+  background: white;
+  border-radius: 14px;
+
+  padding: 50px 20px;
+
+  text-align: center;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+.spinner {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+
+.solicitudes-mensaje p {
+  margin: 0;
+  color: #6c757d;
+}
+
+
+/* =========================================================
+   SIN SOLICITUDES
+========================================================= */
+
+.solicitudes-vacio {
+  background: white;
+  border-radius: 14px;
+
+  padding: 60px 25px;
+
+  text-align: center;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+
+.solicitudes-vacio > div {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+
+.solicitudes-vacio h2 {
+  margin: 0 0 8px;
+  color: #343a40;
+}
+
+
+.solicitudes-vacio p {
+  margin: 0;
+  color: #6c757d;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .solicitudes-page .sidebar {
+    width: 210px;
+  }
+
+
+  .solicitudes-content {
+    margin-left: 210px;
+    width: calc(100% - 210px);
+    padding: 22px;
+  }
+
+
+  .solicitudes-resumen {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+
+  .solicitud-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .solicitudes-page {
+    display: block;
+  }
+
+
+  .solicitudes-page .sidebar {
+    position: relative;
+
+    width: 100%;
+    min-height: auto;
+
+    padding: 15px;
+  }
+
+
+  .solicitudes-page .sidebar h2 {
+    margin: 0 0 15px;
+  }
+
+
+  .solicitudes-page .sidebar nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+
+  .solicitudes-page .sidebar nav li {
+    margin: 0;
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+
+
+  .solicitudes-content {
+    margin-left: 0;
+    width: 100%;
+    padding: 15px;
+  }
+
+
+  .solicitudes-header {
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 20px;
+  }
+
+
+  .solicitudes-header h1 {
+    font-size: 23px;
+  }
+
+
+  .btn-volver-solicitudes {
+    width: 100%;
+  }
+
+
+  .solicitudes-resumen {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+
+  .resumen-card {
+    padding: 15px;
+  }
+
+
+  .resumen-card strong {
+    font-size: 25px;
+  }
+
+
+  .solicitudes-filtros {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .solicitudes-filtros > div {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+
+  .solicitudes-filtros select {
+    width: 100%;
+  }
+
+
+  .btn-recargar {
+    width: 100%;
+  }
+
+
+  .solicitud-card {
+    padding: 18px;
+  }
+
+
+  .solicitud-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+  .solicitud-info {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+
+  .solicitud-acciones {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .solicitud-acciones > span {
+    margin-bottom: 3px;
+  }
+
+
+  .btn-estado {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .solicitudes-content {
+    padding: 10px;
+  }
+
+
+  .solicitudes-resumen {
+    grid-template-columns: 1fr;
+  }
+
+
+  .solicitud-card {
+    padding: 15px;
+  }
+
+
+  .solicitud-card-header h2 {
+    font-size: 18px;
+  }
+
+}

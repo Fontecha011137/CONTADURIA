@@ -271,3 +271,329 @@
     padding: 20px;
   }
 }
+
+/* =========================================================
+   MODAL SOLICITAR ASESORÍA
+========================================================= */
+
+.asesoria-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0, 0, 0, 0.55);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  z-index: 2000;
+
+  overflow-y: auto;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.asesoria-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 520px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+  background: #ffffff;
+
+  padding: 35px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR
+========================================================= */
+
+.asesoria-cerrar {
+  position: absolute;
+
+  top: 12px;
+  right: 15px;
+
+  width: 35px;
+  height: 35px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #64748b;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.asesoria-cerrar:hover {
+  background: #f1f5f9;
+
+  color: #dc2626;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.asesoria-modal h2 {
+  margin-top: 0;
+
+  margin-bottom: 8px;
+
+  color: #059669;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN
+========================================================= */
+
+.asesoria-modal > p {
+  margin-bottom: 25px;
+
+  color: #64748b;
+
+  text-align: center;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   GRUPOS
+========================================================= */
+
+.asesoria-group {
+  display: flex;
+
+  flex-direction: column;
+
+  margin-bottom: 16px;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.asesoria-group label {
+  margin-bottom: 7px;
+
+  color: #334155;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.asesoria-group input,
+.asesoria-group select,
+.asesoria-group textarea {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 8px;
+
+  font-size: 1rem;
+
+  font-family: inherit;
+
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition: 0.25s;
+}
+
+
+.asesoria-group textarea {
+  resize: vertical;
+
+  min-height: 100px;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.asesoria-group input:focus,
+.asesoria-group select:focus,
+.asesoria-group textarea:focus {
+  border-color: #059669;
+
+  box-shadow:
+    0 0 0 3px rgba(5, 150, 105, 0.12);
+}
+
+
+/* =========================================================
+   MENSAJE
+========================================================= */
+
+.asesoria-mensaje {
+  margin: 15px 0;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  background: #ecfdf5;
+
+  color: #047857;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.asesoria-buttons {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+
+.asesoria-buttons button {
+  flex: 1;
+
+  padding: 12px;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+
+/* =========================================================
+   CANCELAR
+========================================================= */
+
+.asesoria-btn-cancelar {
+  background: #ffffff;
+
+  color: #64748b;
+
+  border: 1px solid #cbd5e1;
+}
+
+.asesoria-btn-cancelar:hover {
+  background: #f1f5f9;
+}
+
+
+/* =========================================================
+   ENVIAR
+========================================================= */
+
+.asesoria-btn-enviar {
+  background: #059669;
+
+  color: #ffffff;
+
+  border: 1px solid #059669;
+}
+
+.asesoria-btn-enviar:hover {
+  background: #047857;
+
+  border-color: #047857;
+}
+
+
+/* =========================================================
+   BOTONES DESHABILITADOS
+========================================================= */
+
+.asesoria-buttons button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .asesoria-overlay {
+    padding: 12px;
+  }
+
+  .asesoria-modal {
+    padding: 30px 20px 20px;
+
+    border-radius: 14px;
+
+    max-height: 94vh;
+  }
+
+  .asesoria-modal h2 {
+    font-size: 1.5rem;
+  }
+
+  .asesoria-buttons {
+    flex-direction: column;
+  }
+
+  .asesoria-buttons button {
+    width: 100%;
+  }
+
+}

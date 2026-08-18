@@ -1,7 +1,4 @@
-import "./clienteDashboard.css";
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import "./contadorDashboard.css";
 
 import {
   signOut,
@@ -10,7 +7,9 @@ import {
 
 import {
   collection,
-  getDocs
+  onSnapshot,
+  query,
+  where
 } from "firebase/firestore";
 
 import {
@@ -18,133 +17,33 @@ import {
   db
 } from "../firebaseConfig";
 
+import {
+  useNavigate
+} from "react-router-dom";
 
-function ClienteDashboard() {
+import {
+  useEffect,
+  useState
+} from "react";
+
+
+function ContadorDashboard() {
 
   const navigate = useNavigate();
+
 
   // =========================================
   // ESTADOS
   // =========================================
 
-  const [documentos, setDocumentos] = useState([]);
+  const [totalClientes, setTotalClientes] =
+    useState(0);
 
-  const [servicios] = useState([
-    {
-      id: 1,
-      servicio: "Declaración de Renta",
-      estado: "En Proceso",
-      fecha: "15/08/2026"
-    },
-    {
-      id: 2,
-      servicio: "Facturación Electrónica",
-      estado: "Finalizado",
-      fecha: "10/08/2026"
-    },
-    {
-      id: 3,
-      servicio: "Asesoría Tributaria",
-      estado: "Pendiente",
-      fecha: "20/08/2026"
-    }
-  ]);
+  const [totalFacturas, setTotalFacturas] =
+    useState(0);
 
-
-  // =========================================
-  // CARGAR DOCUMENTOS
-  // =========================================
-
-  const cargarDocumentos = async (userId) => {
-
-    try {
-
-      console.log("UID:", userId);
-
-      const snapshot = await getDocs(
-        collection(
-          db,
-          "usuarios",
-          userId,
-          "documentos"
-        )
-      );
-
-
-      console.log(
-        "Documentos encontrados:",
-        snapshot.size
-      );
-
-
-      const docs = snapshot.docs.map(
-        (documento) => ({
-
-          id: documento.id,
-          ...documento.data()
-
-        })
-      );
-
-
-      console.log(
-        "Datos documentos:",
-        docs
-      );
-
-
-      setDocumentos(docs);
-
-    } catch (error) {
-
-      console.error(
-        "Error cargando documentos:",
-        error
-      );
-
-    }
-
-  };
-
-
-  // =========================================
-  // CERRAR SESIÓN
-  // =========================================
-
-  const cerrarSesion = async () => {
-
-    try {
-
-      await signOut(auth);
-
-      console.log(
-        "Sesión cerrada correctamente"
-      );
-
-
-      navigate(
-        "/login",
-        {
-          replace: true
-        }
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Error al cerrar sesión:",
-        error
-      );
-
-
-      alert(
-        error?.message ||
-        "No fue posible cerrar la sesión. Inténtalo nuevamente."
-      );
-
-    }
-
-  };
+  const [totalCitasPendientes, setTotalCitasPendientes] =
+    useState(0);
 
 
   // =========================================
@@ -167,20 +66,7 @@ function ClienteDashboard() {
               }
             );
 
-            return;
-
           }
-
-
-          console.log(
-            "UID REAL:",
-            user.uid
-          );
-
-
-          cargarDocumentos(
-            user.uid
-          );
 
         }
       );
@@ -192,19 +78,356 @@ function ClienteDashboard() {
 
 
   // =========================================
-  // ÚLTIMOS 5 DOCUMENTOS
+  // CLIENTES EN TIEMPO REAL
   // =========================================
 
-  const ultimosDocumentos =
-    documentos.slice(0, 5);
+  useEffect(() => {
+
+    const clientesQuery =
+      query(
+        collection(
+          db,
+          "usuarios"
+        ),
+        where(
+          "rol",
+          "==",
+          "cliente"
+        )
+      );
+
+
+    const unsubscribe =
+      onSnapshot(
+
+        clientesQuery,
+
+        (snapshot) => {
+
+          setTotalClientes(
+            snapshot.size
+          );
+
+        },
+
+        (error) => {
+
+          console.error(
+            "Error al cargar clientes:",
+            error
+          );
+
+        }
+
+      );
+
+
+    return () => unsubscribe();
+
+  }, []);
 
 
   // =========================================
-  // ÚLTIMOS 5 SERVICIOS
+  // FACTURAS EN TIEMPO REAL
   // =========================================
 
-  const ultimosServicios =
-    servicios.slice(0, 5);
+  useEffect(() => {
+
+    const facturacionRef =
+      collection(
+        db,
+        "facturacion"
+      );
+
+
+    const unsubscribe =
+      onSnapshot(
+
+        facturacionRef,
+
+        (snapshot) => {
+
+          setTotalFacturas(
+            snapshot.size
+          );
+
+        },
+
+        (error) => {
+
+          console.error(
+            "Error al cargar facturación:",
+            error
+          );
+
+        }
+
+      );
+
+
+    return () => unsubscribe();
+
+  }, []);
+
+
+  // =========================================
+  // CITAS PENDIENTES EN TIEMPO REAL
+  // =========================================
+
+  useEffect(() => {
+
+    let unsubscribeUsuarios = null;
+
+    let unsubscribeCitas = [];
+
+
+    const citasPorCliente = {};
+
+
+    // =======================================
+    // BUSCAR CLIENTES
+    // =======================================
+
+    const usuariosQuery =
+      query(
+        collection(
+          db,
+          "usuarios"
+        ),
+        where(
+          "rol",
+          "==",
+          "cliente"
+        )
+      );
+
+
+    // =======================================
+    // ESCUCHAR CLIENTES
+    // =======================================
+
+    unsubscribeUsuarios =
+      onSnapshot(
+
+        usuariosQuery,
+
+        (usuariosSnapshot) => {
+
+          // =================================
+          // ELIMINAR LISTENERS ANTERIORES
+          // =================================
+
+          unsubscribeCitas.forEach(
+            (unsubscribe) =>
+              unsubscribe()
+          );
+
+
+          unsubscribeCitas = [];
+
+
+          // =================================
+          // LIMPIAR CONTADORES
+          // =================================
+
+          Object.keys(
+            citasPorCliente
+          ).forEach(
+            (uid) => {
+
+              delete citasPorCliente[uid];
+
+            }
+          );
+
+
+          // =================================
+          // SI NO HAY CLIENTES
+          // =================================
+
+          if (
+            usuariosSnapshot.empty
+          ) {
+
+            setTotalCitasPendientes(0);
+
+            return;
+
+          }
+
+
+          // =================================
+          // BUSCAR CITAS DE CADA CLIENTE
+          // =================================
+
+          usuariosSnapshot.docs.forEach(
+            (usuarioDoc) => {
+
+              const uid =
+                usuarioDoc.id;
+
+
+              const citasRef =
+                collection(
+                  db,
+                  "usuarios",
+                  uid,
+                  "citas"
+                );
+
+
+              // =================================
+              // ESCUCHAR CITAS
+              // =================================
+
+              const unsubscribeCitasCliente =
+                onSnapshot(
+
+                  citasRef,
+
+                  (citasSnapshot) => {
+
+                    const cantidadPendientes =
+                      citasSnapshot.docs.filter(
+                        (citaDoc) => {
+
+                          const datos =
+                            citaDoc.data();
+
+
+                          return (
+                            datos.estado
+                              ?.trim() ===
+                            "Pendiente"
+                          );
+
+                        }
+                      ).length;
+
+
+                    // =========================
+                    // GUARDAR POR CLIENTE
+                    // =========================
+
+                    citasPorCliente[uid] =
+                      cantidadPendientes;
+
+
+                    // =========================
+                    // SUMAR
+                    // =========================
+
+                    const total =
+                      Object.values(
+                        citasPorCliente
+                      ).reduce(
+                        (
+                          suma,
+                          cantidad
+                        ) =>
+                          suma + cantidad,
+                        0
+                      );
+
+
+                    setTotalCitasPendientes(
+                      total
+                    );
+
+                  },
+
+                  (error) => {
+
+                    console.error(
+                      `Error cargando citas del cliente ${uid}:`,
+                      error
+                    );
+
+                  }
+
+                );
+
+
+              unsubscribeCitas.push(
+                unsubscribeCitasCliente
+              );
+
+            }
+          );
+
+        },
+
+        (error) => {
+
+          console.error(
+            "Error cargando clientes para citas:",
+            error
+          );
+
+
+          setTotalCitasPendientes(0);
+
+        }
+
+      );
+
+
+    // =======================================
+    // LIMPIEZA
+    // =======================================
+
+    return () => {
+
+      if (
+        unsubscribeUsuarios
+      ) {
+
+        unsubscribeUsuarios();
+
+      }
+
+
+      unsubscribeCitas.forEach(
+        (unsubscribe) =>
+          unsubscribe()
+      );
+
+    };
+
+  }, []);
+
+
+  // =========================================
+  // CERRAR SESIÓN
+  // =========================================
+
+  const handleLogout =
+    async () => {
+
+      try {
+
+        await signOut(
+          auth
+        );
+
+
+        navigate(
+          "/login",
+          {
+            replace: true
+          }
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Error al cerrar sesión:",
+          error
+        );
+
+      }
+
+    };
 
 
   // =========================================
@@ -218,7 +441,7 @@ function ClienteDashboard() {
 
       {/* =====================================
           SIDEBAR
-      ===================================== */}
+      ====================================== */}
 
       <aside className="sidebar">
 
@@ -231,56 +454,75 @@ function ClienteDashboard() {
 
           <ul>
 
+            <li
+              onClick={() =>
+                navigate("/contador")
+              }
+            >
+              📊 Dashboard
+            </li>
+
+
+            <li
+              onClick={() =>
+                navigate("/clientes")
+              }
+            >
+              👥 Clientes
+            </li>
+
+
+            <li
+              onClick={() =>
+                navigate("/documentos")
+              }
+            >
+              📄 Documentos
+            </li>
+
+
+            <li
+              onClick={() =>
+                navigate("/facturacion")
+              }
+            >
+              💰 Facturación
+            </li>
+
+
+            <li
+              onClick={() =>
+                navigate("/citas")
+              }
+            >
+              📅 Citas
+            </li>
+
+
+            {/* =================================
+                SOLICITUDES
+            ================================== */}
+
+            <li
+              onClick={() =>
+                navigate("/solicitudes")
+              }
+            >
+              📋 Solicitudes
+            </li>
+
+
+            <li
+              onClick={() =>
+                navigate("/reportes")
+              }
+            >
+              📈 Reportes
+            </li>
+
+
             <li>
-              🏠 Inicio
-            </li>
-
-
-            <li
-              onClick={() =>
-                navigate("/mis-documentos")
-              }
-              style={{
-                cursor: "pointer"
-              }}
-            >
-              📄 Mis Documentos
-            </li>
-
-
-            <li
-              onClick={() =>
-                navigate("/mis-citas")
-              }
-              style={{
-                cursor: "pointer"
-              }}
-            >
-              📅 Mis Citas
-            </li>
-
-
-            <li
-              onClick={() =>
-                navigate("/subir-documento")
-              }
-              style={{
-                cursor: "pointer"
-              }}
-            >
-              📤 Subir Documentos
-            </li>
-
-
-            <li
-              onClick={() =>
-                navigate("/mi-perfil")
-              }
-              style={{
-                cursor: "pointer"
-              }}
-            >
-              👤 Mi Perfil
+              ⚙️ Configuración
             </li>
 
           </ul>
@@ -292,7 +534,7 @@ function ClienteDashboard() {
 
       {/* =====================================
           CONTENIDO
-      ===================================== */}
+      ====================================== */}
 
       <main className="dashboard-content">
 
@@ -304,12 +546,12 @@ function ClienteDashboard() {
         <header className="dashboard-header">
 
           <h1>
-            Bienvenido, Cliente
+            Panel del Contador
           </h1>
 
 
           <button
-            onClick={cerrarSesion}
+            onClick={handleLogout}
           >
             Cerrar Sesión
           </button>
@@ -324,72 +566,240 @@ function ClienteDashboard() {
         <section className="cards">
 
 
-          {/* DOCUMENTOS */}
+          {/* =================================
+              CLIENTES
+          ================================== */}
 
           <div
-            className="card clickable"
+            className="card card-clickable"
+
             onClick={() =>
-              navigate("/mis-documentos")
+              navigate("/clientes")
             }
+
+            role="button"
+
+            tabIndex="0"
+
+            onKeyDown={(e) => {
+
+              if (
+                e.key === "Enter" ||
+                e.key === " "
+              ) {
+
+                navigate(
+                  "/clientes"
+                );
+
+              }
+
+            }}
           >
 
             <h3>
-              Documentos
+              Clientes
             </h3>
 
+
             <p>
-              {documentos.length}
+              {totalClientes}
             </p>
 
-            <span>
-              Ver documentos →
+
+            <span className="card-link">
+              Ver clientes →
             </span>
 
           </div>
 
 
-          {/* CITAS */}
+          {/* =================================
+              CITAS PENDIENTES
+          ================================== */}
 
           <div
-            className="card clickable"
+            className="card card-clickable"
+
             onClick={() =>
-              navigate("/mis-citas")
+              navigate("/citas")
             }
+
+            role="button"
+
+            tabIndex="0"
+
+            onKeyDown={(e) => {
+
+              if (
+                e.key === "Enter" ||
+                e.key === " "
+              ) {
+
+                navigate(
+                  "/citas"
+                );
+
+              }
+
+            }}
           >
 
             <h3>
-              Citas Programadas
+              Citas Pendientes
             </h3>
 
+
             <p>
-              Ver
+              {totalCitasPendientes}
             </p>
 
-            <span>
+
+            <span className="card-link">
               Ver citas →
             </span>
 
           </div>
 
 
-          {/* SOLICITUDES */}
+          {/* =================================
+              DOCUMENTOS
+          ================================== */}
 
           <div
-            className="card clickable"
+            className="card card-clickable"
+
             onClick={() =>
-              navigate("/mis-solicitudes")
+              navigate("/documentos")
             }
+
+            role="button"
+
+            tabIndex="0"
+
+            onKeyDown={(e) => {
+
+              if (
+                e.key === "Enter" ||
+                e.key === " "
+              ) {
+
+                navigate(
+                  "/documentos"
+                );
+
+              }
+
+            }}
+          >
+
+            <h3>
+              Documentos
+            </h3>
+
+
+            <p>
+              0
+            </p>
+
+
+            <span className="card-link">
+              Ver documentos →
+            </span>
+
+          </div>
+
+
+          {/* =================================
+              FACTURAS
+          ================================== */}
+
+          <div
+            className="card card-clickable"
+
+            onClick={() =>
+              navigate("/facturacion")
+            }
+
+            role="button"
+
+            tabIndex="0"
+
+            onKeyDown={(e) => {
+
+              if (
+                e.key === "Enter" ||
+                e.key === " "
+              ) {
+
+                navigate(
+                  "/facturacion"
+                );
+
+              }
+
+            }}
+          >
+
+            <h3>
+              Facturas
+            </h3>
+
+
+            <p>
+              {totalFacturas}
+            </p>
+
+
+            <span className="card-link">
+              Ver facturación →
+            </span>
+
+          </div>
+
+
+          {/* =================================
+              SOLICITUDES
+          ================================== */}
+
+          <div
+            className="card card-clickable"
+
+            onClick={() =>
+              navigate("/solicitudes")
+            }
+
+            role="button"
+
+            tabIndex="0"
+
+            onKeyDown={(e) => {
+
+              if (
+                e.key === "Enter" ||
+                e.key === " "
+              ) {
+
+                navigate(
+                  "/solicitudes"
+                );
+
+              }
+
+            }}
           >
 
             <h3>
               Solicitudes
             </h3>
 
+
             <p>
               Ver
             </p>
 
-            <span>
+
+            <span className="card-link">
               Ver solicitudes →
             </span>
 
@@ -400,277 +810,19 @@ function ClienteDashboard() {
 
 
         {/* ===================================
-            MIS SERVICIOS
+            ACTIVIDAD RECIENTE
         ==================================== */}
 
-        <section className="services">
+        <section className="recent">
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: "15px",
-              marginBottom: "15px"
-            }}
-          >
+          <h2>
+            Actividad Reciente
+          </h2>
 
-            <h2
-              style={{
-                margin: 0
-              }}
-            >
-              Mis Servicios
-            </h2>
 
-
-            <button
-              onClick={() =>
-                navigate("/mis-servicios")
-              }
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "#198754",
-                fontWeight: "bold",
-                cursor: "pointer",
-                fontSize: "15px"
-              }}
-            >
-              Ver todos →
-            </button>
-
-          </div>
-
-
-          <table>
-
-            <thead>
-
-              <tr>
-
-                <th>
-                  Servicio
-                </th>
-
-                <th>
-                  Estado
-                </th>
-
-                <th>
-                  Fecha
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-            <tbody>
-
-              {ultimosServicios.length === 0 ? (
-
-                <tr>
-
-                  <td
-                    colSpan="3"
-                    style={{
-                      textAlign: "center"
-                    }}
-                  >
-                    No tienes servicios registrados.
-                  </td>
-
-                </tr>
-
-              ) : (
-
-                ultimosServicios.map(
-                  (servicio) => (
-
-                    <tr
-                      key={servicio.id}
-                    >
-
-                      <td>
-                        {servicio.servicio}
-                      </td>
-
-                      <td>
-                        {servicio.estado}
-                      </td>
-
-                      <td>
-                        {servicio.fecha}
-                      </td>
-
-                    </tr>
-
-                  )
-                )
-
-              )}
-
-            </tbody>
-
-          </table>
-
-        </section>
-
-
-        {/* ===================================
-            MIS DOCUMENTOS
-        ==================================== */}
-
-        <section className="services">
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: "15px",
-              marginBottom: "15px"
-            }}
-          >
-
-            <h2
-              style={{
-                margin: 0
-              }}
-            >
-              Mis Documentos
-            </h2>
-
-
-            <button
-              onClick={() =>
-                navigate("/mis-documentos")
-              }
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "#198754",
-                fontWeight: "bold",
-                cursor: "pointer",
-                fontSize: "15px"
-              }}
-            >
-              Ver todos →
-            </button>
-
-          </div>
-
-
-          <table>
-
-            <thead>
-
-              <tr>
-
-                <th>
-                  Nombre
-                </th>
-
-                <th>
-                  Tipo
-                </th>
-
-                <th>
-                  Estado
-                </th>
-
-                <th>
-                  Periodo
-                </th>
-
-                <th>
-                  Origen
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-            <tbody>
-
-              {ultimosDocumentos.length === 0 ? (
-
-                <tr>
-
-                  <td
-                    colSpan="5"
-                    style={{
-                      textAlign: "center"
-                    }}
-                  >
-                    No tienes documentos registrados.
-                  </td>
-
-                </tr>
-
-              ) : (
-
-                ultimosDocumentos.map(
-                  (doc) => (
-
-                    <tr
-                      key={doc.id}
-                    >
-
-                      <td>
-                        {doc.nombre}
-                      </td>
-
-
-                      <td>
-                        {doc.tipo}
-                      </td>
-
-
-                      <td>
-                        {doc.estado}
-                      </td>
-
-
-                      <td>
-                        {doc.periodo}
-                      </td>
-
-
-                      <td>
-
-                        {doc.enviadoPor === "contador" ? (
-
-                          <strong
-                            style={{
-                              color: "#198754"
-                            }}
-                          >
-                            📤 Contador
-                          </strong>
-
-                        ) : (
-
-                          <span>
-                            📥 Yo
-                          </span>
-
-                        )}
-
-                      </td>
-
-                    </tr>
-
-                  )
-                )
-
-              )}
-
-            </tbody>
-
-          </table>
+          <p>
+            La actividad de los clientes aparecerá aquí.
+          </p>
 
         </section>
 
@@ -684,4 +836,4 @@ function ClienteDashboard() {
 }
 
 
-export default ClienteDashboard;
+export default ContadorDashboard;

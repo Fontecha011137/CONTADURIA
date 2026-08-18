@@ -1,6 +1,6 @@
-/* ========================= */
-/* CONTENEDOR */
-/* ========================= */
+/* =========================================================
+   CONTENEDOR
+========================================================= */
 
 .register-container {
   min-height: 100vh;
@@ -16,55 +16,158 @@
     #059669,
     #047857
   );
+
+  box-sizing: border-box;
 }
 
-/* ========================= */
-/* TARJETA */
-/* ========================= */
+
+/* =========================================================
+   TARJETA
+========================================================= */
 
 .register-card {
+  position: relative;
+
   width: 100%;
   max-width: 500px;
 
-  background: white;
+  background: #ffffff;
 
-  padding: 40px;
+  padding: 70px 40px 40px;
 
   border-radius: 16px;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  box-sizing: border-box;
 }
+
+
+/* =========================================================
+   BOTÓN VOLVER
+========================================================= */
+
+.btn-volver-register {
+  position: absolute;
+
+  top: 18px;
+  right: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 16px;
+
+  background: #ffffff;
+  color: #059669;
+
+  border: 2px solid #059669;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* =========================================================
+   HOVER BOTÓN VOLVER
+========================================================= */
+
+.btn-volver-register:hover {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   ACTIVE BOTÓN VOLVER
+========================================================= */
+
+.btn-volver-register:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
 
 .register-card h1 {
   text-align: center;
+
   color: #059669;
+
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
-.register-card p {
+
+/* =========================================================
+   DESCRIPCIÓN
+========================================================= */
+
+.register-card > p {
   text-align: center;
+
   color: #64748b;
+
+  margin-top: 0;
   margin-bottom: 25px;
+
+  line-height: 1.5;
 }
 
-/* ========================= */
-/* FORMULARIO */
-/* ========================= */
+
+/* =========================================================
+   FORMULARIO
+========================================================= */
 
 .form-group {
   display: flex;
   flex-direction: column;
+
   margin-bottom: 18px;
 }
 
+
+/* =========================================================
+   LABELS
+========================================================= */
+
 .form-group label {
   margin-bottom: 8px;
+
   font-weight: 600;
+
   color: #334155;
 }
 
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
 .form-group input,
 .form-group select {
+  width: 100%;
+
   padding: 12px;
 
   border: 1px solid #cbd5e1;
@@ -74,23 +177,48 @@
 
   outline: none;
 
-  transition: 0.3s;
+  background: #ffffff;
+
+  color: #334155;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
 
 .form-group input:focus,
 .form-group select:focus {
   border-color: #059669;
+
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
 }
 
-/* ========================= */
-/* BOTON */
-/* ========================= */
+
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
+
+.form-group input::placeholder {
+  color: #94a3b8;
+}
+
+
+/* =========================================================
+   BOTÓN REGISTRARSE
+========================================================= */
 
 .register-btn {
   width: 100%;
 
   background: #059669;
-  color: white;
+  color: #ffffff;
 
   border: none;
 
@@ -103,16 +231,40 @@
 
   cursor: pointer;
 
-  transition: 0.3s;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+
+/* =========================================================
+   HOVER REGISTRARSE
+========================================================= */
 
 .register-btn:hover {
   background: #047857;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-/* ========================= */
-/* FOOTER */
-/* ========================= */
+
+/* =========================================================
+   ACTIVE REGISTRARSE
+========================================================= */
+
+.register-btn:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
 
 .register-footer {
   margin-top: 25px;
@@ -124,8 +276,25 @@
   gap: 10px;
 }
 
+
+/* =========================================================
+   TEXTO FOOTER
+========================================================= */
+
+.register-footer p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+
+/* =========================================================
+   BOTÓN INICIAR SESIÓN
+========================================================= */
+
 .login-link {
   background: transparent;
+
   border: none;
 
   color: #059669;
@@ -133,19 +302,31 @@
   font-weight: 600;
 
   cursor: pointer;
+
+  padding: 4px 8px;
+
+  transition: color 0.2s ease;
 }
 
+
+/* =========================================================
+   HOVER INICIAR SESIÓN
+========================================================= */
+
 .login-link:hover {
+  color: #047857;
+
   text-decoration: underline;
 }
 
 
-/* ========================= */
-/* MODAL */
-/* ========================= */
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
 
 .modal-overlay {
   position: fixed;
+
   top: 0;
   left: 0;
 
@@ -158,13 +339,23 @@
   justify-content: center;
   align-items: center;
 
+  padding: 20px;
+
+  box-sizing: border-box;
+
   z-index: 1000;
 }
 
+
+/* =========================================================
+   MODAL
+========================================================= */
+
 .modal {
-  background: white;
+  background: #ffffff;
 
   padding: 30px;
+
   border-radius: 12px;
 
   width: 90%;
@@ -172,43 +363,81 @@
 
   text-align: center;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  box-sizing: border-box;
 }
+
+
+/* =========================================================
+   TÍTULO MODAL
+========================================================= */
 
 .modal h3 {
   color: #059669;
+
+  margin-top: 0;
   margin-bottom: 15px;
 }
 
+
+/* =========================================================
+   TEXTO MODAL
+========================================================= */
+
 .modal p {
   margin-bottom: 20px;
+
   color: #334155;
+
+  line-height: 1.5;
 }
+
+
+/* =========================================================
+   BOTÓN MODAL
+========================================================= */
 
 .modal button {
   background: #059669;
-  color: white;
+
+  color: #ffffff;
 
   border: none;
 
   padding: 12px 24px;
+
   border-radius: 8px;
 
   cursor: pointer;
+
   font-weight: 600;
+
+  transition: background-color 0.3s ease;
 }
+
+
+/* =========================================================
+   HOVER MODAL
+========================================================= */
 
 .modal button:hover {
   background: #047857;
 }
-/* ========================= */
-/* TABLETS */
-/* ========================= */
+
+
+/* =========================================================
+   TABLETS
+========================================================= */
 
 @media (max-width: 768px) {
 
+  .register-container {
+    padding: 20px;
+  }
+
   .register-card {
-    padding: 30px;
+    padding: 65px 30px 30px;
   }
 
   .register-card h1 {
@@ -217,9 +446,10 @@
 
 }
 
-/* ========================= */
-/* MOVILES */
-/* ========================= */
+
+/* =========================================================
+   MÓVILES
+========================================================= */
 
 @media (max-width: 480px) {
 
@@ -228,14 +458,25 @@
   }
 
   .register-card {
-    padding: 25px;
+    padding: 62px 25px 25px;
+
+    border-radius: 14px;
+  }
+
+  .btn-volver-register {
+    top: 14px;
+    right: 14px;
+
+    padding: 7px 12px;
+
+    font-size: 13px;
   }
 
   .register-card h1 {
     font-size: 1.8rem;
   }
 
-  .register-card p {
+  .register-card > p {
     font-size: 0.95rem;
   }
 
@@ -246,6 +487,32 @@
 
   .register-btn {
     padding: 12px;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .register-card {
+    padding: 60px 20px 20px;
+  }
+
+  .btn-volver-register {
+    top: 12px;
+    right: 12px;
+
+    padding: 6px 10px;
+
+    font-size: 12px;
+  }
+
+  .register-card h1 {
+    font-size: 1.6rem;
   }
 
 }
