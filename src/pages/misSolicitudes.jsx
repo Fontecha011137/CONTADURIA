@@ -13,10 +13,13 @@ import {
   collection,
   addDoc,
   getDocs,
+  getDoc,
+  doc,
   query,
-  orderBy,
+  where,
   serverTimestamp,
 } from "firebase/firestore";
+
 
 function MisSolicitudes() {
 
@@ -34,47 +37,110 @@ function MisSolicitudes() {
   const [mensaje, setMensaje] = useState("");
   const [exito, setExito] = useState(false);
 
+
+  // =====================================================
+  // MODAL
+  // =====================================================
+
   const abrirModal = (texto, fueExito = false) => {
+
     setMensaje(texto);
     setExito(fueExito);
     setMostrarModal(true);
+
   };
+
+
+  // =====================================================
+  // CARGAR SOLICITUDES DEL CLIENTE
+  // =====================================================
 
   const cargarSolicitudes = async (userId) => {
 
     try {
 
-      const q = query(
-        collection(db, "usuarios", userId, "solicitudes"),
-        orderBy("fecha", "desc")
+      const solicitudesRef = collection(
+        db,
+        "solicitudes_asesoria"
       );
+
+
+      // Solamente solicitamos las solicitudes
+      // cuyo uidCliente sea el usuario actual.
+
+      const q = query(
+        solicitudesRef,
+        where("uidCliente", "==", userId)
+      );
+
 
       const snapshot = await getDocs(q);
 
+
       const lista = [];
 
-      snapshot.forEach((doc) => {
+
+      snapshot.forEach((documento) => {
 
         lista.push({
-          id: doc.id,
-          ...doc.data(),
+          id: documento.id,
+          ...documento.data(),
         });
 
       });
 
+
+      // Ordenar por fecha más reciente
+      // sin necesidad de índice compuesto.
+
+      lista.sort((a, b) => {
+
+        const fechaA =
+          a.fecha?.toMillis
+            ? a.fecha.toMillis()
+            : a.fechaSolicitud?.toMillis
+              ? a.fechaSolicitud.toMillis()
+              : 0;
+
+
+        const fechaB =
+          b.fecha?.toMillis
+            ? b.fecha.toMillis()
+            : b.fechaSolicitud?.toMillis
+              ? b.fechaSolicitud.toMillis()
+              : 0;
+
+
+        return fechaB - fechaA;
+
+      });
+
+
       setSolicitudes(lista);
+
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "ERROR CARGANDO SOLICITUDES:",
+        error
+      );
+
 
       abrirModal(
-        "No fue posible cargar las solicitudes."
+        `No fue posible cargar las solicitudes. ${
+          error.code || ""
+        }`
       );
 
     }
 
   };
+
+
+  // =====================================================
+  // ENVIAR SOLICITUD
+  // =====================================================
 
   const enviarSolicitud = async () => {
 
@@ -91,76 +157,217 @@ function MisSolicitudes() {
 
     }
 
+
+    if (!uid) {
+
+      abrirModal(
+        "No se encontró el usuario autenticado."
+      );
+
+      return;
+
+    }
+
+
     try {
+
+      // =====================================================
+      // BUSCAR DATOS DEL CLIENTE AUTENTICADO
+      // =====================================================
+
+      const usuarioRef = doc(
+        db,
+        "usuarios",
+        uid
+      );
+
+
+      const usuarioSnapshot = await getDoc(
+        usuarioRef
+      );
+
+
+      if (!usuarioSnapshot.exists()) {
+
+        abrirModal(
+          "No se encontró el perfil del usuario."
+        );
+
+        return;
+
+      }
+
+
+      const datosUsuario =
+        usuarioSnapshot.data();
+
+
+      // =====================================================
+      // DATOS DEL CLIENTE
+      // =====================================================
+
+      const nombreCliente =
+        datosUsuario.nombre ||
+        datosUsuario.nombreCompleto ||
+        auth.currentUser?.displayName ||
+        "";
+
+
+      const celularCliente =
+        datosUsuario.celular ||
+        datosUsuario.telefono ||
+        "";
+
+
+      const emailCliente =
+        datosUsuario.email ||
+        datosUsuario.correo ||
+        auth.currentUser?.email ||
+        "";
+
+
+      // =====================================================
+      // GUARDAR SOLICITUD
+      // =====================================================
 
       await addDoc(
 
         collection(
           db,
-          "usuarios",
-          uid,
-          "solicitudes"
+          "solicitudes_asesoria"
         ),
 
         {
-          servicio,
-          descripcion,
+
+          // =========================================
+          // DATOS AUTOMÁTICOS DEL CLIENTE
+          // =========================================
+
+          uidCliente: uid,
+
+          nombre: nombreCliente,
+          celular: celularCliente,
+          email: emailCliente,
+
+
+          // =========================================
+          // DATOS DE LA SOLICITUD
+          // =========================================
+
+          servicio: servicio.trim(),
+          descripcion: descripcion.trim(),
+
           prioridad,
           estado: "Pendiente",
+
+
+          // =========================================
+          // COMPATIBILIDAD CON SOLICITUDES DE HOME
+          // =========================================
+
+          tipoAsesoria: servicio.trim(),
+          solicitud: descripcion.trim(),
+
+
+          // =========================================
+          // FECHAS
+          // =========================================
+
           fecha: serverTimestamp(),
+          fechaSolicitud: serverTimestamp(),
+
         }
 
       );
+
+
+      // =====================================================
+      // MENSAJE DE ÉXITO
+      // =====================================================
 
       abrirModal(
         "Solicitud enviada correctamente.",
         true
       );
 
+
+      // =====================================================
+      // LIMPIAR FORMULARIO
+      // =====================================================
+
       setServicio("");
       setDescripcion("");
       setPrioridad("Media");
 
-      cargarSolicitudes(uid);
+
+      // =====================================================
+      // ACTUALIZAR HISTORIAL
+      // =====================================================
+
+      await cargarSolicitudes(uid);
+
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "ERROR ENVIANDO SOLICITUD:",
+        error
+      );
+
 
       abrirModal(
-        "No fue posible enviar la solicitud."
+        `No fue posible enviar la solicitud. ${
+          error.code || ""
+        }`
       );
 
     }
 
   };
 
+
+  // =====================================================
+  // AUTENTICACIÓN
+  // =====================================================
+
   useEffect(() => {
 
-    const unsubscribe = onAuthStateChanged(
+    const unsubscribe =
+      onAuthStateChanged(
 
-      auth,
+        auth,
 
-      (user) => {
+        (user) => {
 
-        if (!user) {
+          if (!user) {
 
-          navigate("/login");
-          return;
+            navigate("/login");
+
+            return;
+
+          }
+
+
+          setUid(user.uid);
+
+
+          cargarSolicitudes(
+            user.uid
+          );
 
         }
 
-        setUid(user.uid);
+      );
 
-        cargarSolicitudes(user.uid);
-
-      }
-
-    );
 
     return () => unsubscribe();
 
   }, [navigate]);
+
+
+  // =====================================================
+  // INTERFAZ
+  // =====================================================
 
   return (
 
@@ -168,25 +375,37 @@ function MisSolicitudes() {
 
       <div className="solicitudes-card">
 
-        <h1>Mis Solicitudes</h1>
- <button
 
+        <h1>
+          Mis Solicitudes
+        </h1>
+
+
+        <button
           className="btn-volver"
-
           onClick={() =>
             navigate("/cliente")
           }
-
         >
-
           Volver
-
         </button>
-        <h2>Nueva Solicitud</h2>
+
+
+        {/* =================================================
+            NUEVA SOLICITUD
+        ================================================= */}
+
+        <h2>
+          Nueva Solicitud
+        </h2>
+
 
         <div className="campo">
 
-          <label>Servicio</label>
+          <label>
+            Servicio
+          </label>
+
 
           <select
             value={servicio}
@@ -199,31 +418,31 @@ function MisSolicitudes() {
               Seleccione...
             </option>
 
-            <option>
+            <option value="Declaración de Renta">
               Declaración de Renta
             </option>
 
-            <option>
+            <option value="Facturación Electrónica">
               Facturación Electrónica
             </option>
 
-            <option>
+            <option value="Asesoría Tributaria">
               Asesoría Tributaria
             </option>
 
-            <option>
+            <option value="Certificado de Ingresos">
               Certificado de Ingresos
             </option>
 
-            <option>
+            <option value="Cámara de Comercio">
               Cámara de Comercio
             </option>
 
-            <option>
+            <option value="Nómina">
               Nómina
             </option>
 
-            <option>
+            <option value="Otro">
               Otro
             </option>
 
@@ -231,27 +450,40 @@ function MisSolicitudes() {
 
         </div>
 
+
+        {/* =================================================
+            DESCRIPCIÓN
+        ================================================= */}
+
         <div className="campo">
 
-          <label>Descripción</label>
+          <label>
+            Descripción
+          </label>
+
 
           <textarea
-
             rows="5"
-
             value={descripcion}
-
             onChange={(e) =>
               setDescripcion(e.target.value)
             }
-
+            placeholder="Describe lo que necesitas..."
           />
 
         </div>
 
+
+        {/* =================================================
+            PRIORIDAD
+        ================================================= */}
+
         <div className="campo">
 
-          <label>Prioridad</label>
+          <label>
+            Prioridad
+          </label>
+
 
           <select
             value={prioridad}
@@ -260,29 +492,46 @@ function MisSolicitudes() {
             }
           >
 
-            <option>Baja</option>
-            <option>Media</option>
-            <option>Alta</option>
+            <option value="Baja">
+              Baja
+            </option>
+
+            <option value="Media">
+              Media
+            </option>
+
+            <option value="Alta">
+              Alta
+            </option>
 
           </select>
 
         </div>
 
+
+        {/* =================================================
+            BOTÓN ENVIAR
+        ================================================= */}
+
         <button
-
           className="btn-enviar"
-
           onClick={enviarSolicitud}
-
         >
-
           Enviar Solicitud
-
         </button>
+
 
         <hr />
 
-        <h2>Historial</h2>
+
+        {/* =================================================
+            HISTORIAL
+        ================================================= */}
+
+        <h2>
+          Historial
+        </h2>
+
 
         <table>
 
@@ -290,144 +539,145 @@ function MisSolicitudes() {
 
             <tr>
 
-              <th>Servicio</th>
-              <th>Estado</th>
-              <th>Prioridad</th>
-              <th>Fecha</th>
+              <th>
+                Servicio
+              </th>
+
+              <th>
+                Estado
+              </th>
+
+              <th>
+                Prioridad
+              </th>
+
+              <th>
+                Fecha
+              </th>
 
             </tr>
 
           </thead>
 
+
           <tbody>
 
-            {
+            {solicitudes.length === 0 ? (
 
-              solicitudes.length === 0 ?
+              <tr>
 
-              (
+                <td
+                  colSpan="4"
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  No existen solicitudes.
+                </td>
 
-                <tr>
+              </tr>
 
-                  <td
-                    colSpan="4"
-                    style={{
-                      textAlign: "center",
-                    }}
-                  >
+            ) : (
 
-                    No existen solicitudes.
+              solicitudes.map((item) => (
+
+                <tr key={item.id}>
+
+                  <td>
+                    {item.servicio ||
+                      item.tipoAsesoria ||
+                      "-"}
+                  </td>
+
+
+                  <td>
+                    {item.estado || "Pendiente"}
+                  </td>
+
+
+                  <td>
+                    {item.prioridad || "-"}
+                  </td>
+
+
+                  <td>
+
+                    {item.fecha?.toDate
+
+                      ? item.fecha
+                          .toDate()
+                          .toLocaleDateString()
+
+                      : item.fechaSolicitud?.toDate
+
+                        ? item.fechaSolicitud
+                            .toDate()
+                            .toLocaleDateString()
+
+                        : "-"
+
+                    }
 
                   </td>
 
                 </tr>
 
-              )
+              ))
 
-              :
-
-              solicitudes.map(
-
-                (item) => (
-
-                  <tr key={item.id}>
-
-                    <td>{item.servicio}</td>
-
-                    <td>{item.estado}</td>
-
-                    <td>{item.prioridad}</td>
-
-                    <td>
-
-                      {
-
-                        item.fecha?.toDate
-
-                          ?
-
-                        item.fecha
-                          .toDate()
-                          .toLocaleDateString()
-
-                          :
-
-                        "-"
-
-                      }
-
-                    </td>
-
-                  </tr>
-
-                )
-
-              )
-
-            }
+            )}
 
           </tbody>
 
         </table>
 
-       
 
       </div>
 
-      {
 
-        mostrarModal &&
+      {/* ===================================================
+          MODAL
+      =================================================== */}
 
-        (
+      {mostrarModal && (
 
-          <div className="modal-overlay">
+        <div className="modal-overlay">
 
-            <div className="modal">
+          <div className="modal">
 
-              <h2>
+            <h2>
 
-                {
+              {exito
+                ? "Operación Exitosa"
+                : "Error"}
 
-                  exito
+            </h2>
 
-                    ?
 
-                  "Operación Exitosa"
+            <p>
+              {mensaje}
+            </p>
 
-                    :
 
-                  "Error"
-
-                }
-
-              </h2>
-
-              <p>{mensaje}</p>
-
-              <button
-
-                onClick={() =>
-                  setMostrarModal(false)
-                }
-
-              >
-
-                Aceptar
-
-              </button>
-
-            </div>
+            <button
+              onClick={() =>
+                setMostrarModal(false)
+              }
+            >
+              Aceptar
+            </button>
 
           </div>
 
-        )
+        </div>
 
-      }
+      )}
+
 
     </div>
 
   );
 
 }
+
 
 export default MisSolicitudes;
