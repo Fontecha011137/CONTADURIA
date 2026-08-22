@@ -84,10 +84,9 @@ function Home() {
           estado: "pendiente",
 
           fechaSolicitud: serverTimestamp(),
-
-          uidCliente: auth.currentUser
-            ? auth.currentUser.uid
-            : null,
+uidCliente: auth.currentUser
+  ? auth.currentUser.uid
+  : "publico",
         }
       );
 
@@ -106,22 +105,19 @@ function Home() {
       });
 
 
-    } catch (error) {
+ } catch (error) {
 
-      console.error(
-        "Error enviando solicitud:",
-        error
-      );
+  console.error("ERROR COMPLETO FIREBASE:", error);
 
-      setMensaje(
-        "No fue posible enviar la solicitud. Inténtalo nuevamente."
-      );
+  setMensaje(
+    `Error: ${error.code || "desconocido"} - ${error.message || error}`
+  );
 
-    } finally {
+} finally {
 
-      setEnviando(false);
+  setEnviando(false);
 
-    }
+}
 
   };
 
