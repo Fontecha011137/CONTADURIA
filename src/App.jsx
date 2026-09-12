@@ -1,4 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 
 import Home from "./pages/home";
 import Login from "./pages/login";
@@ -20,8 +24,14 @@ import Documentos from "./pages/Documentos";
 import Facturacion from "./pages/Facturacion";
 import Citas from "./pages/Citas";
 import Reportes from "./pages/Reportes";
-
 import Solicitudes from "./pages/Solicitudes";
+
+// =========================================
+// PÁGINAS LEGALES
+// =========================================
+
+import Terminos from "./pages/Terminos";
+import Privacidad from "./pages/Privacidad";
 
 
 function App() {
@@ -32,7 +42,9 @@ function App() {
 
       <Routes>
 
-        {/* 🏠 INICIO */}
+        {/* =====================================
+            🏠 INICIO
+        ====================================== */}
 
         <Route
           path="/"
@@ -40,7 +52,9 @@ function App() {
         />
 
 
-        {/* 🔐 LOGIN */}
+        {/* =====================================
+            🔐 LOGIN
+        ====================================== */}
 
         <Route
           path="/login"
@@ -48,7 +62,9 @@ function App() {
         />
 
 
-        {/* 📝 REGISTRO */}
+        {/* =====================================
+            📝 REGISTRO
+        ====================================== */}
 
         <Route
           path="/register"
@@ -56,7 +72,29 @@ function App() {
         />
 
 
-        {/* 👤 DASHBOARD CLIENTE */}
+        {/* =====================================
+            📜 TÉRMINOS Y CONDICIONES
+        ====================================== */}
+
+        <Route
+          path="/terminos"
+          element={<Terminos />}
+        />
+
+
+        {/* =====================================
+            🔒 POLÍTICA DE PRIVACIDAD
+        ====================================== */}
+
+        <Route
+          path="/privacidad"
+          element={<Privacidad />}
+        />
+
+
+        {/* =====================================
+            👤 DASHBOARD CLIENTE
+        ====================================== */}
 
         <Route
           path="/cliente"
@@ -64,7 +102,9 @@ function App() {
         />
 
 
-        {/* 👨‍💼 DASHBOARD CONTADOR */}
+        {/* =====================================
+            👨‍💼 DASHBOARD CONTADOR
+        ====================================== */}
 
         <Route
           path="/contador"
@@ -72,7 +112,9 @@ function App() {
         />
 
 
-        {/* 👥 CLIENTES */}
+        {/* =====================================
+            👥 CLIENTES
+        ====================================== */}
 
         <Route
           path="/clientes"
@@ -80,7 +122,9 @@ function App() {
         />
 
 
-        {/* 📄 DOCUMENTOS DEL CONTADOR */}
+        {/* =====================================
+            📄 DOCUMENTOS DEL CONTADOR
+        ====================================== */}
 
         <Route
           path="/documentos"
@@ -88,7 +132,9 @@ function App() {
         />
 
 
-        {/* 💰 FACTURACIÓN */}
+        {/* =====================================
+            💰 FACTURACIÓN
+        ====================================== */}
 
         <Route
           path="/facturacion"
@@ -96,7 +142,9 @@ function App() {
         />
 
 
-        {/* 📅 CITAS */}
+        {/* =====================================
+            📅 CITAS
+        ====================================== */}
 
         <Route
           path="/citas"
@@ -104,7 +152,9 @@ function App() {
         />
 
 
-        {/* 📈 REPORTES */}
+        {/* =====================================
+            📈 REPORTES
+        ====================================== */}
 
         <Route
           path="/reportes"
@@ -112,7 +162,9 @@ function App() {
         />
 
 
-        {/* 📋 SOLICITUDES DE ASESORÍA */}
+        {/* =====================================
+            📋 SOLICITUDES DE ASESORÍA
+        ====================================== */}
 
         <Route
           path="/solicitudes"
@@ -120,7 +172,9 @@ function App() {
         />
 
 
-        {/* 📄 MIS DOCUMENTOS */}
+        {/* =====================================
+            📄 MIS DOCUMENTOS
+        ====================================== */}
 
         <Route
           path="/mis-documentos"
@@ -128,7 +182,9 @@ function App() {
         />
 
 
-        {/* 📤 SUBIR DOCUMENTO */}
+        {/* =====================================
+            📤 SUBIR DOCUMENTO
+        ====================================== */}
 
         <Route
           path="/subir-documento"
@@ -136,7 +192,9 @@ function App() {
         />
 
 
-        {/* 📅 MIS CITAS */}
+        {/* =====================================
+            📅 MIS CITAS
+        ====================================== */}
 
         <Route
           path="/mis-citas"
@@ -144,7 +202,9 @@ function App() {
         />
 
 
-        {/* 👤 MI PERFIL */}
+        {/* =====================================
+            👤 MI PERFIL
+        ====================================== */}
 
         <Route
           path="/mi-perfil"
@@ -152,7 +212,9 @@ function App() {
         />
 
 
-        {/* 📋 MIS SOLICITUDES */}
+        {/* =====================================
+            📋 MIS SOLICITUDES
+        ====================================== */}
 
         <Route
           path="/mis-solicitudes"
