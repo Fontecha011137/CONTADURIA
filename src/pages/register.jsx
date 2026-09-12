@@ -3,7 +3,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 
 import { auth, db } from "../firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  serverTimestamp
+} from "firebase/firestore";
 
 import "./register.css";
 
@@ -14,6 +18,8 @@ function Register() {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [registroExitoso, setRegistroExitoso] = useState(false);
 
+  const [aceptaTerminos, setAceptaTerminos] = useState(false);
+
   const [formData, setFormData] = useState({
     nombre: "",
     celular: "",
@@ -21,6 +27,13 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
+
+  // =========================================
+  // VERSIONES LEGALES
+  // =========================================
+
+  const VERSION_TERMINOS = "1.0";
+  const VERSION_PRIVACIDAD = "1.0";
 
   // =========================================
   // MANEJAR CAMBIOS DEL FORMULARIO
@@ -40,7 +53,25 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar contraseñas
+    // =========================================
+    // VALIDAR TÉRMINOS
+    // =========================================
+
+    if (!aceptaTerminos) {
+      setMensaje(
+        "Debes aceptar los Términos y Condiciones y la Política de Privacidad para registrarte."
+      );
+
+      setRegistroExitoso(false);
+      setMostrarModal(true);
+
+      return;
+    }
+
+    // =========================================
+    // VALIDAR CONTRASEÑAS
+    // =========================================
+
     if (formData.password !== formData.confirmPassword) {
       setMensaje("Las contraseñas no coinciden");
       setRegistroExitoso(false);
@@ -48,18 +79,26 @@ function Register() {
       return;
     }
 
-    // Validar celular
+    // =========================================
+    // VALIDAR CELULAR
+    // =========================================
+
     if (!/^[0-9]{10}$/.test(formData.celular)) {
       setMensaje(
         "Ingrese un número de celular válido de 10 dígitos."
       );
+
       setRegistroExitoso(false);
       setMostrarModal(true);
+
       return;
     }
 
     try {
-      // Crear usuario en Firebase Authentication
+      // =========================================
+      // CREAR USUARIO EN FIREBASE AUTH
+      // =========================================
+
       const userCredential =
         await createUserWithEmailAndPassword(
           auth,
@@ -67,14 +106,47 @@ function Register() {
           formData.password
         );
 
-      // Crear perfil en Firestore
+      const uid = userCredential.user.uid;
+
+      // =========================================
+      // CREAR PERFIL EN FIRESTORE
+      // =========================================
+
       await setDoc(
-        doc(db, "usuarios", userCredential.user.uid),
+        doc(db, "usuarios", uid),
         {
           nombre: formData.nombre,
           celular: formData.celular,
           email: formData.email,
+
           rol: "cliente",
+
+          // =====================================
+          // ACEPTACIÓN LEGAL
+          // =====================================
+
+          aceptoTerminos: true,
+
+          versionTerminos:
+            VERSION_TERMINOS,
+
+          aceptoPoliticaPrivacidad: true,
+
+          versionPoliticaPrivacidad:
+            VERSION_PRIVACIDAD,
+
+          fechaAceptacionTerminos:
+            serverTimestamp(),
+
+          fechaAceptacionPrivacidad:
+            serverTimestamp(),
+
+          // =====================================
+          // FECHA DE CREACIÓN
+          // =====================================
+
+          fechaRegistro:
+            serverTimestamp(),
         }
       );
 
@@ -83,26 +155,44 @@ function Register() {
         userCredential.user
       );
 
-      setMensaje("Cuenta creada correctamente");
+      setMensaje(
+        "Cuenta creada correctamente"
+      );
+
       setRegistroExitoso(true);
       setMostrarModal(true);
 
     } catch (error) {
       console.error(error);
 
-      if (error.code === "auth/email-already-in-use") {
-        setMensaje("Este correo ya está registrado");
+      if (
+        error.code ===
+        "auth/email-already-in-use"
+      ) {
+        setMensaje(
+          "Este correo ya está registrado"
+        );
 
-      } else if (error.code === "auth/weak-password") {
+      } else if (
+        error.code ===
+        "auth/weak-password"
+      ) {
         setMensaje(
           "La contraseña debe tener al menos 6 caracteres"
         );
 
-      } else if (error.code === "auth/invalid-email") {
-        setMensaje("Correo electrónico inválido");
+      } else if (
+        error.code ===
+        "auth/invalid-email"
+      ) {
+        setMensaje(
+          "Correo electrónico inválido"
+        );
 
       } else {
-        setMensaje("Error al registrar usuario");
+        setMensaje(
+          "Error al registrar usuario"
+        );
       }
 
       setRegistroExitoso(false);
@@ -151,7 +241,9 @@ function Register() {
             ENCABEZADO
         ====================================== */}
 
-        <h1>Crear Cuenta</h1>
+        <h1>
+          Crear Cuenta
+        </h1>
 
         <p>
           Regístrate para acceder a nuestros
@@ -167,7 +259,10 @@ function Register() {
           {/* NOMBRE */}
 
           <div className="form-group">
-            <label>Nombre Completo</label>
+
+            <label>
+              Nombre Completo
+            </label>
 
             <input
               type="text"
@@ -177,12 +272,16 @@ function Register() {
               onChange={handleChange}
               required
             />
+
           </div>
 
           {/* CELULAR */}
 
           <div className="form-group">
-            <label>Número de Celular</label>
+
+            <label>
+              Número de Celular
+            </label>
 
             <input
               type="tel"
@@ -194,12 +293,16 @@ function Register() {
               inputMode="numeric"
               required
             />
+
           </div>
 
           {/* CORREO */}
 
           <div className="form-group">
-            <label>Correo Electrónico</label>
+
+            <label>
+              Correo Electrónico
+            </label>
 
             <input
               type="email"
@@ -209,12 +312,16 @@ function Register() {
               onChange={handleChange}
               required
             />
+
           </div>
 
           {/* CONTRASEÑA */}
 
           <div className="form-group">
-            <label>Contraseña</label>
+
+            <label>
+              Contraseña
+            </label>
 
             <input
               type="password"
@@ -224,12 +331,16 @@ function Register() {
               onChange={handleChange}
               required
             />
+
           </div>
 
           {/* CONFIRMAR CONTRASEÑA */}
 
           <div className="form-group">
-            <label>Confirmar Contraseña</label>
+
+            <label>
+              Confirmar Contraseña
+            </label>
 
             <input
               type="password"
@@ -239,13 +350,61 @@ function Register() {
               onChange={handleChange}
               required
             />
+
           </div>
 
-          {/* BOTÓN REGISTRARSE */}
+          {/* ===================================
+              TÉRMINOS Y PRIVACIDAD
+          =================================== */}
+
+          <div className="terminos-container">
+
+            <label className="terminos-label">
+
+              <input
+                type="checkbox"
+                checked={aceptaTerminos}
+                onChange={(e) =>
+                  setAceptaTerminos(
+                    e.target.checked
+                  )
+                }
+              />
+
+              <span>
+                He leído y acepto los{" "}
+
+                <Link
+                  to="/terminos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Términos y Condiciones
+                </Link>
+
+                {" "}y la{" "}
+
+                <Link
+                  to="/privacidad"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Política de Privacidad
+                </Link>.
+              </span>
+
+            </label>
+
+          </div>
+
+          {/* ===================================
+              BOTÓN REGISTRARSE
+          =================================== */}
 
           <button
             type="submit"
             className="register-btn"
+            disabled={!aceptaTerminos}
           >
             Registrarse
           </button>
@@ -258,15 +417,19 @@ function Register() {
 
         <div className="register-footer">
 
-          <p>¿Ya tienes una cuenta?</p>
+          <p>
+            ¿Ya tienes una cuenta?
+          </p>
 
           <Link to="/login">
+
             <button
               type="button"
               className="login-link"
             >
               Iniciar Sesión
             </button>
+
           </Link>
 
         </div>
@@ -289,7 +452,9 @@ function Register() {
                 : "Error"}
             </h3>
 
-            <p>{mensaje}</p>
+            <p>
+              {mensaje}
+            </p>
 
             <button
               type="button"
