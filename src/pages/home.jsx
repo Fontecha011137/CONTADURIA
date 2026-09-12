@@ -2,22 +2,38 @@ import "./home.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { auth, db } from "../firebaseConfig";
+import {
+  addDoc,
+  collection,
+  serverTimestamp
+} from "firebase/firestore";
+
+import {
+  auth,
+  db
+} from "../firebaseConfig";
+
 
 function Home() {
 
-  const [mostrarModal, setMostrarModal] = useState(false);
-  const [mensaje, setMensaje] = useState("");
-  const [enviando, setEnviando] = useState(false);
+  const [mostrarModal, setMostrarModal] =
+    useState(false);
 
-  const [formulario, setFormulario] = useState({
-    nombre: "",
-    celular: "",
-    email: "",
-    tipoAsesoria: "",
-    solicitud: "",
-  });
+  const [mensaje, setMensaje] =
+    useState("");
+
+  const [enviando, setEnviando] =
+    useState(false);
+
+
+  const [formulario, setFormulario] =
+    useState({
+      nombre: "",
+      celular: "",
+      email: "",
+      tipoAsesoria: "",
+      solicitud: "",
+    });
 
 
   // =========================================
@@ -41,6 +57,7 @@ function Home() {
   const abrirFormulario = () => {
 
     setMostrarModal(true);
+
     setMensaje("");
 
   };
@@ -68,25 +85,45 @@ function Home() {
     e.preventDefault();
 
     setEnviando(true);
+
     setMensaje("");
+
 
     try {
 
       await addDoc(
-        collection(db, "solicitudes_asesoria"),
+        collection(
+          db,
+          "solicitudes_asesoria"
+        ),
         {
-          nombre: formulario.nombre,
-          celular: formulario.celular,
-          email: formulario.email,
-          tipoAsesoria: formulario.tipoAsesoria,
-          solicitud: formulario.solicitud,
 
-          estado: "pendiente",
+          nombre:
+            formulario.nombre,
 
-          fechaSolicitud: serverTimestamp(),
-uidCliente: auth.currentUser
-  ? auth.currentUser.uid
-  : "publico",
+          celular:
+            formulario.celular,
+
+          email:
+            formulario.email,
+
+          tipoAsesoria:
+            formulario.tipoAsesoria,
+
+          solicitud:
+            formulario.solicitud,
+
+          estado:
+            "pendiente",
+
+          fechaSolicitud:
+            serverTimestamp(),
+
+          uidCliente:
+            auth.currentUser
+              ? auth.currentUser.uid
+              : "publico",
+
         }
       );
 
@@ -105,25 +142,36 @@ uidCliente: auth.currentUser
       });
 
 
- } catch (error) {
+    } catch (error) {
 
-  console.error("ERROR COMPLETO FIREBASE:", error);
+      console.error(
+        "ERROR COMPLETO FIREBASE:",
+        error
+      );
 
-  setMensaje(
-    `Error: ${error.code || "desconocido"} - ${error.message || error}`
-  );
 
-} finally {
+      setMensaje(
+        `Error: ${
+          error.code || "desconocido"
+        } - ${
+          error.message || error
+        }`
+      );
 
-  setEnviando(false);
 
-}
+    } finally {
+
+      setEnviando(false);
+
+    }
 
   };
 
 
   return (
+
     <div className="home">
+
 
       {/* =====================================
           HERO
@@ -133,7 +181,11 @@ uidCliente: auth.currentUser
 
         <div className="hero-content">
 
-          <h1>PWA Contador</h1>
+
+          <h1>
+            PWA Contador
+          </h1>
+
 
           <p>
             Gestiona tus servicios contables,
@@ -143,20 +195,120 @@ uidCliente: auth.currentUser
           </p>
 
 
+          {/* ===================================
+              BOTONES PRINCIPALES
+          =================================== */}
+
           <div className="hero-buttons">
 
             <Link to="/login">
-              <button className="btn-primary">
+
+              <button
+                className="btn-primary"
+              >
                 Iniciar Sesión
               </button>
+
             </Link>
 
 
             <Link to="/register">
-              <button className="btn-secondary">
+
+              <button
+                className="btn-secondary"
+              >
                 Registrarse
               </button>
+
             </Link>
+
+          </div>
+
+
+          {/* ===================================
+              INFORMACIÓN DE CONTACTO
+          =================================== */}
+
+          <div className="hero-contact">
+
+            <p className="hero-contact-title">
+              Información de contacto
+            </p>
+
+
+            <div className="hero-contact-items">
+
+
+              {/* CORREO */}
+
+              <a
+                href="mailto:oh526122@gmail.com"
+                className="hero-contact-item"
+              >
+                <span>
+                  ✉️
+                </span>
+
+                <span>
+                  oh526122@gmail.com
+                </span>
+              </a>
+
+
+              {/* CELULAR */}
+
+              <a
+                href="tel:+573057823390"
+                className="hero-contact-item"
+              >
+                <span>
+                  📱
+                </span>
+
+                <span>
+                  305 782 3390
+                </span>
+              </a>
+
+
+              {/* UBICACIÓN */}
+
+              <div className="hero-contact-item">
+
+                <span>
+                  📍
+                </span>
+
+                <span>
+                  Bogotá D.C., Colombia
+                </span>
+
+              </div>
+
+            </div>
+
+
+            {/* =================================
+                ENLACES LEGALES
+            ================================= */}
+
+            <div className="hero-legal">
+
+              <Link to="/terminos">
+                Términos y Condiciones
+              </Link>
+
+
+              <span>
+                •
+              </span>
+
+
+              <Link to="/privacidad">
+                Política de Privacidad
+              </Link>
+
+            </div>
 
           </div>
 
@@ -171,9 +323,13 @@ uidCliente: auth.currentUser
 
       <section className="services">
 
-        <h2>Nuestros Servicios</h2>
+        <h2>
+          Nuestros Servicios
+        </h2>
+
 
         <div className="cards">
+
 
           <div className="card">
 
@@ -248,6 +404,7 @@ uidCliente: auth.currentUser
 
         <div className="benefits-grid">
 
+
           <div className="benefit">
 
             <h3>
@@ -304,6 +461,7 @@ uidCliente: auth.currentUser
           Contáctanos
         </h2>
 
+
         <p>
           Agenda una asesoría personalizada
           para tu empresa o negocio.
@@ -331,6 +489,9 @@ uidCliente: auth.currentUser
 
           <div className="asesoria-modal">
 
+
+            {/* CERRAR */}
+
             <button
               type="button"
               className="asesoria-cerrar"
@@ -344,13 +505,17 @@ uidCliente: auth.currentUser
               Solicitar Asesoría
             </h2>
 
+
             <p>
               Déjanos tus datos y cuéntanos
               qué tipo de asesoría necesitas.
             </p>
 
 
-            <form onSubmit={enviarSolicitud}>
+            <form
+              onSubmit={enviarSolicitud}
+            >
+
 
               {/* NOMBRE */}
 
@@ -422,6 +587,7 @@ uidCliente: auth.currentUser
                   Tipo de asesoría
                 </label>
 
+
                 <select
                   name="tipoAsesoria"
                   value={formulario.tipoAsesoria}
@@ -483,9 +649,7 @@ uidCliente: auth.currentUser
               {mensaje && (
 
                 <div className="asesoria-mensaje">
-
                   {mensaje}
-
                 </div>
 
               )}
@@ -494,6 +658,7 @@ uidCliente: auth.currentUser
               {/* BOTONES */}
 
               <div className="asesoria-buttons">
+
 
                 <button
                   type="button"
@@ -511,9 +676,11 @@ uidCliente: auth.currentUser
                   disabled={enviando}
                 >
 
-                  {enviando
-                    ? "Enviando..."
-                    : "Enviar Solicitud"}
+                  {
+                    enviando
+                      ? "Enviando..."
+                      : "Enviar Solicitud"
+                  }
 
                 </button>
 
@@ -542,7 +709,10 @@ uidCliente: auth.currentUser
       </footer>
 
     </div>
+
   );
+
 }
+
 
 export default Home;

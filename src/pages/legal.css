@@ -1,0 +1,483 @@
+/* =========================================================
+   PÁGINAS LEGALES - CONTADURIA
+========================================================= */
+
+.legal-page {
+  min-height: 100vh;
+  width: 100%;
+
+  padding: 40px 20px;
+
+  background: linear-gradient(
+    135deg,
+    #ecfdf5 0%,
+    #f8fafc 50%,
+    #ecfdf5 100%
+  );
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.legal-container {
+  width: 100%;
+  max-width: 950px;
+
+  margin: 0 auto;
+
+  padding: 40px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(15, 23, 42, 0.08);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER SUPERIOR
+========================================================= */
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 25px;
+
+  padding: 9px 16px;
+
+  background: #ffffff;
+  color: #059669;
+
+  border: 2px solid #059669;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.legal-back:hover {
+  background: #059669;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 10px
+    rgba(0, 0, 0, 0.1);
+}
+
+
+.legal-back:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+.legal-header {
+  margin-bottom: 35px;
+
+  padding-bottom: 30px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+
+/* =========================================================
+   ETIQUETA SUPERIOR
+========================================================= */
+
+.legal-badge {
+  display: inline-block;
+
+  margin-bottom: 14px;
+
+  padding: 6px 12px;
+
+  background: #d1fae5;
+  color: #047857;
+
+  border: 1px solid #a7f3d0;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TÍTULO PRINCIPAL
+========================================================= */
+
+.legal-header h1 {
+  margin: 0 0 12px;
+
+  color: #064e3b;
+
+  font-size: 2.3rem;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   FECHA DE ACTUALIZACIÓN
+========================================================= */
+
+.legal-header p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+.legal-section {
+  margin-bottom: 32px;
+}
+
+
+/* =========================================================
+   TÍTULOS DE SECCIÓN
+========================================================= */
+
+.legal-section h2 {
+  margin: 0 0 14px;
+
+  color: #065f46;
+
+  font-size: 1.35rem;
+  font-weight: 700;
+
+  line-height: 1.35;
+}
+
+
+/* =========================================================
+   PÁRRAFOS
+========================================================= */
+
+.legal-section p {
+  margin: 0 0 14px;
+
+  color: #475569;
+
+  font-size: 16px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   LISTAS
+========================================================= */
+
+.legal-section ul {
+  margin: 10px 0 18px;
+
+  padding-left: 26px;
+}
+
+
+.legal-section li {
+  margin-bottom: 9px;
+
+  padding-left: 3px;
+
+  color: #475569;
+
+  font-size: 16px;
+
+  line-height: 1.65;
+}
+
+
+.legal-section li::marker {
+  color: #059669;
+}
+
+
+/* =========================================================
+   ENLACES DENTRO DEL DOCUMENTO
+========================================================= */
+
+.legal-section a {
+  color: #059669;
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+
+.legal-section a:hover {
+  color: #047857;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.legal-footer {
+  margin-top: 45px;
+
+  padding-top: 28px;
+
+  border-top: 1px solid #e2e8f0;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   BOTÓN VOLVER INFERIOR
+========================================================= */
+
+.legal-footer button {
+  min-width: 150px;
+
+  padding: 12px 28px;
+
+  background: #059669;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.legal-footer button:hover {
+  background: #047857;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 10px
+    rgba(0, 0, 0, 0.12);
+}
+
+
+.legal-footer button:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   SELECCIÓN DE TEXTO
+========================================================= */
+
+.legal-page ::selection {
+  background: #a7f3d0;
+  color: #064e3b;
+}
+
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .legal-page {
+    padding: 20px;
+  }
+
+
+  .legal-container {
+    padding: 30px 25px;
+
+    border-radius: 14px;
+  }
+
+
+  .legal-header {
+    margin-bottom: 30px;
+
+    padding-bottom: 25px;
+  }
+
+
+  .legal-header h1 {
+    font-size: 1.9rem;
+  }
+
+
+  .legal-section h2 {
+    font-size: 1.25rem;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVILES
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .legal-page {
+    padding: 10px;
+  }
+
+
+  .legal-container {
+    padding: 22px 18px;
+
+    border-radius: 12px;
+  }
+
+
+  .legal-back {
+    margin-bottom: 20px;
+
+    padding: 8px 13px;
+
+    font-size: 13px;
+  }
+
+
+  .legal-header {
+    margin-bottom: 25px;
+
+    padding-bottom: 22px;
+  }
+
+
+  .legal-badge {
+    font-size: 11px;
+  }
+
+
+  .legal-header h1 {
+    font-size: 1.6rem;
+
+    line-height: 1.25;
+  }
+
+
+  .legal-header p {
+    font-size: 13px;
+  }
+
+
+  .legal-section {
+    margin-bottom: 27px;
+  }
+
+
+  .legal-section h2 {
+    font-size: 1.15rem;
+  }
+
+
+  .legal-section p,
+  .legal-section li {
+    font-size: 14px;
+
+    line-height: 1.7;
+  }
+
+
+  .legal-section ul {
+    padding-left: 22px;
+  }
+
+
+  .legal-footer {
+    margin-top: 35px;
+
+    padding-top: 22px;
+  }
+
+
+  .legal-footer button {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .legal-page {
+    padding: 6px;
+  }
+
+
+  .legal-container {
+    padding: 20px 15px;
+  }
+
+
+  .legal-header h1 {
+    font-size: 1.45rem;
+  }
+
+
+  .legal-section h2 {
+    font-size: 1.1rem;
+  }
+
+
+  .legal-section p,
+  .legal-section li {
+    font-size: 13.5px;
+  }
+
+}

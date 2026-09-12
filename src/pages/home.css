@@ -7,6 +7,7 @@
   background: #f8fafc;
 }
 
+
 /* ========================= */
 /* HERO */
 /* ========================= */
@@ -14,68 +15,214 @@
 .hero {
   background: linear-gradient(135deg, #059669, #047857);
   color: white;
-  padding: 100px 20px;
+
+  padding: 100px 20px 70px;
+
   text-align: center;
 }
 
 .hero-content {
+  width: 100%;
   max-width: 900px;
+
   margin: auto;
 }
 
 .hero h1 {
-  font-size: 4rem;
+  margin-top: 0;
   margin-bottom: 20px;
+
+  font-size: 4rem;
 }
 
 .hero p {
+  margin-bottom: 35px;
+
   font-size: 1.2rem;
   line-height: 1.8;
-  margin-bottom: 35px;
 }
 
+
 /* ========================= */
-/* BOTONES */
+/* BOTONES HERO */
 /* ========================= */
 
 .hero-buttons {
   display: flex;
   justify-content: center;
+  align-items: center;
+
   gap: 15px;
+
   flex-wrap: wrap;
 }
 
 .btn-primary {
+  padding: 14px 28px;
+
   background: white;
   color: #059669;
+
   border: none;
-  padding: 14px 28px;
   border-radius: 10px;
+
   font-size: 1rem;
   font-weight: 600;
+
   cursor: pointer;
-  transition: 0.3s;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
   transform: translateY(-3px);
+
+  box-shadow:
+    0 6px 14px
+    rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
+  padding: 14px 28px;
+
   background: transparent;
   color: white;
+
   border: 2px solid white;
-  padding: 14px 28px;
   border-radius: 10px;
+
   font-size: 1rem;
   font-weight: 600;
+
   cursor: pointer;
-  transition: 0.3s;
+
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.15);
+
+  transform: translateY(-2px);
 }
+
+
+/* =========================================================
+   INFORMACIÓN DE CONTACTO DEL HERO
+========================================================= */
+
+.hero-contact {
+  max-width: 760px;
+
+  margin: 34px auto 0;
+
+  padding-top: 25px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.28);
+}
+
+.hero-contact-title {
+  margin: 0 0 16px !important;
+
+  color: #ffffff;
+
+  font-size: 0.95rem !important;
+  font-weight: 700;
+
+  line-height: 1.4 !important;
+
+  letter-spacing: 0.2px;
+}
+
+
+/* ========================= */
+/* ITEMS DE CONTACTO */
+/* ========================= */
+
+.hero-contact-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px 24px;
+}
+
+.hero-contact-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: rgba(255, 255, 255, 0.95);
+
+  font-size: 0.92rem;
+
+  text-decoration: none;
+
+  line-height: 1.4;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+a.hero-contact-item:hover {
+  color: #ffffff;
+
+  text-decoration: underline;
+
+  transform: translateY(-1px);
+}
+
+
+/* ========================= */
+/* ENLACES LEGALES HERO */
+/* ========================= */
+
+.hero-legal {
+  margin-top: 18px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  font-size: 0.85rem;
+}
+
+.hero-legal a {
+  color: #ffffff;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    opacity 0.2s ease,
+    text-decoration 0.2s ease;
+}
+
+.hero-legal a:hover {
+  text-decoration: underline;
+
+  opacity: 0.92;
+}
+
+.hero-legal span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 
 /* ========================= */
 /* SERVICIOS */
@@ -86,37 +233,58 @@
 }
 
 .services h2 {
-  text-align: center;
-  font-size: 2.5rem;
+  margin-top: 0;
   margin-bottom: 50px;
+
+  text-align: center;
+
+  font-size: 2.5rem;
 }
 
 .cards {
   max-width: 1200px;
+
   margin: auto;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
 
   gap: 25px;
 }
 
 .card {
-  background: white;
   padding: 25px;
+
+  background: white;
+
   border-radius: 15px;
 
-  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.08);
 
-  transition: 0.3s;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-6px);
+
+  box-shadow:
+    0 8px 22px
+    rgba(0, 0, 0, 0.11);
 }
 
 .card h3 {
+  margin-top: 0;
   margin-bottom: 15px;
+
   color: #059669;
 }
 
@@ -124,76 +292,107 @@
   line-height: 1.6;
 }
 
+
 /* ========================= */
 /* BENEFICIOS */
 /* ========================= */
 
 .benefits {
-  background: white;
   padding: 80px 20px;
+
+  background: white;
 }
 
 .benefits h2 {
-  text-align: center;
-  font-size: 2.5rem;
+  margin-top: 0;
   margin-bottom: 50px;
+
+  text-align: center;
+
+  font-size: 2.5rem;
 }
 
 .benefits-grid {
   max-width: 1100px;
+
   margin: auto;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    );
 
   gap: 25px;
 }
 
 .benefit {
-  text-align: center;
   padding: 30px;
+
+  text-align: center;
+
   border-radius: 15px;
+
   background: #f1f5f9;
 }
 
 .benefit h3 {
+  margin-top: 0;
   margin-bottom: 15px;
+
   color: #059669;
 }
 
 .benefit p {
+  margin-bottom: 0;
+
   line-height: 1.6;
 }
+
 
 /* ========================= */
 /* CONTACTO */
 /* ========================= */
 
 .contact {
-  text-align: center;
   padding: 80px 20px;
+
+  text-align: center;
 }
 
 .contact h2 {
-  font-size: 2.5rem;
+  margin-top: 0;
   margin-bottom: 20px;
+
+  font-size: 2.5rem;
 }
 
 .contact p {
   margin-bottom: 30px;
+
   font-size: 1.1rem;
 }
+
 
 /* ========================= */
 /* FOOTER */
 /* ========================= */
 
 .footer {
+  padding: 25px;
+
   background: #0f172a;
   color: white;
+
   text-align: center;
-  padding: 25px;
 }
+
+.footer p {
+  margin: 0;
+}
+
 
 /* ========================= */
 /* TABLETS */
@@ -202,7 +401,10 @@
 @media (max-width: 768px) {
 
   .hero {
-    padding: 70px 20px;
+    padding:
+      70px
+      20px
+      55px;
   }
 
   .hero h1 {
@@ -213,12 +415,18 @@
     font-size: 1rem;
   }
 
+  .hero-contact {
+    margin-top: 30px;
+  }
+
   .services h2,
   .benefits h2,
   .contact h2 {
     font-size: 2rem;
   }
+
 }
+
 
 /* ========================= */
 /* MOVILES */
@@ -227,7 +435,10 @@
 @media (max-width: 480px) {
 
   .hero {
-    padding: 60px 15px;
+    padding:
+      60px
+      15px
+      45px;
   }
 
   .hero h1 {
@@ -240,6 +451,7 @@
 
   .hero-buttons {
     flex-direction: column;
+
     align-items: center;
   }
 
@@ -249,10 +461,60 @@
     max-width: 280px;
   }
 
+
+  /* CONTACTO HERO */
+
+  .hero-contact {
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding-top: 22px;
+  }
+
+  .hero-contact-title {
+    margin-bottom: 14px !important;
+
+    font-size: 0.9rem !important;
+  }
+
+  .hero-contact-items {
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+  }
+
+  .hero-contact-item {
+    width: 100%;
+
+    justify-content: center;
+
+    font-size: 0.88rem;
+  }
+
+  .hero-legal {
+    margin-top: 16px;
+
+    flex-direction: column;
+
+    gap: 7px;
+  }
+
+  .hero-legal span {
+    display: none;
+  }
+
+
+  /* SECCIONES */
+
   .services,
   .benefits,
   .contact {
-    padding: 60px 15px;
+    padding:
+      60px
+      15px;
   }
 
   .services h2,
@@ -270,7 +532,9 @@
   .benefit {
     padding: 20px;
   }
+
 }
+
 
 /* =========================================================
    MODAL SOLICITAR ASESORÍA
@@ -279,19 +543,19 @@
 .asesoria-overlay {
   position: fixed;
 
-  top: 0;
-  left: 0;
+  inset: 0;
 
   width: 100%;
   height: 100%;
 
-  background: rgba(0, 0, 0, 0.55);
+  padding: 20px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  padding: 20px;
+  background:
+    rgba(0, 0, 0, 0.55);
 
   box-sizing: border-box;
 
@@ -315,13 +579,15 @@
 
   overflow-y: auto;
 
-  background: #ffffff;
-
   padding: 35px;
+
+  background: #ffffff;
 
   border-radius: 16px;
 
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  box-shadow:
+    0 15px 40px
+    rgba(0, 0, 0, 0.25);
 
   box-sizing: border-box;
 }
@@ -352,7 +618,9 @@
 
   border-radius: 50%;
 
-  transition: 0.2s;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .asesoria-cerrar:hover {
@@ -368,7 +636,6 @@
 
 .asesoria-modal h2 {
   margin-top: 0;
-
   margin-bottom: 8px;
 
   color: #059669;
@@ -398,7 +665,6 @@
 
 .asesoria-group {
   display: flex;
-
   flex-direction: column;
 
   margin-bottom: 16px;
@@ -441,14 +707,15 @@
 
   box-sizing: border-box;
 
-  transition: 0.25s;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-
 .asesoria-group textarea {
-  resize: vertical;
-
   min-height: 100px;
+
+  resize: vertical;
 }
 
 
@@ -462,7 +729,8 @@
   border-color: #059669;
 
   box-shadow:
-    0 0 0 3px rgba(5, 150, 105, 0.12);
+    0 0 0 3px
+    rgba(5, 150, 105, 0.12);
 }
 
 
@@ -490,7 +758,7 @@
 
 
 /* =========================================================
-   BOTONES
+   BOTONES MODAL
 ========================================================= */
 
 .asesoria-buttons {
@@ -501,7 +769,6 @@
   margin-top: 20px;
 }
 
-
 .asesoria-buttons button {
   flex: 1;
 
@@ -510,12 +777,13 @@
   border-radius: 8px;
 
   font-size: 15px;
-
   font-weight: 600;
 
   cursor: pointer;
 
-  transition: 0.25s;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease;
 }
 
 
@@ -567,7 +835,7 @@
 
 
 /* =========================================================
-   MÓVIL
+   MODAL EN MÓVIL
 ========================================================= */
 
 @media (max-width: 480px) {
@@ -577,7 +845,10 @@
   }
 
   .asesoria-modal {
-    padding: 30px 20px 20px;
+    padding:
+      30px
+      20px
+      20px;
 
     border-radius: 14px;
 

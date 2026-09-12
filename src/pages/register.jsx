@@ -633,25 +633,17 @@ function Register() {
 
                 He leído y acepto los{" "}
 
-                <Link
-                  to="/terminos"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Términos y Condiciones
+                <Link to="/terminos">
+                Términos y Condiciones
                 </Link>
 
 
                 {" "}y la{" "}
 
 
-                <Link
-                  to="/privacidad"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Política de Privacidad
-                </Link>.
+                <Link to="/privacidad">
+                Política de Privacidad
+                </Link>
 
               </span>
 
