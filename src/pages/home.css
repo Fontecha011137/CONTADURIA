@@ -1,20 +1,36 @@
 /* =========================================================
-   LOGIN - CONTENEDOR GENERAL
+   GENERAL
 ========================================================= */
 
-.login-container {
+* {
+  box-sizing: border-box;
+}
+
+.home {
   min-height: 100vh;
+  width: 100%;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #f8fafc;
+  color: #1e293b;
+}
 
-  padding: 30px 20px;
+
+/* =========================================================
+   HERO PRINCIPAL
+========================================================= */
+
+.hero {
+  width: 100%;
+
+  padding:
+    95px
+    20px
+    85px;
 
   background:
     radial-gradient(
       circle at top,
-      rgba(255, 255, 255, 0.12),
+      rgba(255, 255, 255, 0.10),
       transparent 35%
     ),
     linear-gradient(
@@ -23,95 +39,16 @@
       #047857
     );
 
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   TARJETA PRINCIPAL
-========================================================= */
-
-.login-card {
-  position: relative;
-
-  width: 100%;
-  max-width: 470px;
-
-  padding:
-    72px
-    42px
-    36px;
-
-  background: #ffffff;
-
-  border:
-    1px solid
-    rgba(255, 255, 255, 0.4);
-
-  border-radius: 20px;
-
-  box-shadow:
-    0 18px 45px
-    rgba(0, 0, 0, 0.18);
-
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   BOTÓN VOLVER
-========================================================= */
-
-.btn-volver-home {
-  position: absolute;
-
-  top: 18px;
-  right: 18px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 8px 14px;
-
-  background: #ffffff;
-  color: #059669;
-
-  border:
-    2px solid
-    #059669;
-
-  border-radius: 9px;
-
-  font-size: 13px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.btn-volver-home:hover {
-  background: #059669;
   color: #ffffff;
 
-  transform:
-    translateY(-1px);
-
-  box-shadow:
-    0 4px 10px
-    rgba(5, 150, 105, 0.2);
+  text-align: center;
 }
 
-.btn-volver-home:active {
-  transform:
-    translateY(0);
+.hero-content {
+  width: 100%;
+  max-width: 980px;
 
-  box-shadow: none;
+  margin: 0 auto;
 }
 
 
@@ -119,94 +56,793 @@
    LOGO
 ========================================================= */
 
-.login-logo-container {
-  display: flex;
-  justify-content: center;
+.hero-logo {
+  display: block;
 
-  margin-bottom: 16px;
-}
+  width: 115px;
+  height: 115px;
 
-.login-logo {
-  width: 92px;
-  height: 92px;
+  margin:
+    0
+    auto
+    24px;
 
   object-fit: cover;
 
-  border-radius: 22px;
+  border-radius: 26px;
 
   box-shadow:
-    0 10px 24px
-    rgba(5, 150, 105, 0.22);
+    0 14px 34px
+    rgba(0, 0, 0, 0.22);
 }
 
 
 /* =========================================================
-   ENCABEZADO
+   ETIQUETA SUPERIOR
 ========================================================= */
 
-.login-header {
-  margin-bottom: 28px;
+.hero-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  padding:
+    8px
+    16px;
+
+  background:
+    rgba(255, 255, 255, 0.12);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.22);
+
+  border-radius: 999px;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 0.4px;
+}
+
+
+/* =========================================================
+   TÍTULO HERO
+========================================================= */
+
+.hero h1 {
+  max-width: 800px;
+
+  margin:
+    0
+    auto
+    24px;
+
+  color: #ffffff;
+
+  font-size: clamp(
+    2.7rem,
+    6vw,
+    4.4rem
+  );
+
+  font-weight: 800;
+
+  line-height: 1.08;
+}
+
+
+/* =========================================================
+   DESCRIPCIÓN HERO
+========================================================= */
+
+.hero-description {
+  max-width: 760px;
+
+  margin:
+    0
+    auto
+    38px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.92
+    );
+
+  font-size: 1.1rem;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   BOTONES HERO
+========================================================= */
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 16px;
+
+  margin-bottom: 42px;
+}
+
+.hero-buttons a {
+  text-decoration: none;
+}
+
+.btn-primary,
+.btn-secondary {
+  min-width: 165px;
+
+  padding:
+    14px
+    26px;
+
+  border-radius: 10px;
+
+  font-size: 1rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+/* =========================================================
+   BOTÓN PRIMARIO
+========================================================= */
+
+.btn-primary {
+  background: #ffffff;
+
+  color: #059669;
+
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 18px
+    rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   BOTÓN SECUNDARIO
+========================================================= */
+
+.btn-secondary {
+  background:
+    rgba(255, 255, 255, 0.06);
+
+  color: #ffffff;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.95);
+}
+
+.btn-secondary:hover {
+  background:
+    rgba(255, 255, 255, 0.16);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TARJETA CONTACTO HERO
+========================================================= */
+
+.hero-contact-card {
+  width: 100%;
+  max-width: 800px;
+
+  margin:
+    0
+    auto;
+
+  padding:
+    28px
+    30px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.20);
+
+  border-radius: 18px;
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 10px 26px
+    rgba(0, 0, 0, 0.10);
+}
+
+
+/* =========================================================
+   TÍTULO CONTACTO
+========================================================= */
+
+.hero-contact-title {
+  margin:
+    0
+    0
+    18px;
+
+  color: #ffffff;
+
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   ITEMS CONTACTO
+========================================================= */
+
+.hero-contact-items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap:
+    14px
+    28px;
+}
+
+.hero-contact-item {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.94
+    );
+
+  font-size: 0.9rem;
+
+  text-decoration: none;
+}
+
+a.hero-contact-item:hover {
+  color: #ffffff;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   ENLACES LEGALES HERO
+========================================================= */
+
+.hero-legal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 9px;
+
+  margin-top: 20px;
+
+  padding-top: 18px;
+
+  border-top:
+    1px solid
+    rgba(255, 255, 255, 0.16);
+
+  font-size: 0.84rem;
+}
+
+.hero-legal a {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.94
+    );
+
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.hero-legal a:hover {
+  color: #ffffff;
+
+  text-decoration: underline;
+}
+
+.hero-legal span {
+  color:
+    rgba(
+      255,
+      255,
+      255,
+      0.45
+    );
+}
+
+
+/* =========================================================
+   SERVICIOS
+========================================================= */
+
+.services {
+  padding:
+    100px
+    20px
+    85px;
+
+  background: #f8fafc;
+}
+
+.services h2 {
+  margin:
+    0
+    0
+    45px;
+
+  text-align: center;
+
+  color: #0f172a;
+
+  font-size: 2.4rem;
+}
+
+
+/* =========================================================
+   GRID SERVICIOS
+========================================================= */
+
+.cards {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   TARJETAS SERVICIO
+========================================================= */
+
+.card {
+  min-height: 210px;
+
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+
+  border:
+    1px solid
+    #e2e8f0;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 6px 18px
+    rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.card:hover {
+  transform:
+    translateY(-5px);
+
+  border-color:
+    #a7f3d0;
+
+  box-shadow:
+    0 12px 28px
+    rgba(15, 23, 42, 0.11);
+}
+
+.card h3 {
+  margin:
+    0
+    0
+    15px;
+
+  color: #0f172a;
+
+  font-size: 1.15rem;
+
+  line-height: 1.4;
+}
+
+.card p {
+  margin: 0;
+
+  color: #475569;
+
+  font-size: 1rem;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   BENEFICIOS
+========================================================= */
+
+.benefits {
+  padding:
+    80px
+    20px;
+
+  background: #ffffff;
+}
+
+.benefits h2 {
+  margin:
+    0
+    0
+    45px;
+
+  text-align: center;
+
+  color: #0f172a;
+
+  font-size: 2.4rem;
+}
+
+
+/* =========================================================
+   GRID BENEFICIOS
+========================================================= */
+
+.benefits-grid {
+  width: 100%;
+  max-width: 1050px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      1fr
+    );
+
+  gap: 24px;
+}
+
+
+/* =========================================================
+   TARJETA BENEFICIO
+========================================================= */
+
+.benefit {
+  padding:
+    30px
+    24px;
+
+  text-align: center;
+
+  background: #f8fafc;
+
+  border:
+    1px solid
+    #e2e8f0;
+
+  border-radius: 16px;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.benefit:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 10px 24px
+    rgba(15, 23, 42, 0.08);
+}
+
+.benefit h3 {
+  margin:
+    0
+    0
+    12px;
+
+  color: #059669;
+
+  font-size: 1.15rem;
+}
+
+.benefit p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SECCIÓN CONTACTO
+========================================================= */
+
+.contact {
+  padding:
+    75px
+    20px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ecfdf5,
+      #f0fdf4
+    );
 
   text-align: center;
 }
 
-
-/* =========================================================
-   BADGE
-========================================================= */
-
-.login-badge {
-  display: inline-block;
-
-  margin-bottom: 10px;
-
-  padding:
-    6px
-    12px;
-
-  background: #ecfdf5;
-  color: #047857;
-
-  border:
-    1px solid
-    #a7f3d0;
-
-  border-radius: 999px;
-
-  font-size: 12px;
-  font-weight: 700;
-
-  letter-spacing: 0.3px;
-
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
-   TÍTULO
-========================================================= */
-
-.login-header h1 {
+.contact h2 {
   margin:
     0
     0
-    10px;
+    15px;
 
-  color: #059669;
+  color: #064e3b;
 
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.3rem;
+}
+
+.contact p {
+  max-width: 600px;
+
+  margin:
+    0
+    auto
+    28px;
+
+  color: #475569;
+
+  font-size: 1.05rem;
+
+  line-height: 1.6;
+}
+
+.contact .btn-primary {
+  background:
+    linear-gradient(
+      135deg,
+      #059669,
+      #047857
+    );
+
+  color: #ffffff;
+
+  border:
+    1px solid
+    #047857;
+
+  box-shadow:
+    0 6px 16px
+    rgba(5, 150, 105, 0.18);
+}
+
+.contact .btn-primary:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 9px 20px
+    rgba(5, 150, 105, 0.26);
 }
 
 
 /* =========================================================
-   DESCRIPCIÓN
+   FOOTER
 ========================================================= */
 
-.login-header p {
+.footer {
+  padding:
+    26px
+    20px;
+
+  background: #0f172a;
+
+  color: #ffffff;
+
+  text-align: center;
+}
+
+.footer p {
   margin: 0;
 
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   MODAL ASESORÍA - OVERLAY
+========================================================= */
+
+.asesoria-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background:
+    rgba(15, 23, 42, 0.62);
+
+  backdrop-filter:
+    blur(4px);
+
+  box-sizing: border-box;
+
+  overflow-y: auto;
+
+  z-index: 3000;
+}
+
+
+/* =========================================================
+   MODAL ASESORÍA
+========================================================= */
+
+.asesoria-modal {
+  position: relative;
+
+  width: 100%;
+  max-width: 560px;
+
+  max-height: 92vh;
+
+  overflow-y: auto;
+
+  padding:
+    38px
+    34px
+    32px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 50px
+    rgba(0, 0, 0, 0.28);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BOTÓN CERRAR MODAL
+========================================================= */
+
+.asesoria-cerrar {
+  position: absolute;
+
+  top: 12px;
+  right: 14px;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f8fafc;
+
   color: #64748b;
+
+  border: none;
+  border-radius: 50%;
+
+  font-size: 26px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.asesoria-cerrar:hover {
+  background: #fee2e2;
+
+  color: #dc2626;
+
+  transform: rotate(4deg);
+}
+
+
+/* =========================================================
+   ENCABEZADO MODAL
+========================================================= */
+
+.asesoria-modal h2 {
+  margin:
+    0
+    0
+    8px;
+
+  color: #059669;
+
+  text-align: center;
+
+  font-size: 1.8rem;
+}
+
+.asesoria-modal > p {
+  max-width: 440px;
+
+  margin:
+    0
+    auto
+    28px;
+
+  color: #64748b;
+
+  text-align: center;
 
   font-size: 14px;
 
@@ -215,32 +851,18 @@
 
 
 /* =========================================================
-   FORMULARIO
+   GRUPOS FORMULARIO
 ========================================================= */
 
-.login-card form {
-  width: 100%;
-}
-
-
-/* =========================================================
-   GRUPOS
-========================================================= */
-
-.login-card .form-group {
+.asesoria-group {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: 18px;
+  margin-bottom: 17px;
 }
 
-
-/* =========================================================
-   LABELS
-========================================================= */
-
-.login-card .form-group label {
-  margin-bottom: 8px;
+.asesoria-group label {
+  margin-bottom: 7px;
 
   color: #334155;
 
@@ -250,17 +872,20 @@
 
 
 /* =========================================================
-   INPUTS
+   INPUTS FORMULARIO
 ========================================================= */
 
-.login-card .form-group input {
+.asesoria-group input,
+.asesoria-group select,
+.asesoria-group textarea {
   width: 100%;
 
   padding:
-    13px
-    14px;
+    12px
+    13px;
 
   background: #ffffff;
+
   color: #1e293b;
 
   border:
@@ -272,19 +897,32 @@
   outline: none;
 
   font-size: 1rem;
-
-  box-sizing: border-box;
+  font-family: inherit;
 
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
-.login-card .form-group input::placeholder {
+.asesoria-group textarea {
+  min-height: 105px;
+
+  resize: vertical;
+}
+
+.asesoria-group input::placeholder,
+.asesoria-group textarea::placeholder {
   color: #94a3b8;
 }
 
-.login-card .form-group input:focus {
+
+/* =========================================================
+   FOCUS INPUTS
+========================================================= */
+
+.asesoria-group input:focus,
+.asesoria-group select:focus,
+.asesoria-group textarea:focus {
   border-color: #059669;
 
   box-shadow:
@@ -294,58 +932,177 @@
 
 
 /* =========================================================
-   RECUPERAR CONTRASEÑA
+   BLOQUES LEGALES DEL MODAL
 ========================================================= */
 
-.forgot-password {
-  display: flex;
-  justify-content: flex-end;
-
+.asesoria-legal {
   margin:
-    -4px
-    0
-    20px;
+    12px
+    0;
+
+  padding: 14px;
+
+  background: #f8fafc;
+
+  border:
+    1px solid
+    #e2e8f0;
+
+  border-radius: 10px;
 }
 
-.forgot-password button {
-  padding: 3px 0;
+.asesoria-legal + .asesoria-legal {
+  margin-top: 9px;
+}
 
-  background: transparent;
-  color: #059669;
 
-  border: none;
+/* =========================================================
+   CHECKBOX LEGAL
+========================================================= */
+
+.asesoria-legal-label {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  color: #475569;
 
   font-size: 13px;
-  font-weight: 600;
+
+  line-height: 1.55;
 
   cursor: pointer;
-
-  transition:
-    color 0.2s ease;
 }
 
-.forgot-password button:hover:not(:disabled) {
+.asesoria-legal-label input {
+  width: 18px;
+  height: 18px;
+
+  min-width: 18px;
+
+  margin-top: 2px;
+
+  accent-color: #059669;
+
+  cursor: pointer;
+}
+
+.asesoria-legal-label span {
+  flex: 1;
+}
+
+.asesoria-legal-label a {
+  color: #059669;
+
+  font-weight: 700;
+
+  text-decoration: none;
+}
+
+.asesoria-legal-label a:hover {
   color: #047857;
 
   text-decoration: underline;
 }
 
-.forgot-password button:disabled {
-  color: #94a3b8;
 
-  cursor: not-allowed;
+/* =========================================================
+   MENSAJE
+========================================================= */
+
+.asesoria-mensaje {
+  margin:
+    16px
+    0;
+
+  padding:
+    12px
+    14px;
+
+  background: #ecfdf5;
+
+  color: #047857;
+
+  border:
+    1px solid
+    #a7f3d0;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  text-align: center;
 }
 
 
 /* =========================================================
-   BOTÓN INGRESAR
+   BOTONES DEL MODAL
 ========================================================= */
 
-.login-btn {
-  width: 100%;
+.asesoria-buttons {
+  display: flex;
 
-  padding: 14px;
+  gap: 12px;
 
+  margin-top: 22px;
+}
+
+.asesoria-buttons button {
+  flex: 1;
+
+  min-height: 44px;
+
+  padding:
+    12px
+    16px;
+
+  border-radius: 9px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+/* =========================================================
+   BOTÓN CANCELAR
+========================================================= */
+
+.asesoria-btn-cancelar {
+  background: #ffffff;
+
+  color: #64748b;
+
+  border:
+    1px solid
+    #cbd5e1;
+}
+
+.asesoria-btn-cancelar:hover:not(:disabled) {
+  background: #f1f5f9;
+
+  color: #334155;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   BOTÓN ENVIAR
+========================================================= */
+
+.asesoria-btn-enviar {
   background:
     linear-gradient(
       135deg,
@@ -355,250 +1112,39 @@
 
   color: #ffffff;
 
-  border: none;
-  border-radius: 9px;
-
-  font-size: 1rem;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 5px 14px
-    rgba(5, 150, 105, 0.2);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
+  border:
+    1px solid
+    #047857;
 }
 
-.login-btn:hover:not(:disabled) {
+.asesoria-btn-enviar:hover:not(:disabled) {
   transform:
     translateY(-1px);
 
   box-shadow:
-    0 7px 18px
-    rgba(5, 150, 105, 0.3);
+    0 6px 14px
+    rgba(5, 150, 105, 0.24);
 }
 
-.login-btn:active:not(:disabled) {
-  transform:
-    translateY(0);
-}
 
-.login-btn:disabled {
-  opacity: 0.65;
+/* =========================================================
+   BOTONES DESHABILITADOS
+========================================================= */
+
+.asesoria-buttons button:disabled {
+  background: #cbd5e1;
+
+  color: #f8fafc;
+
+  border-color: #cbd5e1;
 
   cursor: not-allowed;
 
+  opacity: 0.8;
+
+  transform: none;
+
   box-shadow: none;
-}
-
-
-/* =========================================================
-   FOOTER DEL LOGIN
-========================================================= */
-
-.login-footer {
-  margin-top: 25px;
-
-  padding-top: 22px;
-
-  border-top:
-    1px solid
-    #e2e8f0;
-
-  text-align: center;
-}
-
-.login-footer p {
-  margin:
-    0
-    0
-    8px;
-
-  color: #64748b;
-
-  font-size: 14px;
-}
-
-
-/* =========================================================
-   BOTÓN CREAR CUENTA
-========================================================= */
-
-.register-link {
-  padding:
-    5px
-    8px;
-
-  background: transparent;
-  color: #059669;
-
-  border: none;
-
-  font-size: 14px;
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    color 0.2s ease;
-}
-
-.register-link:hover {
-  color: #047857;
-
-  text-decoration: underline;
-}
-
-
-/* =========================================================
-   ENLACES LEGALES
-========================================================= */
-
-.login-legal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  flex-wrap: wrap;
-
-  gap: 7px;
-
-  margin-top: 20px;
-
-  padding-top: 18px;
-
-  border-top:
-    1px solid
-    #e2e8f0;
-
-  font-size: 12px;
-}
-
-.login-legal a {
-  color: #64748b;
-
-  font-weight: 600;
-
-  text-decoration: none;
-}
-
-.login-legal a:hover {
-  color: #059669;
-
-  text-decoration: underline;
-}
-
-.login-legal span {
-  color: #cbd5e1;
-}
-
-
-/* =========================================================
-   MODAL - FONDO
-========================================================= */
-
-.modal-overlay {
-  position: fixed;
-
-  inset: 0;
-
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  padding: 20px;
-
-  background:
-    rgba(15, 23, 42, 0.58);
-
-  backdrop-filter:
-    blur(3px);
-
-  box-sizing: border-box;
-
-  z-index: 2000;
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal {
-  width: 100%;
-  max-width: 390px;
-
-  padding: 30px;
-
-  background: #ffffff;
-
-  border-radius: 14px;
-
-  text-align: center;
-
-  box-shadow:
-    0 18px 45px
-    rgba(0, 0, 0, 0.25);
-
-  box-sizing: border-box;
-}
-
-.modal h3 {
-  margin:
-    0
-    0
-    14px;
-
-  color: #059669;
-
-  font-size: 1.3rem;
-}
-
-.modal p {
-  margin:
-    0
-    0
-    22px;
-
-  color: #475569;
-
-  line-height: 1.55;
-}
-
-.modal button {
-  min-width: 120px;
-
-  padding:
-    11px
-    22px;
-
-  background: #059669;
-  color: #ffffff;
-
-  border: none;
-  border-radius: 8px;
-
-  font-weight: 700;
-
-  cursor: pointer;
-
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.modal button:hover {
-  background: #047857;
-
-  transform:
-    translateY(-1px);
 }
 
 
@@ -606,19 +1152,48 @@
    TABLETS
 ========================================================= */
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
 
-  .login-container {
-    padding:
-      22px
-      18px;
+  .cards {
+    grid-template-columns:
+      repeat(
+        2,
+        1fr
+      );
   }
 
-  .login-card {
+}
+
+
+@media (max-width: 768px) {
+
+  .hero {
     padding:
-      68px
-      32px
-      32px;
+      75px
+      20px
+      65px;
+  }
+
+  .hero-buttons {
+    margin-bottom: 34px;
+  }
+
+  .hero-contact-card {
+    padding:
+      24px
+      22px;
+  }
+
+  .services {
+    padding:
+      80px
+      20px;
+  }
+
+  .services h2,
+  .benefits h2,
+  .contact h2 {
+    font-size: 2rem;
   }
 
 }
@@ -628,77 +1203,150 @@
    MÓVILES
 ========================================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
 
-  .login-container {
+  .hero {
+    padding:
+      55px
+      16px
+      50px;
+  }
+
+  .hero-logo {
+    width: 90px;
+    height: 90px;
+
+    margin-bottom: 20px;
+
+    border-radius: 20px;
+  }
+
+  .hero h1 {
+    margin-bottom: 20px;
+
+    font-size: 2.4rem;
+  }
+
+  .hero-description {
+    margin-bottom: 30px;
+
+    font-size: 0.97rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+
+    width: 100%;
+
+    margin-bottom: 30px;
+  }
+
+  .hero-buttons a {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .hero-contact-card {
+    padding:
+      22px
+      16px;
+  }
+
+  .hero-contact-items {
+    flex-direction: column;
+
+    gap: 11px;
+  }
+
+  .hero-legal {
+    flex-direction: column;
+
+    gap: 7px;
+  }
+
+  .hero-legal span {
+    display: none;
+  }
+
+
+  /* SERVICIOS */
+
+  .services {
+    padding:
+      70px
+      15px;
+  }
+
+  .cards {
+    grid-template-columns:
+      1fr;
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+
+  /* BENEFICIOS */
+
+  .benefits {
+    padding:
+      65px
+      15px;
+  }
+
+  .benefits-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  /* CONTACTO */
+
+  .contact {
+    padding:
+      60px
+      15px;
+  }
+
+
+  /* MODAL */
+
+  .asesoria-overlay {
     align-items: flex-start;
 
     padding:
-      16px
       12px;
-
-    min-height: 100dvh;
   }
 
-  .login-card {
+  .asesoria-modal {
     margin-top: 10px;
 
     padding:
-      62px
-      20px
-      26px;
+      34px
+      18px
+      22px;
 
-    border-radius: 16px;
+    max-height: 95vh;
+
+    border-radius: 14px;
   }
 
-  .btn-volver-home {
-    top: 14px;
-    right: 14px;
-
-    padding:
-      7px
-      10px;
-
-    font-size: 12px;
+  .asesoria-modal h2 {
+    font-size: 1.5rem;
   }
 
-  .login-logo {
-    width: 78px;
-    height: 78px;
-
-    border-radius: 18px;
-  }
-
-  .login-header {
-    margin-bottom: 24px;
-  }
-
-  .login-header h1 {
-    font-size: 1.7rem;
-  }
-
-  .login-header p {
-    font-size: 13px;
-  }
-
-  .login-card .form-group input {
-    padding:
-      12px
-      13px;
-  }
-
-  .login-btn {
-    padding: 13px;
-  }
-
-  .login-legal {
+  .asesoria-buttons {
     flex-direction: column;
-
-    gap: 6px;
   }
 
-  .login-legal span {
-    display: none;
+  .asesoria-buttons button {
+    width: 100%;
   }
 
 }
@@ -710,20 +1358,28 @@
 
 @media (max-width: 360px) {
 
-  .login-card {
+  .hero h1 {
+    font-size: 2.05rem;
+  }
+
+  .hero-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .asesoria-modal {
     padding:
-      58px
-      17px
-      22px;
+      32px
+      15px
+      20px;
   }
 
-  .login-logo {
-    width: 70px;
-    height: 70px;
+  .asesoria-legal {
+    padding: 11px;
   }
 
-  .login-header h1 {
-    font-size: 1.55rem;
+  .asesoria-legal-label {
+    font-size: 12.5px;
   }
 
 }

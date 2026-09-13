@@ -1,6 +1,12 @@
 import "./home.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+
+import {
+  Link
+} from "react-router-dom";
+
+import {
+  useState
+} from "react";
 
 import {
   addDoc,
@@ -16,6 +22,10 @@ import {
 
 function Home() {
 
+  // =====================================================
+  // MODAL
+  // =====================================================
+
   const [mostrarModal, setMostrarModal] =
     useState(false);
 
@@ -26,33 +36,65 @@ function Home() {
     useState(false);
 
 
+  // =====================================================
+  // ACEPTACIONES LEGALES
+  // =====================================================
+
+  const [aceptaTerminos, setAceptaTerminos] =
+    useState(false);
+
+  const [
+    autorizaTratamientoDatos,
+    setAutorizaTratamientoDatos
+  ] = useState(false);
+
+
+  // =====================================================
+  // VERSIONES LEGALES
+  // =====================================================
+
+  const VERSION_TERMINOS = "1.0";
+
+  const VERSION_POLITICA_DATOS = "1.0";
+
+
+  // =====================================================
+  // FORMULARIO
+  // =====================================================
+
   const [formulario, setFormulario] =
     useState({
       nombre: "",
       celular: "",
       email: "",
       tipoAsesoria: "",
-      solicitud: "",
+      solicitud: ""
     });
 
 
-  // =========================================
+  // =====================================================
   // MANEJAR CAMBIOS
-  // =========================================
+  // =====================================================
 
   const handleChange = (e) => {
 
-    setFormulario({
-      ...formulario,
-      [e.target.name]: e.target.value,
-    });
+    const {
+      name,
+      value
+    } = e.target;
+
+
+    setFormulario((prev) => ({
+      ...prev,
+      [name]: value
+    }));
 
   };
 
 
-  // =========================================
+  // =====================================================
   // ABRIR FORMULARIO
-  // =========================================
+  // =====================================================
 
   const abrirFormulario = () => {
 
@@ -63,33 +105,112 @@ function Home() {
   };
 
 
-  // =========================================
+  // =====================================================
   // CERRAR FORMULARIO
-  // =========================================
+  // =====================================================
 
   const cerrarFormulario = () => {
 
-    if (!enviando) {
-      setMostrarModal(false);
+    if (enviando) {
+      return;
     }
+
+
+    setMostrarModal(false);
+
+    setMensaje("");
 
   };
 
 
-  // =========================================
+  // =====================================================
   // ENVIAR SOLICITUD
-  // =========================================
+  // =====================================================
 
   const enviarSolicitud = async (e) => {
 
     e.preventDefault();
 
-    setEnviando(true);
 
-    setMensaje("");
+    if (enviando) {
+      return;
+    }
+
+
+    // ===================================================
+    // VALIDAR TÉRMINOS
+    // ===================================================
+
+    if (!aceptaTerminos) {
+
+      setMensaje(
+        "Debes leer y aceptar los Términos y Condiciones."
+      );
+
+      return;
+
+    }
+
+
+    // ===================================================
+    // VALIDAR TRATAMIENTO DE DATOS
+    // ===================================================
+
+    if (!autorizaTratamientoDatos) {
+
+      setMensaje(
+        "Debes autorizar el tratamiento de tus datos personales."
+      );
+
+      return;
+
+    }
+
+
+    // ===================================================
+    // LIMPIAR DATOS
+    // ===================================================
+
+    const nombre =
+      formulario.nombre.trim();
+
+    const celular =
+      formulario.celular.trim();
+
+    const email =
+      formulario.email
+        .trim()
+        .toLowerCase();
+
+    const solicitud =
+      formulario.solicitud.trim();
+
+
+    // ===================================================
+    // VALIDAR CELULAR
+    // ===================================================
+
+    if (!/^[0-9]{10}$/.test(celular)) {
+
+      setMensaje(
+        "Ingrese un número de celular válido de 10 dígitos."
+      );
+
+      return;
+
+    }
 
 
     try {
+
+      setEnviando(true);
+
+      setMensaje("");
+
+
+      // =================================================
+      // GUARDAR SOLICITUD
+      // =================================================
 
       await addDoc(
         collection(
@@ -98,64 +219,103 @@ function Home() {
         ),
         {
 
-          nombre:
-            formulario.nombre,
+          nombre,
 
-          celular:
-            formulario.celular,
+          celular,
 
-          email:
-            formulario.email,
+          email,
 
           tipoAsesoria:
             formulario.tipoAsesoria,
 
-          solicitud:
-            formulario.solicitud,
+          solicitud,
+
+          prioridad:
+            "Media",
 
           estado:
-            "pendiente",
-
-          fechaSolicitud:
-            serverTimestamp(),
+            "Pendiente",
 
           uidCliente:
             auth.currentUser
               ? auth.currentUser.uid
               : "publico",
 
+
+          // =============================================
+          // ACEPTACIÓN TÉRMINOS
+          // =============================================
+
+          aceptoTerminos: true,
+
+          versionTerminos:
+            VERSION_TERMINOS,
+
+          fechaAceptacionTerminos:
+            serverTimestamp(),
+
+
+          // =============================================
+          // TRATAMIENTO DE DATOS
+          // =============================================
+
+          autorizoTratamientoDatos: true,
+
+          versionPoliticaDatos:
+            VERSION_POLITICA_DATOS,
+
+          fechaAutorizacionDatos:
+            serverTimestamp(),
+
+
+          // =============================================
+          // FECHA SOLICITUD
+          // =============================================
+
+          fechaSolicitud:
+            serverTimestamp()
+
         }
       );
 
+
+      // =================================================
+      // MENSAJE
+      // =================================================
 
       setMensaje(
         "Tu solicitud fue enviada correctamente. Nos pondremos en contacto contigo."
       );
 
 
+      // =================================================
+      // LIMPIAR FORMULARIO
+      // =================================================
+
       setFormulario({
         nombre: "",
         celular: "",
         email: "",
         tipoAsesoria: "",
-        solicitud: "",
+        solicitud: ""
       });
+
+
+      setAceptaTerminos(false);
+
+      setAutorizaTratamientoDatos(false);
 
 
     } catch (error) {
 
       console.error(
-        "ERROR COMPLETO FIREBASE:",
+        "Error enviando solicitud:",
         error
       );
 
 
       setMensaje(
-        `Error: ${
-          error.code || "desconocido"
-        } - ${
-          error.message || error
-        }`
+        "No fue posible enviar la solicitud. Intenta nuevamente."
       );
 
 
@@ -168,42 +328,69 @@ function Home() {
   };
 
 
+  // =====================================================
+  // INTERFAZ
+  // =====================================================
+
   return (
 
     <div className="home">
 
 
-      {/* =====================================
+      {/* =================================================
           HERO
-      ====================================== */}
+      ================================================= */}
 
       <header className="hero">
 
         <div className="hero-content">
 
 
+          {/* LOGO */}
+
+          <img
+            src="/Contaduria-icono.png"
+            alt="Contador Bogotá"
+            className="hero-logo"
+          />
+
+
+          {/* BADGE */}
+
+          <span className="hero-eyebrow">
+            Servicios contables en Bogotá
+          </span>
+
+
+          {/* TÍTULO */}
+
           <h1>
-            PWA Contador
+            Contabilidad clara,
+            segura y en línea
           </h1>
 
 
-          <p>
+          {/* DESCRIPCIÓN */}
+
+          <p className="hero-description">
             Gestiona tus servicios contables,
             tributarios y financieros desde
-            cualquier dispositivo de manera
-            rápida y segura.
+            cualquier dispositivo, con acceso
+            seguro a tus documentos, citas
+            y solicitudes.
           </p>
 
 
-          {/* ===================================
-              BOTONES PRINCIPALES
-          =================================== */}
+          {/* =================================================
+              BOTONES
+          ================================================= */}
 
           <div className="hero-buttons">
 
             <Link to="/login">
 
               <button
+                type="button"
                 className="btn-primary"
               >
                 Iniciar Sesión
@@ -215,9 +402,10 @@ function Home() {
             <Link to="/register">
 
               <button
+                type="button"
                 className="btn-secondary"
               >
-                Registrarse
+                Crear cuenta
               </button>
 
             </Link>
@@ -225,29 +413,25 @@ function Home() {
           </div>
 
 
-          {/* ===================================
-              INFORMACIÓN DE CONTACTO
-          =================================== */}
+          {/* =================================================
+              CONTACTO
+          ================================================= */}
 
-          <div className="hero-contact">
+          <div className="hero-contact-card">
 
             <p className="hero-contact-title">
-              Información de contacto
+              ¿Necesitas comunicarte con nosotros?
             </p>
 
 
             <div className="hero-contact-items">
 
 
-              {/* CORREO */}
-
               <a
                 href="mailto:oh526122@gmail.com"
                 className="hero-contact-item"
               >
-                <span>
-                  ✉️
-                </span>
+                <span>✉️</span>
 
                 <span>
                   oh526122@gmail.com
@@ -255,15 +439,11 @@ function Home() {
               </a>
 
 
-              {/* CELULAR */}
-
               <a
                 href="tel:+573057823390"
                 className="hero-contact-item"
               >
-                <span>
-                  📱
-                </span>
+                <span>📱</span>
 
                 <span>
                   305 782 3390
@@ -271,13 +451,9 @@ function Home() {
               </a>
 
 
-              {/* UBICACIÓN */}
-
               <div className="hero-contact-item">
 
-                <span>
-                  📍
-                </span>
+                <span>📍</span>
 
                 <span>
                   Bogotá D.C., Colombia
@@ -288,9 +464,9 @@ function Home() {
             </div>
 
 
-            {/* =================================
+            {/* =============================================
                 ENLACES LEGALES
-            ================================= */}
+            ============================================= */}
 
             <div className="hero-legal">
 
@@ -298,11 +474,9 @@ function Home() {
                 Términos y Condiciones
               </Link>
 
-
               <span>
                 •
               </span>
-
 
               <Link to="/privacidad">
                 Política de Privacidad
@@ -317,9 +491,9 @@ function Home() {
       </header>
 
 
-      {/* =====================================
+      {/* =================================================
           SERVICIOS
-      ====================================== */}
+      ================================================= */}
 
       <section className="services">
 
@@ -391,9 +565,9 @@ function Home() {
       </section>
 
 
-      {/* =====================================
+      {/* =================================================
           BENEFICIOS
-      ====================================== */}
+      ================================================= */}
 
       <section className="benefits">
 
@@ -451,9 +625,9 @@ function Home() {
       </section>
 
 
-      {/* =====================================
+      {/* =================================================
           CONTACTO
-      ====================================== */}
+      ================================================= */}
 
       <section className="contact">
 
@@ -479,9 +653,9 @@ function Home() {
       </section>
 
 
-      {/* =====================================
-          MODAL SOLICITUD
-      ====================================== */}
+      {/* =================================================
+          MODAL SOLICITUD DE ASESORÍA
+      ================================================= */}
 
       {mostrarModal && (
 
@@ -490,12 +664,15 @@ function Home() {
           <div className="asesoria-modal">
 
 
-            {/* CERRAR */}
+            {/* =============================================
+                CERRAR
+            ============================================= */}
 
             <button
               type="button"
               className="asesoria-cerrar"
               onClick={cerrarFormulario}
+              aria-label="Cerrar"
             >
               ×
             </button>
@@ -517,35 +694,44 @@ function Home() {
             >
 
 
-              {/* NOMBRE */}
+              {/* ===========================================
+                  NOMBRE
+              =========================================== */}
 
               <div className="asesoria-group">
 
-                <label>
+                <label htmlFor="asesoria-nombre">
                   Nombre completo
                 </label>
 
+
                 <input
+                  id="asesoria-nombre"
                   type="text"
                   name="nombre"
                   value={formulario.nombre}
                   onChange={handleChange}
                   placeholder="Juan Pérez"
+                  autoComplete="name"
                   required
                 />
 
               </div>
 
 
-              {/* CELULAR */}
+              {/* ===========================================
+                  CELULAR
+              =========================================== */}
 
               <div className="asesoria-group">
 
-                <label>
+                <label htmlFor="asesoria-celular">
                   Número de celular
                 </label>
 
+
                 <input
+                  id="asesoria-celular"
                   type="tel"
                   name="celular"
                   value={formulario.celular}
@@ -553,42 +739,51 @@ function Home() {
                   placeholder="3001234567"
                   maxLength={10}
                   inputMode="numeric"
+                  autoComplete="tel"
                   required
                 />
 
               </div>
 
 
-              {/* CORREO */}
+              {/* ===========================================
+                  CORREO
+              =========================================== */}
 
               <div className="asesoria-group">
 
-                <label>
+                <label htmlFor="asesoria-email">
                   Correo electrónico
                 </label>
 
+
                 <input
+                  id="asesoria-email"
                   type="email"
                   name="email"
                   value={formulario.email}
                   onChange={handleChange}
                   placeholder="correo@ejemplo.com"
+                  autoComplete="email"
                   required
                 />
 
               </div>
 
 
-              {/* TIPO DE ASESORÍA */}
+              {/* ===========================================
+                  TIPO DE ASESORÍA
+              =========================================== */}
 
               <div className="asesoria-group">
 
-                <label>
+                <label htmlFor="tipoAsesoria">
                   Tipo de asesoría
                 </label>
 
 
                 <select
+                  id="tipoAsesoria"
                   name="tipoAsesoria"
                   value={formulario.tipoAsesoria}
                   onChange={handleChange}
@@ -624,15 +819,19 @@ function Home() {
               </div>
 
 
-              {/* SOLICITUD */}
+              {/* ===========================================
+                  SOLICITUD
+              =========================================== */}
 
               <div className="asesoria-group">
 
-                <label>
+                <label htmlFor="solicitud">
                   ¿Qué necesitas?
                 </label>
 
+
                 <textarea
+                  id="solicitud"
                   name="solicitud"
                   value={formulario.solicitud}
                   onChange={handleChange}
@@ -644,7 +843,83 @@ function Home() {
               </div>
 
 
-              {/* MENSAJE */}
+              {/* =================================================
+                  TÉRMINOS Y CONDICIONES
+              ================================================= */}
+
+              <div className="asesoria-legal">
+
+                <label className="asesoria-legal-label">
+
+                  <input
+                    type="checkbox"
+                    checked={aceptaTerminos}
+                    onChange={(e) =>
+                      setAceptaTerminos(
+                        e.target.checked
+                      )
+                    }
+                  />
+
+
+                  <span>
+
+                    He leído y acepto los{" "}
+
+                    <Link to="/terminos">
+                      Términos y Condiciones
+                    </Link>.
+
+                  </span>
+
+                </label>
+
+              </div>
+
+
+              {/* =================================================
+                  TRATAMIENTO DE DATOS
+              ================================================= */}
+
+              <div className="asesoria-legal">
+
+                <label className="asesoria-legal-label">
+
+                  <input
+                    type="checkbox"
+                    checked={
+                      autorizaTratamientoDatos
+                    }
+                    onChange={(e) =>
+                      setAutorizaTratamientoDatos(
+                        e.target.checked
+                      )
+                    }
+                  />
+
+
+                  <span>
+
+                    Autorizo de manera previa,
+                    expresa e informada el
+                    tratamiento de mis datos
+                    personales conforme a la{" "}
+
+                    <Link to="/privacidad">
+                      Política de Privacidad y
+                      Tratamiento de Datos Personales
+                    </Link>.
+
+                  </span>
+
+                </label>
+
+              </div>
+
+
+              {/* ===========================================
+                  MENSAJE
+              =========================================== */}
 
               {mensaje && (
 
@@ -655,7 +930,9 @@ function Home() {
               )}
 
 
-              {/* BOTONES */}
+              {/* ===========================================
+                  BOTONES
+              =========================================== */}
 
               <div className="asesoria-buttons">
 
@@ -673,7 +950,11 @@ function Home() {
                 <button
                   type="submit"
                   className="asesoria-btn-enviar"
-                  disabled={enviando}
+                  disabled={
+                    enviando ||
+                    !aceptaTerminos ||
+                    !autorizaTratamientoDatos
+                  }
                 >
 
                   {
@@ -695,14 +976,14 @@ function Home() {
       )}
 
 
-      {/* =====================================
+      {/* =================================================
           FOOTER
-      ====================================== */}
+      ================================================= */}
 
       <footer className="footer">
 
         <p>
-          © 2026 PWA Contador -
+          © 2026 Contador Bogotá -
           Todos los derechos reservados
         </p>
 
