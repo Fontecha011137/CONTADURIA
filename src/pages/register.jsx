@@ -41,11 +41,21 @@ function Register() {
   const [registroExitoso, setRegistroExitoso] =
     useState(false);
 
+  const [loading, setLoading] =
+    useState(false);
+
+
+  // =====================================================
+  // ACEPTACIONES LEGALES
+  // =====================================================
+
   const [aceptaTerminos, setAceptaTerminos] =
     useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
+  const [
+    autorizaTratamientoDatos,
+    setAutorizaTratamientoDatos
+  ] = useState(false);
 
 
   const [formData, setFormData] = useState({
@@ -63,7 +73,7 @@ function Register() {
 
   const VERSION_TERMINOS = "1.0";
 
-  const VERSION_PRIVACIDAD = "1.0";
+  const VERSION_POLITICA_DATOS = "1.0";
 
 
   // =====================================================
@@ -107,7 +117,26 @@ function Register() {
     if (!aceptaTerminos) {
 
       setMensaje(
-        "Debes aceptar los Términos y Condiciones y la Política de Privacidad para registrarte."
+        "Debes leer y aceptar los Términos y Condiciones para registrarte."
+      );
+
+      setRegistroExitoso(false);
+
+      setMostrarModal(true);
+
+      return;
+
+    }
+
+
+    // ===================================================
+    // VALIDAR TRATAMIENTO DE DATOS
+    // ===================================================
+
+    if (!autorizaTratamientoDatos) {
+
+      setMensaje(
+        "Debes autorizar el tratamiento de tus datos personales para registrarte."
       );
 
       setRegistroExitoso(false);
@@ -277,20 +306,20 @@ function Register() {
 
 
           // =============================================
-          // POLÍTICA DE PRIVACIDAD
+          // TRATAMIENTO DE DATOS PERSONALES
           // =============================================
 
-          aceptoPoliticaPrivacidad: true,
+          autorizoTratamientoDatos: true,
 
-          versionPoliticaPrivacidad:
-            VERSION_PRIVACIDAD,
+          versionPoliticaDatos:
+            VERSION_POLITICA_DATOS,
 
-          fechaAceptacionPrivacidad:
+          fechaAutorizacionDatos:
             serverTimestamp(),
 
 
           // =============================================
-          // INFORMACIÓN DEL REGISTRO
+          // FECHA DE REGISTRO
           // =============================================
 
           fechaRegistro:
@@ -322,7 +351,7 @@ function Register() {
 
 
       // =================================================
-      // EVITAR USUARIO INCOMPLETO
+      // ELIMINAR USUARIO INCOMPLETO
       // =================================================
 
       if (usuarioCreado) {
@@ -439,10 +468,6 @@ function Register() {
   };
 
 
-  // =====================================================
-  // INTERFAZ
-  // =====================================================
-
   return (
 
     <div className="register-container">
@@ -485,9 +510,7 @@ function Register() {
         <form onSubmit={handleSubmit}>
 
 
-          {/* ===============================================
-              NOMBRE
-          =============================================== */}
+          {/* NOMBRE */}
 
           <div className="form-group">
 
@@ -509,9 +532,7 @@ function Register() {
           </div>
 
 
-          {/* ===============================================
-              CELULAR
-          =============================================== */}
+          {/* CELULAR */}
 
           <div className="form-group">
 
@@ -535,9 +556,7 @@ function Register() {
           </div>
 
 
-          {/* ===============================================
-              CORREO
-          =============================================== */}
+          {/* CORREO */}
 
           <div className="form-group">
 
@@ -559,9 +578,7 @@ function Register() {
           </div>
 
 
-          {/* ===============================================
-              CONTRASEÑA
-          =============================================== */}
+          {/* CONTRASEÑA */}
 
           <div className="form-group">
 
@@ -584,9 +601,7 @@ function Register() {
           </div>
 
 
-          {/* ===============================================
-              CONFIRMAR CONTRASEÑA
-          =============================================== */}
+          {/* CONFIRMAR CONTRASEÑA */}
 
           <div className="form-group">
 
@@ -609,9 +624,9 @@ function Register() {
           </div>
 
 
-          {/* ===============================================
-              TÉRMINOS Y PRIVACIDAD
-          =============================================== */}
+          {/* =================================================
+              CASILLA 1 - TÉRMINOS
+          ================================================= */}
 
           <div className="terminos-container">
 
@@ -628,22 +643,13 @@ function Register() {
                 required
               />
 
-
               <span>
 
                 He leído y acepto los{" "}
 
                 <Link to="/terminos">
-                Términos y Condiciones
-                </Link>
-
-
-                {" "}y la{" "}
-
-
-                <Link to="/privacidad">
-                Política de Privacidad
-                </Link>
+                  Términos y Condiciones
+                </Link>.
 
               </span>
 
@@ -652,15 +658,54 @@ function Register() {
           </div>
 
 
-          {/* ===============================================
+          {/* =================================================
+              CASILLA 2 - TRATAMIENTO DE DATOS
+          ================================================= */}
+
+          <div className="terminos-container">
+
+            <label className="terminos-label">
+
+              <input
+                type="checkbox"
+                checked={autorizaTratamientoDatos}
+                onChange={(e) =>
+                  setAutorizaTratamientoDatos(
+                    e.target.checked
+                  )
+                }
+                required
+              />
+
+              <span>
+
+                Autorizo de manera previa,
+                expresa e informada el
+                tratamiento de mis datos
+                personales conforme a la{" "}
+
+                <Link to="/privacidad">
+                  Política de Privacidad y
+                  Tratamiento de Datos Personales
+                </Link>.
+
+              </span>
+
+            </label>
+
+          </div>
+
+
+          {/* =================================================
               BOTÓN REGISTRARSE
-          =============================================== */}
+          ================================================= */}
 
           <button
             type="submit"
             className="register-btn"
             disabled={
               !aceptaTerminos ||
+              !autorizaTratamientoDatos ||
               loading
             }
           >
@@ -685,7 +730,6 @@ function Register() {
           <p>
             ¿Ya tienes una cuenta?
           </p>
-
 
           <Link to="/login">
 
@@ -714,20 +758,16 @@ function Register() {
           <div className="modal">
 
             <h3>
-
               {
                 registroExitoso
                   ? "Registro exitoso"
                   : "Error"
               }
-
             </h3>
-
 
             <p>
               {mensaje}
             </p>
-
 
             <button
               type="button"

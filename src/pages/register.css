@@ -196,11 +196,11 @@
 
 
 /* =========================================================
-   TÉRMINOS Y CONDICIONES
+   BLOQUES LEGALES
 ========================================================= */
 
 .terminos-container {
-  margin: 22px 0 20px;
+  margin: 18px 0 14px;
 
   padding: 15px;
 
@@ -209,6 +209,18 @@
   border: 1px solid #e2e8f0;
   border-radius: 10px;
 }
+
+
+/* SEGUNDO BLOQUE LEGAL */
+
+.terminos-container + .terminos-container {
+  margin-top: 10px;
+}
+
+
+/* =========================================================
+   LABEL LEGAL
+========================================================= */
 
 .terminos-label {
   display: flex;
@@ -224,6 +236,11 @@
 
   cursor: pointer;
 }
+
+
+/* =========================================================
+   CHECKBOX
+========================================================= */
 
 .terminos-label input {
   width: 18px;
@@ -241,6 +258,11 @@
 .terminos-label span {
   flex: 1;
 }
+
+
+/* =========================================================
+   ENLACES LEGALES
+========================================================= */
 
 .terminos-label a {
   color: #059669;
@@ -263,6 +285,8 @@
 
 .register-btn {
   width: 100%;
+
+  margin-top: 8px;
 
   padding: 14px;
 
@@ -530,12 +554,20 @@
     padding: 11px;
   }
 
+
+  /* BLOQUES LEGALES */
+
   .terminos-container {
     margin:
-      18px
-      0;
+      14px
+      0
+      10px;
 
     padding: 13px;
+  }
+
+  .terminos-container + .terminos-container {
+    margin-top: 8px;
   }
 
   .terminos-label {
@@ -551,7 +583,12 @@
     min-width: 17px;
   }
 
+
+  /* BOTÓN */
+
   .register-btn {
+    margin-top: 8px;
+
     padding: 13px;
   }
 
@@ -582,6 +619,10 @@
 
   .register-card h1 {
     font-size: 1.6rem;
+  }
+
+  .terminos-container {
+    padding: 11px;
   }
 
   .terminos-label {
