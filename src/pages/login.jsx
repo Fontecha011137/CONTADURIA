@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate
+} from "react-router-dom";
 
 import {
   signInWithEmailAndPassword,
@@ -7,14 +10,14 @@ import {
 } from "firebase/auth";
 
 import {
-  auth,
-  db
-} from "../firebaseConfig";
-
-import {
   doc,
   getDoc
 } from "firebase/firestore";
+
+import {
+  auth,
+  db
+} from "../firebaseConfig";
 
 import "./login.css";
 
@@ -24,15 +27,18 @@ function Login() {
   const navigate = useNavigate();
 
 
-  // =========================================
+  // =====================================================
   // ESTADOS
-  // =========================================
+  // =====================================================
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] =
+    useState("");
 
-  const [password, setPassword] = useState("");
+  const [password, setPassword] =
+    useState("");
 
-  const [mensaje, setMensaje] = useState("");
+  const [mensaje, setMensaje] =
+    useState("");
 
   const [mostrarModal, setMostrarModal] =
     useState(false);
@@ -40,21 +46,72 @@ function Login() {
   const [loginExitoso, setLoginExitoso] =
     useState(false);
 
+  const [loading, setLoading] =
+    useState(false);
 
-  // =========================================
+  const [recuperando, setRecuperando] =
+    useState(false);
+
+
+  // =====================================================
   // INICIAR SESIÓN
-  // =========================================
+  // =====================================================
 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
 
+
+    if (loading) {
+      return;
+    }
+
+
+    const correoLimpio =
+      email
+        .trim()
+        .toLowerCase();
+
+
+    if (!correoLimpio) {
+
+      setMensaje(
+        "Ingresa tu correo electrónico."
+      );
+
+      setLoginExitoso(false);
+      setMostrarModal(true);
+
+      return;
+    }
+
+
+    if (!password) {
+
+      setMensaje(
+        "Ingresa tu contraseña."
+      );
+
+      setLoginExitoso(false);
+      setMostrarModal(true);
+
+      return;
+    }
+
+
     try {
+
+      setLoading(true);
+
+
+      // =========================================
+      // AUTENTICAR
+      // =========================================
 
       const userCredential =
         await signInWithEmailAndPassword(
           auth,
-          email,
+          correoLimpio,
           password
         );
 
@@ -63,9 +120,9 @@ function Login() {
         userCredential.user.uid;
 
 
-      // =====================================
-      // BUSCAR PERFIL DEL USUARIO
-      // =====================================
+      // =========================================
+      // BUSCAR PERFIL
+      // =========================================
 
       const docRef =
         doc(
@@ -76,27 +133,36 @@ function Login() {
 
 
       const docSnap =
-        await getDoc(docRef);
+        await getDoc(
+          docRef
+        );
 
 
-      // =====================================
-      // DETERMINAR ROL
-      // =====================================
+      // =========================================
+      // VALIDAR PERFIL
+      // =========================================
 
-      let rolUsuario = "cliente";
+      if (!docSnap.exists()) {
 
-
-      if (docSnap.exists()) {
-
-        rolUsuario =
-          docSnap.data().rol;
+        throw new Error(
+          "No se encontró el perfil del usuario."
+        );
 
       }
 
 
-      // =====================================
-      // RUTA SEGÚN EL ROL
-      // =====================================
+      const datosUsuario =
+        docSnap.data();
+
+
+      const rolUsuario =
+        datosUsuario.rol ||
+        "cliente";
+
+
+      // =========================================
+      // DESTINO SEGÚN ROL
+      // =========================================
 
       const destino =
         rolUsuario === "contador"
@@ -104,12 +170,12 @@ function Login() {
           : "/cliente";
 
 
-      // =====================================
-      // MOSTRAR MENSAJE
-      // =====================================
+      // =========================================
+      // MENSAJE
+      // =========================================
 
       setMensaje(
-        "Inicio de sesión exitoso"
+        "Inicio de sesión exitoso."
       );
 
       setLoginExitoso(true);
@@ -117,57 +183,31 @@ function Login() {
       setMostrarModal(true);
 
 
-      // =====================================
-      // IR AL DASHBOARD
-      // =====================================
+      // =========================================
+      // IR AL PANEL
+      // =========================================
 
       setTimeout(() => {
 
         setMostrarModal(false);
 
-        navigate(destino);
+        navigate(
+          destino
+        );
 
-      }, 800);
+      }, 600);
 
 
     } catch (error) {
 
       console.error(
-        "FULL ERROR:",
+        "Error iniciando sesión:",
         error
       );
 
 
       let msg =
-        error.code +
-        " - " +
-        error.message;
-
-
-      // =====================================
-      // MENSAJES DE ERROR
-      // =====================================
-
-      if (
-        error.code ===
-        "auth/user-not-found"
-      ) {
-
-        msg =
-          "Usuario no encontrado";
-
-      }
-
-
-      if (
-        error.code ===
-        "auth/wrong-password"
-      ) {
-
-        msg =
-          "Contraseña incorrecta";
-
-      }
+        "No fue posible iniciar sesión.";
 
 
       if (
@@ -176,7 +216,39 @@ function Login() {
       ) {
 
         msg =
-          "Correo o contraseña incorrectos";
+          "Correo o contraseña incorrectos.";
+
+      } else if (
+        error.code ===
+        "auth/invalid-email"
+      ) {
+
+        msg =
+          "El correo electrónico no es válido.";
+
+      } else if (
+        error.code ===
+        "auth/too-many-requests"
+      ) {
+
+        msg =
+          "Se realizaron demasiados intentos. Espera unos minutos e intenta nuevamente.";
+
+      } else if (
+        error.code ===
+        "auth/network-request-failed"
+      ) {
+
+        msg =
+          "No fue posible conectarse. Verifica tu conexión a Internet.";
+
+      } else if (
+        error.message ===
+        "No se encontró el perfil del usuario."
+      ) {
+
+        msg =
+          "La cuenta existe, pero no se encontró su perfil. Comunícate con soporte.";
 
       }
 
@@ -187,43 +259,60 @@ function Login() {
 
       setMostrarModal(true);
 
+
+    } finally {
+
+      setLoading(false);
+
     }
 
   };
 
 
-  // =========================================
+  // =====================================================
   // RECUPERAR CONTRASEÑA
-  // =========================================
+  // =====================================================
 
   const handleResetPassword =
     async () => {
 
-      if (!email) {
+      if (recuperando) {
+        return;
+      }
+
+
+      const correoLimpio =
+        email
+          .trim()
+          .toLowerCase();
+
+
+      if (!correoLimpio) {
 
         setMensaje(
-          "Ingresa tu correo electrónico primero"
+          "Ingresa tu correo electrónico primero."
         );
 
         setLoginExitoso(false);
-
         setMostrarModal(true);
 
         return;
-
       }
 
 
       try {
 
+        setRecuperando(true);
+
+
         await sendPasswordResetEmail(
           auth,
-          email
+          correoLimpio
         );
 
 
         setMensaje(
-          "Se ha enviado un enlace para restablecer tu contraseña a tu correo."
+          "Te enviamos un enlace para restablecer tu contraseña. Revisa tu correo electrónico."
         );
 
         setLoginExitoso(false);
@@ -234,40 +323,53 @@ function Login() {
       } catch (error) {
 
         console.error(
+          "Error recuperando contraseña:",
           error
         );
 
 
+        let msg =
+          "No fue posible enviar el correo de recuperación.";
+
+
         if (
           error.code ===
-          "auth/user-not-found"
+          "auth/invalid-email"
         ) {
 
-          setMensaje(
-            "No existe una cuenta con ese correo"
-          );
+          msg =
+            "El correo electrónico no es válido.";
 
-        } else {
+        } else if (
+          error.code ===
+          "auth/network-request-failed"
+        ) {
 
-          setMensaje(
-            "Error al enviar el correo de recuperación"
-          );
+          msg =
+            "No fue posible conectarse. Verifica tu conexión a Internet.";
 
         }
 
 
+        setMensaje(msg);
+
         setLoginExitoso(false);
 
         setMostrarModal(true);
+
+
+      } finally {
+
+        setRecuperando(false);
 
       }
 
     };
 
 
-  // =========================================
+  // =====================================================
   // CERRAR MODAL
-  // =========================================
+  // =====================================================
 
   const cerrarModal = () => {
 
@@ -276,9 +378,9 @@ function Login() {
   };
 
 
-  // =========================================
+  // =====================================================
   // INTERFAZ
-  // =========================================
+  // =====================================================
 
   return (
 
@@ -286,17 +388,12 @@ function Login() {
 
       <div className="login-container">
 
-
-        {/* ===================================
-            TARJETA DE LOGIN
-        ==================================== */}
-
         <div className="login-card">
 
 
-          {/* =================================
+          {/* =====================================
               VOLVER AL INICIO
-          ================================== */}
+          ===================================== */}
 
           <button
             type="button"
@@ -309,23 +406,47 @@ function Login() {
           </button>
 
 
-          {/* =================================
-              TÍTULO
-          ================================== */}
+          {/* =====================================
+              LOGO
+          ===================================== */}
 
-          <h1>
-            Iniciar Sesión
-          </h1>
+          <div className="login-logo-container">
+
+            <img
+              src="/Contaduria-icono.png"
+              alt="Contador Bogotá"
+              className="login-logo"
+            />
+
+          </div>
 
 
-          <p>
-            Accede a tu cuenta para gestionar tus servicios contables.
-          </p>
+          {/* =====================================
+              ENCABEZADO
+          ===================================== */}
+
+          <div className="login-header">
+
+            <span className="login-badge">
+              Acceso seguro
+            </span>
+
+            <h1>
+              Iniciar Sesión
+            </h1>
+
+            <p>
+              Accede a tu cuenta para gestionar
+              tus servicios contables,
+              documentos, citas y solicitudes.
+            </p>
+
+          </div>
 
 
-          {/* =================================
+          {/* =====================================
               FORMULARIO
-          ================================== */}
+          ===================================== */}
 
           <form
             onSubmit={handleSubmit}
@@ -336,18 +457,21 @@ function Login() {
 
             <div className="form-group">
 
-              <label>
+              <label htmlFor="email">
                 Correo Electrónico
               </label>
 
-
               <input
+                id="email"
                 type="email"
                 placeholder="correo@ejemplo.com"
                 value={email}
                 onChange={(e) =>
-                  setEmail(e.target.value)
+                  setEmail(
+                    e.target.value
+                  )
                 }
+                autoComplete="email"
                 required
               />
 
@@ -358,27 +482,30 @@ function Login() {
 
             <div className="form-group">
 
-              <label>
+              <label htmlFor="password">
                 Contraseña
               </label>
 
-
               <input
+                id="password"
                 type="password"
                 placeholder="********"
                 value={password}
                 onChange={(e) =>
-                  setPassword(e.target.value)
+                  setPassword(
+                    e.target.value
+                  )
                 }
+                autoComplete="current-password"
                 required
               />
 
             </div>
 
 
-            {/* =================================
+            {/* =====================================
                 RECUPERAR CONTRASEÑA
-            ================================== */}
+            ===================================== */}
 
             <div className="forgot-password">
 
@@ -387,36 +514,51 @@ function Login() {
                 onClick={
                   handleResetPassword
                 }
+                disabled={
+                  recuperando
+                }
               >
-                ¿Olvidaste tu contraseña?
+
+                {
+                  recuperando
+                    ? "Enviando..."
+                    : "¿Olvidaste tu contraseña?"
+                }
+
               </button>
 
             </div>
 
 
-            {/* =================================
+            {/* =====================================
                 BOTÓN INGRESAR
-            ================================== */}
+            ===================================== */}
 
             <button
               type="submit"
               className="login-btn"
+              disabled={loading}
             >
-              Ingresar
-            </button>
 
+              {
+                loading
+                  ? "Ingresando..."
+                  : "Ingresar"
+              }
+
+            </button>
 
           </form>
 
 
-          {/* =================================
+          {/* =====================================
               REGISTRO
-          ================================== */}
+          ===================================== */}
 
           <div className="login-footer">
 
             <p>
-              ¿No tienes cuenta?
+              ¿Aún no tienes una cuenta?
             </p>
 
 
@@ -426,9 +568,30 @@ function Login() {
                 type="button"
                 className="register-link"
               >
-                Registrarse
+                Crear cuenta
               </button>
 
+            </Link>
+
+          </div>
+
+
+          {/* =====================================
+              ENLACES LEGALES
+          ===================================== */}
+
+          <div className="login-legal">
+
+            <Link to="/terminos">
+              Términos y Condiciones
+            </Link>
+
+            <span>
+              •
+            </span>
+
+            <Link to="/privacidad">
+              Política de Privacidad
             </Link>
 
           </div>
@@ -452,9 +615,11 @@ function Login() {
 
             <h3>
 
-              {loginExitoso
-                ? "Inicio de sesión exitoso"
-                : "Información"}
+              {
+                loginExitoso
+                  ? "Inicio de sesión exitoso"
+                  : "Información"
+              }
 
             </h3>
 
@@ -465,15 +630,19 @@ function Login() {
 
 
             <button
-              onClick={cerrarModal}
+              type="button"
+              onClick={
+                cerrarModal
+              }
             >
 
-              {loginExitoso
-                ? "Continuar"
-                : "Cerrar"}
+              {
+                loginExitoso
+                  ? "Continuar"
+                  : "Cerrar"
+              }
 
             </button>
-
 
           </div>
 
